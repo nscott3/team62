@@ -3,7 +3,7 @@ import java.sql.*;
 
 public class Sleeping {
 	
-	public void putSleepingInfo(Connection conn, int facilityNo, SleepingInfo info) {
+	public void putSleepingInfo(Connection conn, SleepingInfo info) {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement("INSERT INTO Sleeping VALUES (?,?,?,?,?)");
