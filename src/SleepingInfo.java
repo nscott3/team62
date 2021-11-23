@@ -1,4 +1,3 @@
-
 public class SleepingInfo {
 	public byte hasBedLinen;
 	public byte hasTowel;
