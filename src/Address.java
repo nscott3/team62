@@ -22,7 +22,7 @@ public class Address {
             pstmt.setString(3, placeName);
             pstmt.setString(4, postcode);
             pstmt.executeUpdate();
-
+            pstmt.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

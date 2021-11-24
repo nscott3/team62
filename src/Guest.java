@@ -13,7 +13,7 @@ public class Guest {
             pstmt = conn.prepareStatement("INSERT INTO Guest (guestName) VALUES (?)");
             pstmt.setString(1, guestName);
             pstmt.executeUpdate();
-
+            pstmt.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

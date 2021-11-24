@@ -16,7 +16,7 @@ public class Host {
             pstmt.setString(1, hostName);
             pstmt.setBoolean(2, isSuperHost);
             pstmt.executeUpdate();
-
+            pstmt.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
