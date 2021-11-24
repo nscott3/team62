@@ -32,6 +32,8 @@ public class Host {
             while (rs.next()) {
                 hostID = rs.getInt("hostID");
             }
+            rs.close();
+            pstmt.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

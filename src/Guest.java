@@ -29,6 +29,8 @@ public class Guest {
             while (rs.next()) {
                 guestID = rs.getInt("guestID");
             }
+            rs.close();
+            pstmt.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

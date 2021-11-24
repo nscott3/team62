@@ -41,7 +41,7 @@ public class Person {
             pstmt.setInt(8, guest.lookupID(conn));
             pstmt.setInt(9, address.lookupID(conn));
             pstmt.executeUpdate();
-
+            pstmt.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

@@ -41,6 +41,8 @@ public class Address {
             while (rs.next()) {
                 addressID = rs.getInt("addressID");
             }
+            rs.close();
+            pstmt.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
