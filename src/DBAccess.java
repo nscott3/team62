@@ -7,7 +7,7 @@ public class DBAccess {
     static String PASSWORD = "10293718";
     static Connection conn = null;
 
-    static public boolean connect() {
+    static public Connection connect() {
         boolean connected = true;
         if (conn == null) {
             try {
@@ -17,7 +17,7 @@ public class DBAccess {
                 ex.printStackTrace();
             }
         }
-        return connected;
+        return conn;
     }
 
     static public void disconnect() {
