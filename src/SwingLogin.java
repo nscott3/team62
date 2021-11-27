@@ -65,7 +65,7 @@ public class SwingLogin extends JFrame{
 		
 	}
 	
-	public static void main(String[] args) {
-		new SwingLogin();
-	}
+//	public static void main(String[] args) {
+//		new SwingLogin();
+//	}
 }
