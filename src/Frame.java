@@ -47,7 +47,7 @@ public class Frame extends JFrame {
 		checkPanel.add(hostCheck);
 		loginPanel.add(loginBtn);
 		
-				
+		
 		//login button
 		loginBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -55,21 +55,37 @@ public class Frame extends JFrame {
 				String id = idText.getText().trim();
 				String pw = pwText.getText().trim();
 				
+				
 				if(id.length()==0 || pw.length()==0) {
-					JOptionPane.showMessageDialog(null, "put id or pw", "put id or pw!", JOptionPane.DEFAULT_OPTION);
-					return;
+					JOptionPane.showMessageDialog(null, "put id or pw", "put id or pw", JOptionPane.DEFAULT_OPTION);
+
 				}
 				
-				if(id.equals("test") && pw.equals("test1")) {
-					JOptionPane.showMessageDialog(null, "log in", "log in!", JOptionPane.DEFAULT_OPTION);
-					return;
+				//checkbox
+				if(hostCheck.isSelected() && guestCheck.isSelected()) {
+					JOptionPane.showMessageDialog(null, "check only one", "check only one", JOptionPane.DEFAULT_OPTION);
+
+				}else if(hostCheck.isSelected()) {
+					if(id.equals("test") && pw.equals("test1")) {
+						JOptionPane.showMessageDialog(null, "log in", "log in", JOptionPane.DEFAULT_OPTION);
+
+					}else {
+						JOptionPane.showMessageDialog(null, "log in fail", "log in!", JOptionPane.DEFAULT_OPTION);
+					}
+				}else if(guestCheck.isSelected()) {
+					if(id.equals("test2") && pw.equals("test2")) {
+						JOptionPane.showMessageDialog(null, "log in", "log in", JOptionPane.DEFAULT_OPTION);
+						
+					}else {
+						JOptionPane.showMessageDialog(null, "log in fail", "log in!", JOptionPane.DEFAULT_OPTION);
+					}
+				}else {
+					JOptionPane.showMessageDialog(null, "log in fail", "log in!", JOptionPane.DEFAULT_OPTION);
 				}
-				
-				JOptionPane.showMessageDialog(null, "log in fail", "log in!", JOptionPane.DEFAULT_OPTION);
 				
 			}
 		});
-		
+
 		
 		//arrange label on the center
 		idLabel.setHorizontalAlignment(NORMAL);
