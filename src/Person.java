@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.Objects;
 
 public class Person {
     private String title;
@@ -47,7 +48,29 @@ public class Person {
         }
     }
 
-    public void login(Connection conn) {
-
+    public boolean login(Connection conn) {
+        String matchedPassword = null;
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = conn.prepareStatement("SELECT password FROM Person WHERE title = ? AND forename = ? AND surname = ? AND email = ? AND mobileNumber = ?");
+            pstmt.setString(1, title);
+            pstmt.setString(2, forename);
+            pstmt.setString(3, surname);
+            pstmt.setString(4, email);
+            pstmt.setString(5, mobileNumber);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                matchedPassword = rs.getString("password");
+            }
+            rs.close();
+            pstmt.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        if (matchedPassword == null) {
+            return false;
+        } else {
+            return matchedPassword.equals(password);
+        }
     }
 }
