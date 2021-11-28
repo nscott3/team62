@@ -11,7 +11,8 @@ public class Sleeping {
 			pstmt.setInt(2, info.bedroomsNum);
 			pstmt.setInt(3, info.facilityNo);
 			pstmt.setInt(4, info.bedroomNo);
-			
+			pstmt.executeUpdate();
+			pstmt.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
