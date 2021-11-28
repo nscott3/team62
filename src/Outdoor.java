@@ -12,7 +12,8 @@ public class Outdoor {
 			pstmt.setByte(3, info.hasPatio);
 			pstmt.setByte(4, info.hasBarbeque);
 			pstmt.setInt(5, info.facilityNo);
-			
+			pstmt.executeUpdate();
+			pstmt.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
