@@ -10,7 +10,8 @@ public class Bedroom {
 			pstmt.setString(2, info.bedType2);
 			pstmt.setInt(3, info.bedsNum);
 			pstmt.setInt(4, info.sleepers);
-			
+			pstmt.executeUpdate();
+			pstmt.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
