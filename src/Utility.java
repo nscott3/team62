@@ -2,7 +2,7 @@
 import java.sql.*;
 
 public class Utility {
-	public void putUtilityInfo(Connection conn, UtilityInfo info) {
+	public static void putUtilityInfo(Connection conn, UtilityInfo info) {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement("INSERT INTO Utility VALUES (?,?,?,?,?,?,?)");
@@ -19,7 +19,7 @@ public class Utility {
 		}
 	}
 	
-	public UtilityInfo getUtilityInfo(Connection conn, int facilityNo) {
+	public static UtilityInfo getUtilityInfo(Connection conn, int facilityNo) {
 		UtilityInfo info = new UtilityInfo();
 		info.facilityNo = facilityNo;
 		
