@@ -18,7 +18,7 @@ public class Outdoor {
 		}
 	}
 	
-	public OutdoorInfo getUtilityInfo(Connection conn, int facilityNo) {
+	public OutdoorInfo getOutdoorInfo(Connection conn, int facilityNo) {
 		OutdoorInfo info = new OutdoorInfo();
 		info.facilityNo = facilityNo;
 		
