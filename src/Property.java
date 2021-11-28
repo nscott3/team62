@@ -94,7 +94,6 @@ public class Property {
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
-		return info;
 	}
 	
 }
