@@ -13,7 +13,8 @@ public class Living {
 			pstmt.setByte(4, info.hasDvdPlayer);
 			pstmt.setByte(5, info.hasBoardGames);
 			pstmt.setInt(6, info.facilityNo);
-			
+			pstmt.executeUpdate();
+			pstmt.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
