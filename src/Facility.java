@@ -4,7 +4,7 @@ public class Facility {
 	public void insertFacilityNo(Connection conn) {
 		PreparedStatement pstmt = null;
 		try {
-			pstmt = conn.prepareStatement("INSERT INTO Facility Values default")
+			pstmt = conn.prepareStatement("INSERT INTO Facility Values default");
 			//auto-increment
 			
 		} catch (SQLException ex) {
