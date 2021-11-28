@@ -2,7 +2,7 @@
 import java.sql.*;
 
 public class Outdoor {
-	public void putOutdoorInfo(Connection conn, OutdoorInfo info) {
+	public static void putOutdoorInfo(Connection conn, OutdoorInfo info) {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement("INSERT INTO Outdoor VALUES (?,?,?,?,?,?)");
@@ -18,7 +18,7 @@ public class Outdoor {
 		}
 	}
 	
-	public OutdoorInfo getOutdoorInfo(Connection conn, int facilityNo) {
+	public static OutdoorInfo getOutdoorInfo(Connection conn, int facilityNo) {
 		OutdoorInfo info = new OutdoorInfo();
 		info.facilityNo = facilityNo;
 		
