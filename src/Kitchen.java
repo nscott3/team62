@@ -15,7 +15,8 @@ public class Kitchen {
 			pstmt.setByte(6, info.hasCookware);
 			pstmt.setByte(7, info.hasBasicProvisions);
 			pstmt.setInt(8, info.facilityNo);
-			
+			pstmt.executeUpdate();
+			pstmt.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
