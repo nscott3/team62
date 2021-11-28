@@ -23,11 +23,11 @@ public class Frame extends JFrame {
 	private JButton loginBtn = new JButton("Log in ");
 	private JButton idpwSearchBtn = new JButton("Find ID/PW");
 	private JButton enquirerButton = new JButton("ENQUIRER");
-	private JButton signIn = new JButton("Sign in");
+	private JButton signUp = new JButton("Registration");
 	private final JPanel checkPanel = new JPanel(new GridLayout(0,2));
 	private final JCheckBox guestCheck = new JCheckBox("Guest");
 	private final JCheckBox hostCheck = new JCheckBox("Host");
-	private final JSplitPane splitPane = new JSplitPane();
+	private final JPanel splitPanel = new JPanel(new GridLayout(0,2));
 	
 	public Frame() {
 		//setSize in the middle of the current frame window so that the frame can be aligned in the middle normally
@@ -49,7 +49,10 @@ public class Frame extends JFrame {
 		checkPanel.add(guestCheck);
 		checkPanel.add(hostCheck);
 		loginPanel.add(loginBtn);
-		
+		loginPanel.add(splitPanel);
+		splitPanel.add(signUp);
+		splitPanel.add(idpwSearchBtn);
+		loginPanel.add(enquirerButton);		
 		
 		//login button
 		loginBtn.addActionListener(new ActionListener() {
@@ -94,10 +97,7 @@ public class Frame extends JFrame {
 		idLabel.setHorizontalAlignment(NORMAL);
 		pwLabel.setHorizontalAlignment(NORMAL);
 		
-		loginPanel.add(splitPane);
-		splitPane.add(signIn);
-		loginPanel.add(idpwSearchBtn);
-		loginPanel.add(enquirerButton);
+
 		
 		//find id and pw 
 		idpwSearchBtn.addActionListener(new ActionListener() {
