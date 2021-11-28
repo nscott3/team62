@@ -13,7 +13,8 @@ public class Bathing {
 			pstmt.setInt(3, info.bathroomNum);
 			pstmt.setInt(4, info.facilityNo);
 			pstmt.setInt(5, info.bathroomNo);
-			
+			pstmt.executeUpdate();
+			pstmt.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
