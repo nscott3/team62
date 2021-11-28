@@ -2,8 +2,7 @@
 import java.sql.*;
 
 public class Sleeping {
-	
-	public void putSleepingInfo(Connection conn, SleepingInfo info) {
+	public static void putSleepingInfo(Connection conn, SleepingInfo info) {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement("INSERT INTO Sleeping VALUES (?,?,?,?,?)");
@@ -18,7 +17,7 @@ public class Sleeping {
 		}
 	}
 	
-	public SleepingInfo getSleepingInfo(Connection conn, int facilityNo) {
+	public static SleepingInfo getSleepingInfo(Connection conn, int facilityNo) {
 		SleepingInfo info = new SleepingInfo();
 		info.facilityNo = facilityNo;
 		
