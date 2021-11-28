@@ -2,7 +2,7 @@
 import java.sql.*;
 
 public class Bathroom {
-	public void putBathroomInfo(Connection conn, BathroomInfo info) {
+	public static void putBathroomInfo(Connection conn, BathroomInfo info) {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement("INSERT INTO Bathroom VALUES (default,?,?,?,?)");
@@ -16,7 +16,7 @@ public class Bathroom {
 		}
 	}
 	
-	public BathroomInfo getBathroomInfo(Connection conn, int bathroomNo) {
+	public static BathroomInfo getBathroomInfo(Connection conn, int bathroomNo) {
 		BathroomInfo info = new BathroomInfo();
 		info.bathroomNo = bathroomNo;
 		
