@@ -1,8 +1,10 @@
 import java.sql.*;
 
-public class Guest {
-    private String guestName;
+import javax.swing.JFrame;
 
+public class Guest extends JFrame {
+    private String guestName;
+    
     public Guest(String gName) {
         guestName = gName;
     }
