@@ -15,11 +15,11 @@ public class Registration extends JFrame{
 	private JPanel contentPane;
 	private JLabel lblJoin;
 	private JButton joinCompleteBtn;
-	private JTextField tfUsername;
-	private JTextField tfPassword;
-	private JTextField tfName;
+	private JTextField tfForeName;
+	private JTextField tfSurName;
 	private JTextField tfEmail;
-	private JTextField tfPhone;
+	private JTextField tfPassword;
+	private JTextField tfMobileNumber;
 
 	public Registration() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -31,55 +31,55 @@ public class Registration extends JFrame{
 		contentPane.setLayout(null);
 		
 		lblJoin = new JLabel("Sign Up");
-		Font f1 = new Font("Arial", Font.BOLD, 18); //font: Arial
-		lblJoin.setFont(f1); 
+		Font RegistrationPageTitle = new Font("Arial", Font.BOLD, 18); //font: Arial
+		lblJoin.setFont(RegistrationPageTitle); 
 		lblJoin.setBounds(159, 41, 101, 20);
 		contentPane.add(lblJoin);
 		
-		JLabel lblUsername = new JLabel("password");
-		lblUsername.setBounds(69, 163, 69, 20);
-		contentPane.add(lblUsername);
+		JLabel lblForeName = new JLabel("Forename");
+		lblForeName.setBounds(69, 163, 69, 20);
+		contentPane.add(lblForeName);
 		
-		JLabel label = new JLabel("username");
-		label.setBounds(69, 113, 69, 20);
-		contentPane.add(label);
+		JLabel lblSurName = new JLabel("Surname");
+		lblSurName.setBounds(69, 113, 69, 20);
+		contentPane.add(lblSurName);
 		
-		JLabel lblName = new JLabel("name");
-		lblName.setBounds(69, 210, 69, 20);
-		contentPane.add(lblName);
-		
-		JLabel lblEmail = new JLabel("email");
-		lblEmail.setBounds(69, 257, 69, 20);
+		JLabel lblEmail = new JLabel("Email (ID)");
+		lblEmail.setBounds(69, 210, 69, 20);
 		contentPane.add(lblEmail);
 		
-		JLabel lblPhone = new JLabel("phone");
-		lblPhone.setBounds(69, 304, 69, 20);
-		contentPane.add(lblPhone);
+		JLabel lblPassword = new JLabel("Password");
+		lblPassword.setBounds(69, 257, 69, 20);
+		contentPane.add(lblPassword);
 		
-		tfUsername = new JTextField();
-		tfUsername.setColumns(10);
-		tfUsername.setBounds(159, 106, 186, 35);
-		contentPane.add(tfUsername);
+		JLabel lblMobileNum = new JLabel("Mobile Number");
+		lblMobileNum.setBounds(50, 304, 89, 20);
+		contentPane.add(lblMobileNum);
 		
-		tfPassword = new JTextField();
-		tfPassword.setColumns(10);
-		tfPassword.setBounds(159, 156, 186, 35);
-		contentPane.add(tfPassword);
+		tfForeName = new JTextField();
+		tfForeName.setColumns(10);
+		tfForeName.setBounds(159, 106, 186, 35);
+		contentPane.add(tfForeName);
 		
-		tfName = new JTextField();
-		tfName.setColumns(10);
-		tfName.setBounds(159, 203, 186, 35);
-		contentPane.add(tfName);
+		tfSurName = new JTextField();
+		tfSurName.setColumns(10);
+		tfSurName.setBounds(159, 156, 186, 35);
+		contentPane.add(tfSurName);
 		
 		tfEmail = new JTextField();
 		tfEmail.setColumns(10);
-		tfEmail.setBounds(159, 250, 186, 35);
+		tfEmail.setBounds(159, 203, 186, 35);
 		contentPane.add(tfEmail);
 		
-		tfPhone = new JTextField();
-		tfPhone.setColumns(10);
-		tfPhone.setBounds(159, 297, 186, 35);
-		contentPane.add(tfPhone);
+		tfPassword = new JTextField();
+		tfPassword.setColumns(10);
+		tfPassword.setBounds(159, 250, 186, 35);
+		contentPane.add(tfPassword);
+		
+		tfMobileNumber = new JTextField();
+		tfMobileNumber.setColumns(10);
+		tfMobileNumber.setBounds(159, 297, 186, 35);
+		contentPane.add(tfMobileNumber);
 		
 		joinCompleteBtn = new JButton("Sign Up");
 		joinCompleteBtn.setBounds(206, 363, 139, 29);
