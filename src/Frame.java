@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.JSplitPane;
 
 
 public class Frame extends JFrame {
@@ -22,9 +23,11 @@ public class Frame extends JFrame {
 	private JButton loginBtn = new JButton("Log in ");
 	private JButton idpwSearchBtn = new JButton("Find ID/PW");
 	private JButton enquirerButton = new JButton("ENQUIRER");
+	private JButton signIn = new JButton("Sign in");
 	private final JPanel checkPanel = new JPanel(new GridLayout(0,2));
 	private final JCheckBox guestCheck = new JCheckBox("Guest");
 	private final JCheckBox hostCheck = new JCheckBox("Host");
+	private final JSplitPane splitPane = new JSplitPane();
 	
 	public Frame() {
 		//setSize in the middle of the current frame window so that the frame can be aligned in the middle normally
@@ -58,7 +61,7 @@ public class Frame extends JFrame {
 				
 				if(id.length()==0 || pw.length()==0) {
 					JOptionPane.showMessageDialog(null, "put id or pw", "put id or pw", JOptionPane.DEFAULT_OPTION);
-
+					
 				}
 				
 				//checkbox
@@ -90,6 +93,9 @@ public class Frame extends JFrame {
 		//arrange label on the center
 		idLabel.setHorizontalAlignment(NORMAL);
 		pwLabel.setHorizontalAlignment(NORMAL);
+		
+		loginPanel.add(splitPane);
+		splitPane.add(signIn);
 		loginPanel.add(idpwSearchBtn);
 		loginPanel.add(enquirerButton);
 		

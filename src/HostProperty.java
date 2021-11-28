@@ -52,7 +52,7 @@ public class HostProperty extends JFrame {
         setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new HostProperty();
-    }
+//    public static void main(String[] args) {
+//        new HostProperty();
+//    }
 }
