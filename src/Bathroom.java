@@ -10,7 +10,8 @@ public class Bathroom {
 			pstmt.setByte(2, info.hasBath);
 			pstmt.setByte(3, info.hasShower);
 			pstmt.setByte(4, info.isShared);
-			
+			pstmt.executeUpdate();
+			pstmt.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
@@ -26,10 +27,10 @@ public class Bathroom {
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			while(rs.next()) {
-				info.hasToilet = rs.getString("hasToilet");
-				info.hasBath = rs.getString("hasBath");
-				info.hasShower = rs.getInt("hasShower");
-				info.isShared = rs.getInt("isShared");
+				info.hasToilet = rs.getByte("hasToilet");
+				info.hasBath = rs.getByte("hasBath");
+				info.hasShower = rs.getByte("hasShower");
+				info.isShared = rs.getByte("isShared");
 			}
 			
 			rs.close();
