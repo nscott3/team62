@@ -3,7 +3,7 @@ import java.sql.*;
 
 public class Bathing {
 	
-	public void putBathingInfo(Connection conn, BathingInfo info) {
+	public static void putBathingInfo(Connection conn, BathingInfo info) {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement("INSERT INTO Bathing VALUES (?,?,?,?,?,?)");
@@ -19,7 +19,7 @@ public class Bathing {
 		}
 	}
 	
-	public BathingInfo getBathingInfo(Connection conn, int facilityNo) {
+	public static BathingInfo getBathingInfo(Connection conn, int facilityNo) {
 		BathingInfo info = new BathingInfo();
 		info.facilityNo = facilityNo;
 		
