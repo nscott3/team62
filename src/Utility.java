@@ -13,7 +13,8 @@ public class Utility {
 			pstmt.setByte(4, info.hasSmokeAlarm);
 			pstmt.setByte(5, info.hasFirstAidKit);
 			pstmt.setInt(6, info.facilityNo);
-			
+			pstmt.executeUpdate();
+			pstmt.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
