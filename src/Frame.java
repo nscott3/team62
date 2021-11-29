@@ -98,8 +98,6 @@ public class Frame extends JFrame {
 		idLabel.setHorizontalAlignment(NORMAL);
 		pwLabel.setHorizontalAlignment(NORMAL);
 		
-
-		
 		//find id and pw 
 		idpwSearchBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
