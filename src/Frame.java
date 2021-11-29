@@ -81,7 +81,8 @@ public class Frame extends JFrame {
 				}else if(guestCheck.isSelected()) {
 					if(id.equals("test2") && pw.equals("test2")) {
 						JOptionPane.showMessageDialog(null, "log in", "log in", JOptionPane.DEFAULT_OPTION);
-						
+						new Guest();
+						setVisible(false);
 					}else {
 						JOptionPane.showMessageDialog(null, "log in fail", "log in!", JOptionPane.DEFAULT_OPTION);
 					}

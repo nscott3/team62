@@ -93,7 +93,8 @@ public class Registration extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, "Signed Up");
 				dispose();
-				
+				new Frame();
+				setVisible(false);
 			}
 		});
 
