@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class HostProperty extends JFrame {
     String Answers[]={"Yes","No"};
@@ -53,10 +55,7 @@ public class HostProperty extends JFrame {
     private JCheckBox hasPaidParking= new JCheckBox();
     private JCheckBox hasPatio= new JCheckBox();
     private JCheckBox hasBBQ= new JCheckBox();
-
-
-
-
+    private JButton button = new JButton();
 
     public void setLocationAndSize(){
         propertyNameLabel.setBounds(50,50,200,25);
@@ -117,9 +116,6 @@ public class HostProperty extends JFrame {
         hasPaidParking.setBounds(650,675,200,25);
         hasPatio.setBounds(850,675,200,25);
         hasBBQ.setBounds(1050,675,200,25);
-
-
-
 
     }
     public void addToContainer(){
@@ -210,6 +206,39 @@ public class HostProperty extends JFrame {
         hasPatio = new JCheckBox("Patio");
         hasBBQ = new JCheckBox("BBQ");
     }
+
+    public void submitButton ()  {
+        button = new JButton("Submit");
+        contentPane.add(button);
+        button.setBounds(50, 725, 200, 25);
+        button.setFocusable(false);
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Boolean isCorrectlyRegistered=false;
+
+                String temp=numberOfBeds.getText().trim();
+                int numberOfBeds= Integer.parseInt(temp);
+                String temp2=numberOfBathrooms.getText().trim();
+                int numberOfBathrooms= Integer.parseInt(temp2);
+                if(numberOfBeds >=0 && numberOfBathrooms >=0){
+                    isCorrectlyRegistered=true;
+                }
+
+                String pName=propertyName.getText().trim();
+                String pDesc=propertyDesc.getText().trim();
+                String pLocation=propertyLocation.getText().trim();
+                if(pName.length() >=3 && pDesc.length() >=10 &&  pLocation.length() >=5){
+                    isCorrectlyRegistered=true;
+                }
+
+                Object source = e.getSource();
+                if(source==button && isCorrectlyRegistered){
+                    JOptionPane.showMessageDialog(null, "Congrats you have registered");
+                }
+            }
+        });
+    }
+
     public  HostProperty(){
 
         super("Host");
@@ -217,9 +246,12 @@ public class HostProperty extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
+
+
         checkBoxCreator();
         setLocationAndSize();
         addToContainer();
+        submitButton();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
