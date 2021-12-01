@@ -1,6 +1,6 @@
 package view;
 
-import java.sql.*;
+import java.sql.*; 
 
 public class Bathing {
 	
