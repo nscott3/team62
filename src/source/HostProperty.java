@@ -1,3 +1,4 @@
+package source;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.*;
@@ -203,7 +204,6 @@ public class HostProperty extends JFrame{
         hasPatio = new JCheckBox("Patio");
         hasBBQ = new JCheckBox("BBQ");
     }
-
     public void submitButton ()  {
         button = new JButton("Submit");
         contentPane.add(button);
@@ -211,26 +211,26 @@ public class HostProperty extends JFrame{
         button.setFocusable(false);
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Boolean isCorrectlyRegistered=false;
+                Boolean isCorrectlyRegistered=true;
 
-                String temp=numberOfBeds.getText().trim();
-                int numberOfBeds= Integer.parseInt(temp);
-                String temp2=numberOfBathrooms.getText().trim();
-                System.out.println(temp2);
-                int numberOfBathrooms= Integer.parseInt(temp2);
-                if(numberOfBeds >=0 && numberOfBathrooms >=0 &&temp.length()>0 && temp2.length()>0){
-                    isCorrectlyRegistered=true;
+                if(propertyName.getText().length()==0 ||  propertyDesc.getText().length()==0 || propertyLocation.getText().length()==0  ) {
+                    JOptionPane.showMessageDialog(null, "Please check again the details of the property");
+                    isCorrectlyRegistered=false;
+                }
+
+                if(Integer.parseInt(numberOfBeds.getText())<0){
+                    JOptionPane.showMessageDialog(null, "Please enter a correct amount of beds");
+                    isCorrectlyRegistered=false;
+                }else if(Integer.parseInt(numberOfBathrooms.getText())<0){
+                    JOptionPane.showMessageDialog(null, "Please enter a correct amount of bathrooms");
+                    isCorrectlyRegistered=false;
                 }
 
                 Object source = e.getSource();
-                if(source==button) {
-                    if (isCorrectlyRegistered) {
-                        JOptionPane.showMessageDialog(null, "Congrats you have registered");
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(null, "You are not registered correctly, please watch out for your details");
-                    }
+                if(source==button && isCorrectlyRegistered) {
+                    JOptionPane.showMessageDialog(null, "Congrats you have registered");
                 }
+
             }
         });
     }
@@ -290,6 +290,7 @@ public class HostProperty extends JFrame{
         });
     }
     public void checkForm(){
+
         checkNullTF(propertyName);
         checkNullTF(propertyLocation);
         checkNullTA(propertyDesc);
@@ -297,6 +298,7 @@ public class HostProperty extends JFrame{
         checkNullTF(numberOfBathrooms);
         checkNr(numberOfBeds);
         checkNr(numberOfBathrooms);
+        submitButton();
     }
 
     public  HostProperty(){
@@ -311,7 +313,6 @@ public class HostProperty extends JFrame{
         setLocationAndSize();
         addToContainer();
         checkForm();
-        submitButton();
 
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
