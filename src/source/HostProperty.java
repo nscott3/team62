@@ -1,16 +1,16 @@
-package source;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.*;
+import java.awt.event.KeyAdapter;
 
-public class HostProperty extends JFrame {
+public class HostProperty extends JFrame{
     String Answers[]={"Yes","No"};
 
     private JPanel contentPane;
     private JLabel propertyNameLabel=new JLabel("Enter the properties name:");
     private JTextField propertyName = new JTextField();
     private JLabel propertyDescLabel=new JLabel("Enter the properties description:");
-    private JTextField propertyDesc = new JTextField();
+    private JTextArea propertyDesc = new JTextArea();
     private JLabel propertyLocationLabel=new JLabel("Enter the properties location:");
     private JTextField propertyLocation = new JTextField();
     private JLabel hasBreakfastLabel=new JLabel("Does it have breakfast?");
@@ -92,8 +92,8 @@ public class HostProperty extends JFrame {
         hasStove.setBounds(550,525,100,25);
         hasDishwasher.setBounds(650,525,100,25);
         hasTableware.setBounds(750,525,100,25);
-        hasCookware.setBounds(850,525,125,25);
-        hasBasicProvisions.setBounds(950,525,100,25);
+        hasCookware.setBounds(850,525,100,25);
+        hasBasicProvisions.setBounds(950,525,125,25);
 
         livingFacilities.setBounds(50,575,150,25);
         hasWifi.setBounds(250,575,100,25);
@@ -101,15 +101,15 @@ public class HostProperty extends JFrame {
         hasSatellite.setBounds(450,575,100,25);
         hasStreaming.setBounds(550,575,100,25);
         hasDvdplayer.setBounds(650,575,100,25);
-        hasBoardgames.setBounds(750,575,100,25);
+        hasBoardgames.setBounds(750,575,125,25);
 
         utilityFacilities.setBounds(50,625,150,25);
-        hasCentralHeating.setBounds(250,625,100,25);
-        hasWashingMachine.setBounds(350,625,100,25);
-        hasDryingMachine.setBounds(450,625,100,25);
-        hasFireExtinguisher.setBounds(550,625,100,25);
-        hasSmokeAlarm.setBounds(650,625,100,25);
-        hasFirstAidKit.setBounds(750,625,100,25);
+        hasCentralHeating.setBounds(250,625,200,25);
+        hasWashingMachine.setBounds(450,625,200,25);
+        hasDryingMachine.setBounds(650,625,200,25);
+        hasFireExtinguisher.setBounds(850,625,200,25);
+        hasSmokeAlarm.setBounds(1050,625,200,25);
+        hasFirstAidKit.setBounds(1250,625,200,25);
 
         outdoorFacilities.setBounds(50,675,150,25);
         hasFreeOnSiteParking.setBounds(250,675,200,25);
@@ -147,8 +147,8 @@ public class HostProperty extends JFrame {
         contentPane.add(hasStove);
         contentPane.add(hasDishwasher);
         contentPane.add(hasTableware);
-        contentPane.add(hasBasicProvisions);
         contentPane.add(hasCookware);
+        contentPane.add(hasBasicProvisions);
         contentPane.add(livingFacilities);
         contentPane.add(hasWifi);
         contentPane.add(hasTV);
@@ -169,11 +169,6 @@ public class HostProperty extends JFrame {
         contentPane.add(hasPaidParking);
         contentPane.add(hasPatio);
         contentPane.add(hasBBQ);
-
-
-
-
-
     }
     public void checkBoxCreator(){
         hasLinen = new JCheckBox("Linen");
@@ -188,6 +183,7 @@ public class HostProperty extends JFrame {
         hasStove = new JCheckBox("Stove");
         hasDishwasher = new JCheckBox("Dishashwer");
         hasTableware=new JCheckBox("Tableware");
+        hasCookware = new JCheckBox("Cookware");
         hasBasicProvisions = new JCheckBox("Basic Provisions");
         hasWifi= new JCheckBox("Wifi");
         hasTV= new JCheckBox("TV");
@@ -220,24 +216,87 @@ public class HostProperty extends JFrame {
                 String temp=numberOfBeds.getText().trim();
                 int numberOfBeds= Integer.parseInt(temp);
                 String temp2=numberOfBathrooms.getText().trim();
+                System.out.println(temp2);
                 int numberOfBathrooms= Integer.parseInt(temp2);
-                if(numberOfBeds >=0 && numberOfBathrooms >=0){
-                    isCorrectlyRegistered=true;
-                }
-
-                String pName=propertyName.getText().trim();
-                String pDesc=propertyDesc.getText().trim();
-                String pLocation=propertyLocation.getText().trim();
-                if(pName.length() >=3 && pDesc.length() >=10 &&  pLocation.length() >=5){
+                if(numberOfBeds >=0 && numberOfBathrooms >=0 &&temp.length()>0 && temp2.length()>0){
                     isCorrectlyRegistered=true;
                 }
 
                 Object source = e.getSource();
-                if(source==button && isCorrectlyRegistered){
-                    JOptionPane.showMessageDialog(null, "Congrats you have registered");
+                if(source==button) {
+                    if (isCorrectlyRegistered) {
+                        JOptionPane.showMessageDialog(null, "Congrats you have registered");
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "You are not registered correctly, please watch out for your details");
+                    }
                 }
             }
         });
+    }
+    public void checkNr(JTextField nr){
+        nr.addKeyListener(new KeyListener() {
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                    int nrToInt=Integer.parseInt(nr.getText().trim());
+                    if(nrToInt<0){
+                        JOptionPane.showMessageDialog(null, "Please enter a correct number");
+                    }
+                }
+            }
+            public void keyReleased(KeyEvent e){
+
+            }
+            public void keyTyped(KeyEvent e){
+
+            }
+
+        });
+    }
+    public void checkNullTF(JTextField txt){
+        txt.addKeyListener(new KeyListener() {
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    String text=txt.getText();
+                    if(text.length()==0){
+                        JOptionPane.showMessageDialog(null, "This textfield cannot be empty!");
+                    }
+                }
+            }
+            public void keyReleased(KeyEvent e) {
+
+            }
+            public void keyTyped(KeyEvent e) {
+
+            }
+        });
+    }
+    public void checkNullTA(JTextArea txt){
+        txt.addKeyListener(new KeyListener() {
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    String text=txt.getText();
+                    if(text.length()==0){
+                        JOptionPane.showMessageDialog(null, "This textfield cannot be empty!");
+                    }
+                }
+            }
+            public void keyReleased(KeyEvent e) {
+
+            }
+            public void keyTyped(KeyEvent e) {
+
+            }
+        });
+    }
+    public void checkForm(){
+        checkNullTF(propertyName);
+        checkNullTF(propertyLocation);
+        checkNullTA(propertyDesc);
+        checkNullTF(numberOfBeds);
+        checkNullTF(numberOfBathrooms);
+        checkNr(numberOfBeds);
+        checkNr(numberOfBathrooms);
     }
 
     public  HostProperty(){
@@ -248,11 +307,12 @@ public class HostProperty extends JFrame {
         contentPane.setLayout(null);
 
 
-
         checkBoxCreator();
         setLocationAndSize();
         addToContainer();
+        checkForm();
         submitButton();
+
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
