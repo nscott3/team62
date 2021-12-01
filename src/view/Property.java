@@ -2,60 +2,54 @@ package view;
 
 import java.sql.*;
 
-import view.Facility;
+import java.sql.*;
 
 public class Property {
-	private int propertyNo;
+	private int propertyID;
 	private String name;
 	private String description;
 	private String location;
 	private byte isBreakfast;
 	private int maxGuests;
 	private float reviewRating;
-	private int facilityNo;
 	private int hostID;
+	private String houseName;
+	private String postcode;
 	
 	public Property(
 			String nameP,
-			String descript,
-			String locate,
-			byte isbreakfast,
-			int maxguests,
-			int hostid) {
+			String descriptionP,
+			String locationP,
+			byte isBreakfastP,
+			int maxGuestsP,
+			int hostIDP,
+			String houseNameP,
+			String postcodeP) {
 		
 		name = nameP;
-		description = descript;
-		location = locate;
-		isBreakfast = isbreakfast;
-		maxGuests = maxguests;
+		description = descriptionP;
+		location = locationP;
+		isBreakfast = isBreakfastP;
+		maxGuests = maxGuestsP;
 		reviewRating = 0;
-		hostID = hostid;
+		hostID = hostIDP;
+		houseName = houseNameP;
+		postcode = postcodeP;
 	}
 	
-	public void registerProperty(
-			Connection conn,
-			SleepingInfo sleepingInfo,
-			BedroomInfo bedroomInfo,
-			BathingInfo bathingInfo,
-			BathroomInfo bathroomInfo,
-			KitchenInfo kitchenInfo,
-			LivingInfo livingInfo,
-			UtilityInfo utilityInfo,
-			OutdoorInfo outdoorInfo) {
-		Facility.insertFacilityNo(conn, hostID);
-		Facility.registerFacilityInfo(conn, sleepingInfo, bedroomInfo, bathingInfo, bathroomInfo, kitchenInfo, livingInfo, utilityInfo, outdoorInfo);
-		facilityNo = Facility.lookupFacilityNo(conn, hostID);
+	public void registerProperty(Connection conn) {
 		PreparedStatement pstmt = null;
 		try {
-			pstmt = conn.prepareStatement("INSERT INTO Property VALUES (default,?,?,?,?,?,?,?,?)");
+			pstmt = conn.prepareStatement("INSERT INTO Property VALUES (default,?,?,?,?,?,?,?,?,?)");
 			pstmt.setString(1, name);
 			pstmt.setString(2, description);
 			pstmt.setString(3, location);
 			pstmt.setByte(4, isBreakfast);
 			pstmt.setInt(5, maxGuests);
 			pstmt.setFloat(6, reviewRating);
-			pstmt.setInt(7, facilityNo);
-			pstmt.setInt(8, hostID);
+			pstmt.setInt(7, hostID);
+			pstmt.setString(8, houseName);
+			pstmt.setString(9, postcode);
 			pstmt.executeUpdate();
             pstmt.close();
 		} catch (SQLException ex) {
@@ -64,7 +58,7 @@ public class Property {
 	}
 	
 	public int lookupPropertyNo(Connection conn, int hostID) {
-		int propertyNo = 0;
+		int propertyID = 0;
 		
 		try {
 			String sql = "SELECT * FROM Property WHERE hostID =" + hostID;
@@ -72,7 +66,7 @@ public class Property {
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			while(rs.next()) {
-				propertyNo = rs.getInt("propertyNo");
+				propertyID = rs.getInt("propertyID");
 			}	
 			
 			rs.close();
@@ -81,12 +75,12 @@ public class Property {
 			ex.printStackTrace();
 		}
 		
-		return propertyNo;
+		return propertyID;
 	}
 	
-	public void updateReviewRate(Connection conn, int propertyNo, float newRate) {
+	public void updateReviewRate(Connection conn, int propertyID, float newRate) {
 		try {
-			String sql = "UPDATE Propery SET reviewRating = " + newRate + " WHERE propertyNo = " + propertyNo;
+			String sql = "UPDATE Propery SET reviewRating = " + newRate + " WHERE propertyID = " + propertyID;
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			
