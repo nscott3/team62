@@ -57,7 +57,7 @@ public class Property {
 		}
 	}
 	
-	public int lookupPropertyNo(Connection conn, int hostID) {
+	public int lookupPropertyID(Connection conn, int hostID) {
 		int propertyID = 0;
 		
 		try {
