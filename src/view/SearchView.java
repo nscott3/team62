@@ -35,6 +35,7 @@ public class SearchView extends JFrame{
 		setTitle("HomeBreaks Plc");
 		
     	JTable table = new JTable(createObjectDataModel());
+    	table.setFont(new Font("Tahoma", Font.PLAIN, 12));
         table.setAutoCreateRowSorter(true);
         table.setLocation(200,300);
         PaginationDataProvider<PropertyGetterSetter> dataProvider = createDataProvider();
@@ -50,16 +51,11 @@ public class SearchView extends JFrame{
         
         JLabel lblTitle = new JLabel("Welcome to HomeBreaks Plc!");
         lblTitle.setBounds(0, 0, 1186, 45);
-        lblTitle.setFont(new Font("Arial", Font.PLAIN, 38));
+        lblTitle.setFont(new Font("Arial", Font.BOLD, 38));
         panel.add(lblTitle);
         
         JPanel panel_1 = new JPanel();
         getContentPane().add(panel_1, BorderLayout.SOUTH);
-        
-        tfSearch = new JTextField();
-        tfSearch.setText("Search keyword...");
-        panel_1.add(tfSearch);
-        tfSearch.setColumns(20);
         
         JLabel lblLocation = new JLabel("Location");
         panel_1.add(lblLocation);
@@ -68,7 +64,7 @@ public class SearchView extends JFrame{
         panel_1.add(tfLcation);
         tfLcation.setColumns(10);
         
-        JLabel lbldate = new JLabel("Date");
+        JLabel lbldate = new JLabel("     Date");
         panel_1.add(lbldate);
         
         tfStartDate = new JTextField();
@@ -83,6 +79,14 @@ public class SearchView extends JFrame{
         tfEndDate.setText("DD/MM/YY");
         panel_1.add(tfEndDate);
         tfEndDate.setColumns(10);
+        
+        JLabel lblNewLabel = new JLabel("           Q");
+        panel_1.add(lblNewLabel);
+        
+        tfSearch = new JTextField();
+        tfSearch.setText("Search keyword...");
+        panel_1.add(tfSearch);
+        tfSearch.setColumns(20);
         
         JButton btnSearch = new JButton("Search");
         panel_1.add(btnSearch);

@@ -40,25 +40,26 @@ public class GuestView extends JFrame {
 		getContentPane().add(lblTitle);
 		
 		tfSearch = new JTextField();
+		tfSearch.setFont(new Font("Calibri", Font.PLAIN, 12));
 		tfSearch.setForeground(Color.BLACK);
 		tfSearch.setBounds(238, 260, 750, 30);
-		tfSearch.setText("Search keyword...(Property, Host name, ..etc)");
+		tfSearch.setText(" Search keyword... (Property, Host name, ..etc)");
 		getContentPane().add(tfSearch);
 		tfSearch.setColumns(10);
 		
 		JButton btnSearchBtn = new JButton("Search");
 		btnSearchBtn.setFont(new Font("Calibri", Font.BOLD, 18));
-		btnSearchBtn.setBounds(1017, 245, 96, 45);
+		btnSearchBtn.setBounds(998, 251, 96, 45);
 		getContentPane().add(btnSearchBtn);
 		
 		JButton btnMyReservation = new JButton("MyReservation");
 		btnMyReservation.setFont(new Font("Calibri", Font.PLAIN, 12));
-		btnMyReservation.setBounds(960, 61, 114, 23);
+		btnMyReservation.setBounds(960, 57, 114, 30);
 		getContentPane().add(btnMyReservation);
 		
 		JButton btnLogOut = new JButton("Log out");
 		btnLogOut.setFont(new Font("Calibri", Font.PLAIN, 12));
-		btnLogOut.setBounds(1084, 61, 89, 23);
+		btnLogOut.setBounds(1084, 57, 89, 30);
 		getContentPane().add(btnLogOut);
 		
 		JLabel lblLocation = new JLabel("Location");
@@ -67,7 +68,7 @@ public class GuestView extends JFrame {
 		getContentPane().add(lblLocation);
 		
 		tfLocation = new JTextField();
-		tfLocation.setBounds(329, 215, 176, 25);
+		tfLocation.setBounds(313, 215, 176, 25);
 		getContentPane().add(tfLocation);
 		tfLocation.setColumns(10);
 		
@@ -77,20 +78,22 @@ public class GuestView extends JFrame {
 		getContentPane().add(lblDate);
 		
 		tfStartDate = new JTextField();
+		tfStartDate.setFont(new Font("Calibri", Font.PLAIN, 12));
 		tfStartDate.setBounds(641, 216, 123, 25);
 		getContentPane().add(tfStartDate);
-		tfStartDate.setText("DD/MM/YYYY");
+		tfStartDate.setText(" DD/MM/YYYY");
 		tfStartDate.setColumns(10);
 		
 		JLabel lblWave = new JLabel("~");
 		lblWave.setFont(new Font("Calibri", Font.PLAIN, 18));
-		lblWave.setBounds(774, 218, 29, 20);
+		lblWave.setBounds(774, 221, 29, 14);
 		getContentPane().add(lblWave);
 		
 		tfEndDate = new JTextField();
+		tfEndDate.setFont(new Font("Calibri", Font.PLAIN, 12));
 		tfEndDate.setBounds(796, 215, 123, 25);
 		getContentPane().add(tfEndDate);
-		tfEndDate.setText("DD/MM/YYYY");
+		tfEndDate.setText(" DD/MM/YYYY");
 		tfEndDate.setColumns(10);
 		
 		JLabel lblLogInDescription = new JLabel("Logged in as");
@@ -100,7 +103,7 @@ public class GuestView extends JFrame {
 		
 		JLabel lblName = new JLabel("User Name");
 		lblName.setFont(new Font("Calibri", Font.PLAIN, 12));
-		lblName.setBounds(1009, 36, 146, 14);
+		lblName.setBounds(1002, 36, 146, 14);
 		getContentPane().add(lblName);
 		
 		JLabel lblCheckGuest = new JLabel("(Guest)");

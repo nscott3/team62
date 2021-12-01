@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JSplitPane;
+import javax.swing.SwingConstants;
 
 
 public class MainView extends JFrame {
@@ -25,10 +26,8 @@ public class MainView extends JFrame {
 	private JButton idpwSearchBtn = new JButton("Find ID/PW");
 	private JButton enquirerButton = new JButton("ENQUIRER");
 	private JButton signUp = new JButton("Registration");
-	private final JPanel checkPanel = new JPanel();
 	private final JCheckBox guestCheck = new JCheckBox("Guest");
 	private final JCheckBox hostCheck = new JCheckBox("Host");
-	private final JPanel splitPanel = new JPanel();
 	
 	public MainView() {
 		//setSize in the middle of the current frame window so that the frame can be aligned in the middle normally
@@ -42,26 +41,25 @@ public class MainView extends JFrame {
 		
 		this.setContentPane(loginPanel);
 		loginPanel.setLayout(null);
-		idLabel.setBounds(427, 238, 29, 15);
+		idLabel.setFont(new Font("Calibri", Font.PLAIN, 16));
+		idLabel.setBounds(439, 231, 29, 33);
 		loginPanel.add(idLabel);
-		pwLabel.setBounds(373, 263, 83, 15);
+		pwLabel.setFont(new Font("Calibri", Font.PLAIN, 16));
+		pwLabel.setBounds(401, 261, 73, 23);
 		loginPanel.add(pwLabel);
-		idText.setBounds(487, 235, 123, 21);
+		idText.setBounds(487, 233, 150, 25);
 		loginPanel.add(idText);
-		pwText.setBounds(487, 260, 123, 21);
+		pwText.setBounds(487, 260, 150, 25);
 		loginPanel.add(pwText);
-		checkPanel.setBounds(487, 286, 123, 33);
-		
-		loginPanel.add(checkPanel);
-		checkPanel.add(guestCheck);
-		checkPanel.add(hostCheck);
-		loginBtn.setBounds(622, 238, 111, 40);
+		loginBtn.setFont(new Font("Calibri", Font.PLAIN, 16));
+		loginBtn.setBounds(647, 231, 130, 35);
 		loginPanel.add(loginBtn);
-		splitPanel.setBounds(488, 329, 245, 33);
-		loginPanel.add(splitPanel);
-		splitPanel.add(signUp);
-		splitPanel.add(idpwSearchBtn);
-		enquirerButton.setBounds(622, 296, 111, 23);
+		enquirerButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		enquirerButton.setFont(new Font("Calibri", Font.PLAIN, 14));
+		enquirerButton.setBounds(647, 277, 130, 33);
 		loginPanel.add(enquirerButton);		
 		
 		//login button
@@ -108,12 +106,22 @@ public class MainView extends JFrame {
 		idLabel.setHorizontalAlignment(NORMAL);
 		pwLabel.setHorizontalAlignment(NORMAL);
 		
-		//find id and pw 
-		idpwSearchBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "find id and pw", "find id or pw", JOptionPane.DEFAULT_OPTION);
-			}
-		});
+		JLabel lblNewLabel = new JLabel("Welcome to HomeBreaks Plc!");
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 40));
+		lblNewLabel.setBounds(317, 147, 562, 40);
+		loginPanel.add(lblNewLabel);
+		idpwSearchBtn.setBounds(591, 324, 186, 38);
+		loginPanel.add(idpwSearchBtn);
+		idpwSearchBtn.setFont(new Font("Calibri", Font.PLAIN, 14));
+		signUp.setBounds(401, 324, 180, 38);
+		loginPanel.add(signUp);
+		signUp.setFont(new Font("Calibri", Font.PLAIN, 14));
+		guestCheck.setBounds(487, 292, 59, 25);
+		loginPanel.add(guestCheck);
+		guestCheck.setFont(new Font("Calibri", Font.PLAIN, 14));
+		hostCheck.setBounds(558, 292, 51, 25);
+		loginPanel.add(hostCheck);
+		hostCheck.setFont(new Font("Calibri", Font.PLAIN, 14));
 		
 
 		signUp.addActionListener(new ActionListener() {
@@ -123,6 +131,13 @@ public class MainView extends JFrame {
 				// TODO Auto-generated method stub
 				new RegistrationView();
 				setVisible(false);
+			}
+		});
+		
+		//find id and pw 
+		idpwSearchBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "find id and pw", "find id or pw", JOptionPane.DEFAULT_OPTION);
 			}
 		});
 	}
