@@ -91,6 +91,9 @@ public class SearchView extends JFrame{
         JButton btnSearch = new JButton("Search");
         panel_1.add(btnSearch);
         
+        JLabel lblNewLabel_1 = new JLabel("          ");
+        panel_1.add(lblNewLabel_1);
+        
         JButton btnHome = new JButton("Home");
         panel_1.add(btnHome);
         
