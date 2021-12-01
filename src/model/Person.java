@@ -1,49 +1,24 @@
 package model;
 import java.sql.*;
-import java.util.Objects;
-
 import view.GuestView;
 
 public class Person {
-    private String title;
-    private String forename;
-    private String surname;
-    private String email;
-    private String mobileNumber;
-    private String password;
-    private Host host;
-    private GuestView guest;
-    private Address address;
-
-    public Person(String t, String fname, String sname, String em, String number, String pword, Host hst, GuestView gst, Address addr) {
-        title = t;
-        forename = fname;
-        surname = sname;
-        email = em;
-        mobileNumber = number;
-        password = pword;
-        host = hst;
-        guest = gst;
-        address = addr;
-    }
-
-    public void register(Connection conn) {
-        host.addHost(conn);
-        guest.addGuest(conn);
-        address.addAddress(conn);
+    public static void register(Connection conn, PersonInfo pInfo, AddressInfo aInfo) {
+        Address.addAddress(conn, aInfo);
+        byte[] salt  = Hashing.generateSalt();
 
         PreparedStatement pstmt = null;
         try {
-            pstmt = conn.prepareStatement("INSERT INTO Person (title, forename, surname, email, mobileNumber, password, hostID, guestID, addressID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            pstmt.setString(1, title);
-            pstmt.setString(2, forename);
-            pstmt.setString(3, surname);
-            pstmt.setString(4, email);
-            pstmt.setString(5, mobileNumber);
-            pstmt.setString(6, password);
-            pstmt.setInt(7, host.lookupID(conn));
-            pstmt.setInt(8, guest.lookupID(conn));
-            pstmt.setInt(9, address.lookupID(conn));
+            pstmt = conn.prepareStatement("INSERT INTO Person (email, title, forename, surname, mobileNumber, password, salt, houseName, postcode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            pstmt.setString(1, pInfo.getEmail());
+            pstmt.setString(2, pInfo.getTitle());
+            pstmt.setString(3, pInfo.getForename());
+            pstmt.setString(4, pInfo.getSurname());
+            pstmt.setString(5, pInfo.getMobileNumber());
+            pstmt.setBytes(6, Hashing.generateHash(pInfo.getPassword(), salt));
+            pstmt.setBytes(7, salt);
+            pstmt.setString(8, aInfo.getHouseName());
+            pstmt.setString(9, aInfo.getPostcode());
             pstmt.executeUpdate();
             pstmt.close();
         } catch (SQLException ex) {
@@ -51,29 +26,28 @@ public class Person {
         }
     }
 
-    public boolean login(Connection conn) {
-        String matchedPassword = null;
+    public static boolean login(Connection conn, String email, String password) {
+        byte[] matchedHash = null;
+        byte[] matchedSalt = null;
+
         PreparedStatement pstmt = null;
         try {
-            pstmt = conn.prepareStatement("SELECT password FROM Person WHERE title = ? AND forename = ? AND surname = ? AND email = ? AND mobileNumber = ?");
-            pstmt.setString(1, title);
-            pstmt.setString(2, forename);
-            pstmt.setString(3, surname);
-            pstmt.setString(4, email);
-            pstmt.setString(5, mobileNumber);
+            pstmt = conn.prepareStatement("SELECT password, salt FROM Person WHERE email = ?");
+            pstmt.setString(1, email);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                matchedPassword = rs.getString("password");
+                matchedHash = rs.getBytes("password");
+                matchedSalt = rs.getBytes("salt");
             }
             rs.close();
             pstmt.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        if (matchedPassword == null) {
+        if (matchedHash == null || matchedSalt == null) {
             return false;
         } else {
-            return matchedPassword.equals(password);
+            return Hashing.compareHashes(matchedHash, Hashing.generateHash(password, matchedSalt));
         }
     }
 }
