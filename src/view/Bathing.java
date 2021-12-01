@@ -7,13 +7,12 @@ public class Bathing {
 	public static void putBathingInfo(Connection conn, BathingInfo info) {
 		PreparedStatement pstmt = null;
 		try {
-			pstmt = conn.prepareStatement("INSERT INTO Bathing VALUES (?,?,?,?,?,?)");
-			pstmt.setByte(0, info.hasHairDryer);
-			pstmt.setByte(1, info.hasShampoo);
-			pstmt.setByte(2, info.hasToiletpaper);
-			pstmt.setInt(3, info.bathroomNum);
-			pstmt.setInt(4, info.facilityNo);
-			pstmt.setInt(5, info.bathroomNo);
+			pstmt = conn.prepareStatement("INSERT INTO Bathing VALUES (default,?,?,?,?,?)");
+			pstmt.setByte(1, info.hasHairDryer);
+			pstmt.setByte(2, info.hasShampoo);
+			pstmt.setByte(3, info.hasToiletpaper);
+			pstmt.setInt(4, info.bathroomNum);
+			pstmt.setInt(5, info.propertyID);
 			pstmt.executeUpdate();
 			pstmt.close();
 		} catch (SQLException ex) {
@@ -21,22 +20,21 @@ public class Bathing {
 		}
 	}
 	
-	public static BathingInfo getBathingInfo(Connection conn, int facilityNo) {
+	public static BathingInfo getBathingInfo(Connection conn, int propertyID) {
 		BathingInfo info = new BathingInfo();
-		info.facilityNo = facilityNo;
+		info.propertyID = propertyID;
 		
 		try {
-			String sql = "SELECT * FROM Bathing WHERE facilityNo =" + info.facilityNo;
+			String sql = "SELECT * FROM Bathing WHERE propertyID =" + info.propertyID;
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			while(rs.next()) {
+				info.bathingID = rs.getInt("bathingID");
 				info.hasHairDryer = rs.getByte("hasHairDryer");
 				info.hasShampoo = rs.getByte("hasShampoo");
 				info.hasToiletpaper = rs.getByte("hasToiletpaper");
 				info.bathroomNum = rs.getInt("bathroomNum");
-				info.facilityNo = rs.getInt("facilityNo");
-				info.bathroomNo = rs.getInt("bathroomNo");
 			}
 			
 			rs.close();
