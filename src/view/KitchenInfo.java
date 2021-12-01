@@ -1,6 +1,7 @@
 package view;
 
 public class KitchenInfo {
+	public int kitchenID;
 	public byte hasRefrigerator;
 	public byte hasMicrowave;
 	public byte hasOven;
@@ -9,5 +10,5 @@ public class KitchenInfo {
 	public byte hasTableware;
 	public byte hasCookware;
 	public byte hasBasicProvisions;
-	public int facilityNo;
+	public int propertyID;
 }
