@@ -1,4 +1,4 @@
-package view;
+package model;
 import java.sql.*;
 
 public class Host {

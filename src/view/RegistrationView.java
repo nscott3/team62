@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class Registration extends JFrame{
+public class RegistrationView extends JFrame{
 	private JPanel contentPane;
 	private JLabel lblJoin;
 	private JButton joinCompleteBtn;
@@ -22,7 +22,7 @@ public class Registration extends JFrame{
 	private JTextField tfPassword;
 	private JTextField tfMobileNumber;
 
-	public Registration() {
+	public RegistrationView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(430, 490);
 		setLocationRelativeTo(null);
@@ -94,7 +94,7 @@ public class Registration extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, "Signed Up");
 				dispose();
-				new Frame();
+				new MainView();
 				setVisible(false);
 			}
 		});

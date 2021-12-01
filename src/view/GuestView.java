@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
 
-public class Guest extends JFrame {
+public class GuestView extends JFrame {
     private String guestName;
     private JTextField tfSearch;
     private JTextField tfLocation;
@@ -23,7 +23,7 @@ public class Guest extends JFrame {
     private JTextField tfEndDate;
     
     
-    public Guest() {
+    public GuestView() {
         setResizable(false);
 	    setPreferredSize(new Dimension(1200, 720/12*9));
 	    setSize(1200, 720/12*9);
@@ -114,7 +114,7 @@ public class Guest extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				new Frame();
+				new MainView();
 				JOptionPane.showMessageDialog(null, "Log out!");
 				setVisible(false);
 			}
@@ -124,7 +124,17 @@ public class Guest extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				new MyReservation();
+				new MyReservationView();
+				setVisible(false);
+			}
+		});
+		btnSearchBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				new SearchView();
+				setVisible(false);
 			}
 		});
     }

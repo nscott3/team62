@@ -1,4 +1,4 @@
-package view;
+package model;
 
 public class LivingInfo {
 	public int livingID;

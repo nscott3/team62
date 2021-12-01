@@ -1,4 +1,4 @@
-package view;
+package model;
 
 public class BedroomInfo {
 	public int bedroomID;

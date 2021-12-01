@@ -4,8 +4,8 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class MyReservation extends JFrame{
-	public MyReservation() {
+public class MyReservationView extends JFrame{
+	public MyReservationView() {
 		setResizable(false);
 	    setPreferredSize(new Dimension(1200, 720/12*9));
 	    setSize(1200, 720/12*9);
@@ -18,6 +18,6 @@ public class MyReservation extends JFrame{
 		lblNewLabel.setBounds(35, 11, 49, 14);
 		getContentPane().add(lblNewLabel);
 		
-		
+	
 	}
 }

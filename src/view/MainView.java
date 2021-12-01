@@ -14,9 +14,9 @@ import javax.swing.JTextField;
 import javax.swing.JSplitPane;
 
 
-public class Frame extends JFrame {
+public class MainView extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private JPanel loginPanel = new JPanel(new GridLayout(0,2));
+	private JPanel loginPanel = new JPanel();
 	private JLabel idLabel = new JLabel("ID"); 
 	private JLabel pwLabel = new JLabel("Password");
 	private JTextField idText = new JTextField();
@@ -25,12 +25,12 @@ public class Frame extends JFrame {
 	private JButton idpwSearchBtn = new JButton("Find ID/PW");
 	private JButton enquirerButton = new JButton("ENQUIRER");
 	private JButton signUp = new JButton("Registration");
-	private final JPanel checkPanel = new JPanel(new GridLayout(0,2));
+	private final JPanel checkPanel = new JPanel();
 	private final JCheckBox guestCheck = new JCheckBox("Guest");
 	private final JCheckBox hostCheck = new JCheckBox("Host");
-	private final JPanel splitPanel = new JPanel(new GridLayout(0,2));
+	private final JPanel splitPanel = new JPanel();
 	
-	public Frame() {
+	public MainView() {
 		//setSize in the middle of the current frame window so that the frame can be aligned in the middle normally
 		setResizable(false);
 	    setVisible(true);
@@ -41,18 +41,27 @@ public class Frame extends JFrame {
 		setTitle("HomeBreaks Plc");
 		
 		this.setContentPane(loginPanel);
+		loginPanel.setLayout(null);
+		idLabel.setBounds(427, 238, 29, 15);
 		loginPanel.add(idLabel);
+		pwLabel.setBounds(373, 263, 83, 15);
 		loginPanel.add(pwLabel);
+		idText.setBounds(487, 235, 123, 21);
 		loginPanel.add(idText);
+		pwText.setBounds(487, 260, 123, 21);
 		loginPanel.add(pwText);
+		checkPanel.setBounds(487, 286, 123, 33);
 		
 		loginPanel.add(checkPanel);
 		checkPanel.add(guestCheck);
 		checkPanel.add(hostCheck);
+		loginBtn.setBounds(622, 238, 111, 40);
 		loginPanel.add(loginBtn);
+		splitPanel.setBounds(488, 329, 245, 33);
 		loginPanel.add(splitPanel);
 		splitPanel.add(signUp);
 		splitPanel.add(idpwSearchBtn);
+		enquirerButton.setBounds(622, 296, 111, 23);
 		loginPanel.add(enquirerButton);		
 		
 		//login button
@@ -82,7 +91,7 @@ public class Frame extends JFrame {
 				}else if(guestCheck.isSelected()) {
 					if(id.equals("test2") && pw.equals("test2")) {
 						JOptionPane.showMessageDialog(null, "log in", "log in", JOptionPane.DEFAULT_OPTION);
-						new Guest();
+						new GuestView();
 						setVisible(false);
 					}else {
 						JOptionPane.showMessageDialog(null, "log in fail", "log in!", JOptionPane.DEFAULT_OPTION);
@@ -112,7 +121,7 @@ public class Frame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				new Registration();
+				new RegistrationView();
 				setVisible(false);
 			}
 		});

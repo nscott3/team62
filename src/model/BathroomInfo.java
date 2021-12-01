@@ -1,4 +1,4 @@
-package view;
+package model;
 
 public class BathroomInfo {
 	public int bathroomID;

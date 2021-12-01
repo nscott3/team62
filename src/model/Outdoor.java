@@ -1,6 +1,8 @@
-package view;
+package model;
 
 import java.sql.*;
+
+import view.OutdoorInfo;
 
 public class Outdoor {
 	public static void putOutdoorInfo(Connection conn, OutdoorInfo info) {

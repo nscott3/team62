@@ -1,8 +1,7 @@
 public class Main {
 	
 	public static void main(String[] args) {
-		
-		//new Frame();
-		new view.Guest();
+		new view.MainView();
+//		new view.SearchView();
 	}
 }

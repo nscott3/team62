@@ -1,6 +1,8 @@
-package view;
+package model;
 import java.sql.*;
 import java.util.Objects;
+
+import view.GuestView;
 
 public class Person {
     private String title;
@@ -10,10 +12,10 @@ public class Person {
     private String mobileNumber;
     private String password;
     private Host host;
-    private Guest guest;
+    private GuestView guest;
     private Address address;
 
-    public Person(String t, String fname, String sname, String em, String number, String pword, Host hst, Guest gst, Address addr) {
+    public Person(String t, String fname, String sname, String em, String number, String pword, Host hst, GuestView gst, Address addr) {
         title = t;
         forename = fname;
         surname = sname;
