@@ -4,7 +4,6 @@ import view.GuestView;
 
 public class Person {
     public static void register(Connection conn, PersonInfo pInfo, AddressInfo aInfo) {
-        Address.addAddress(conn, aInfo);
         byte[] salt  = Hashing.generateSalt();
 
         PreparedStatement pstmt = null;
