@@ -1,10 +1,6 @@
 package view;
 
-import model.Person;
-import model.PersonInfo;
-import model.Address;
-import model.AddressInfo;
-import model.DBAccess;
+import model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -151,6 +147,14 @@ public class RegistrationView extends JDialog {
                     PersonInfo person = new PersonInfo(title, forename, surname, email, mobileNumber, password);
                     if (!Address.checkAddressExists(conn, address)) {
                         Address.addAddress(conn, address);
+                    }
+                    if (guest && !Guest.checkGuestExists(conn, person.getEmail())) {
+                        GuestInfo guestInfo = new GuestInfo(person.getEmail(), guestName);
+                        Guest.addGuest(conn, guestInfo);
+                    }
+                    if (host && !Host.checkHostExists(conn, person.getEmail())) {
+                        HostInfo hostInfo = new HostInfo(person.getEmail(), hostName, false);
+                        Host.addHost(conn, hostInfo);
                     }
                     if (!Person.checkUserExists(conn, person.getEmail())) {
                         Person.register(conn, person, address);
