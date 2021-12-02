@@ -117,10 +117,10 @@ public class MainView extends JFrame {
 		signUp.setBounds(411, 324, 170, 40);
 		loginPanel.add(signUp);
 		signUp.setFont(new Font("Calibri", Font.PLAIN, 14));
-		guestCheck.setBounds(650, 241, 59, 29);
+		guestCheck.setBounds(650, 241, 73, 29);
 		loginPanel.add(guestCheck);
 		guestCheck.setFont(new Font("Calibri", Font.PLAIN, 14));
-		hostCheck.setBounds(711, 241, 59, 28);
+		hostCheck.setBounds(723, 241, 94, 29);
 		loginPanel.add(hostCheck);
 		hostCheck.setFont(new Font("Calibri", Font.PLAIN, 14));
 
