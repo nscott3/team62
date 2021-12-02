@@ -50,4 +50,22 @@ public class Person {
             return Hashing.compareHashes(matchedHash, Hashing.generateHash(password, matchedSalt));
         }
     }
+
+    public static boolean checkUserExists(Connection conn, String email) {
+        PreparedStatement pstmt = null;
+        Boolean exists = true;
+        try {
+            pstmt = conn.prepareStatement("SELECT 1 FROM Person WHERE email = ?");
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+
+            exists = rs.next();
+            rs.close();
+            pstmt.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return exists;
+    }
 }

@@ -19,4 +19,22 @@ public class Address {
         }
     }
 
+    public static boolean checkAddressExists(Connection conn, AddressInfo info) {
+        PreparedStatement pstmt = null;
+        Boolean exists = true;
+        try {
+            pstmt = conn.prepareStatement("SELECT 1 FROM Address WHERE houseName = ? AND postcode = ?");
+            pstmt.setString(1, info.getHouseName());
+            pstmt.setString(2, info.getPostcode());
+            ResultSet rs = pstmt.executeQuery();
+
+            exists = rs.next();
+            rs.close();
+            pstmt.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return exists;
+    }
 }
