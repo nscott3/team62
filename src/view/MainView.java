@@ -128,7 +128,6 @@ public class MainView extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				new RegistrationView();
 				setVisible(false);
 			}
@@ -142,4 +141,3 @@ public class MainView extends JFrame {
 		});
 	}
 }
-

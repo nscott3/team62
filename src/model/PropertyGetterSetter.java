@@ -1,13 +1,13 @@
 package model;
 
-import javax.swing.JButton;
+import view.InfoButton;
 
 public class PropertyGetterSetter {
     private String title;
     private String name;
     private String address;
     private String OverallScore;
-    private JButton infoBtn;
+    private InfoButton infoBtn;
 	/**
 	 * @return the title
 	 */
@@ -59,13 +59,13 @@ public class PropertyGetterSetter {
 	/**
 	 * @return the infoBtn
 	 */
-	public JButton getInfoBtn() {
+	public InfoButton getInfoBtn() {
 		return infoBtn;
 	}
 	/**
 	 * @param infoBtn the infoBtn to set
 	 */
-	public void setInfoBtn(JButton infoBtn) {
+	public void setInfoBtn(InfoButton infoBtn) {
 		this.infoBtn = infoBtn;
 	}
 }

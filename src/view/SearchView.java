@@ -1,24 +1,26 @@
 package view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.TableModel;
 
 import model.ObjectTableModel;
 import model.PropertyGetterSetter;
-import java.awt.FlowLayout;
-import javax.swing.JTextField;
-import javax.swing.JButton;
 
 public class SearchView extends JFrame{
 	private JTextField tfLcation;
@@ -38,7 +40,16 @@ public class SearchView extends JFrame{
     	table.setFont(new Font("Tahoma", Font.PLAIN, 12));
         table.setAutoCreateRowSorter(true);
         table.setLocation(200,300);
-        PaginationDataProvider<PropertyGetterSetter> dataProvider = createDataProvider();
+
+        InfoButtonCellRenderer renderer = new InfoButtonCellRenderer("More Information");
+        table.getColumn("Specific Information").setCellRenderer(renderer);
+
+        InfoButtonCellEditor editor = new InfoButtonCellEditor();
+        table.getColumn("Specific Information").setCellEditor(editor);
+
+        table.addMouseListener(new JTableButtonMouseListener(table));
+        
+        PaginationDataProvider<PropertyGetterSetter> dataProvider = createDataProvider(this);
         PaginatedTableDecorator<PropertyGetterSetter> paginatedDecorator = PaginatedTableDecorator.decorate(table,
                 dataProvider, new int[]{5, 10, 20, 50, 75, 100}, 20);
         getContentPane().add(paginatedDecorator.getContentPanel());
@@ -107,7 +118,6 @@ public class SearchView extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				new GuestView();
 				setVisible(false);
 			}
@@ -117,7 +127,6 @@ public class SearchView extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				new MainView();
 				JOptionPane.showMessageDialog(null, "Log out!");
 				setVisible(false);
@@ -128,7 +137,6 @@ public class SearchView extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				new SearchView();
 				setVisible(false);
 			}
@@ -150,7 +158,7 @@ public class SearchView extends JFrame{
                     case 3:
                         return property.getOverallScore();
                     case 4:
-                    	return property.getInfoBtn();
+                        return property.getInfoBtn();
                 }
                 return null;
             }
@@ -178,7 +186,7 @@ public class SearchView extends JFrame{
         };
     }
 
-    private static PaginationDataProvider<PropertyGetterSetter> createDataProvider() {
+    private static PaginationDataProvider<PropertyGetterSetter> createDataProvider(SearchView parent) {
     	
         final List<PropertyGetterSetter> list = new ArrayList<>();
         
@@ -188,7 +196,15 @@ public class SearchView extends JFrame{
             e.setName("Name" + i);
             e.setAddress("Address " + i);
             e.setOverallScore("Overall Score" + i);
-            e.setInfoBtn(new JButton("Specific"));
+            e.setInfoBtn(new InfoButton(
+                    new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            new MainView();
+                            parent.setVisible(false);
+                        }
+                    }
+            ));
             list.add(e);
         }
 
@@ -203,5 +219,29 @@ public class SearchView extends JFrame{
                 return list.subList(startIndex, endIndex);
             }
         };
+    }
+    
+    private static class JTableButtonMouseListener extends MouseAdapter {
+        private final JTable table;
+
+        public JTableButtonMouseListener(JTable table) {
+            this.table = table;
+        }
+
+        public void mouseClicked(MouseEvent e) {
+            int column = table.getColumnModel().getColumnIndexAtX(e.getX()); // get the column of the button
+            int row = e.getY()/table.getRowHeight(); //get the row of the button
+
+            // Checking the row or column is valid or not
+            if (row < table.getRowCount() && row >= 0 && column < table.getColumnCount() && column >= 0) {
+                Object value = table.getValueAt(row, column);
+
+                if (value instanceof InfoButton) {
+                    /*perform a click event*/
+                    System.out.println("test");
+                    ((InfoButton)value).jb.doClick();
+                }
+            }
+        }
     }
 }
