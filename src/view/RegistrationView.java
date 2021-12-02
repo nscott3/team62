@@ -26,6 +26,7 @@ public class RegistrationView extends JDialog {
     private JCheckBox cbHost = new JCheckBox("Host");
 
     private JButton btnRegister = new JButton("Register");
+    private JButton btnBack = new JButton("Go Back");
 
     public RegistrationView() {
 
@@ -104,6 +105,7 @@ public class RegistrationView extends JDialog {
         JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 8));
         bottomPanel.add(btnRegister);
+        bottomPanel.add(btnBack);
 
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
@@ -112,27 +114,33 @@ public class RegistrationView extends JDialog {
         setContentPane(contentPanel);
 
         pack();
+        setLocationRelativeTo(null);
         setVisible(true);
+
+        btnBack.addActionListener(e -> {
+            new MainView().setVisible(true);
+            this.dispose();
+        });
 
         btnRegister.addActionListener(e -> {
             try {
                 // Person
-                String email = tfEmail.getText();
-                String title = tfTitle.getText();
-                String forename = tfForeName.getText();
-                String surname = tfSurName.getText();
-                String mobileNumber = tfMobileNumber.getText();
-                String password = tfPassword.getText();
+                String email = tfEmail.getText().trim();
+                String title = tfTitle.getText().trim();
+                String forename = tfForeName.getText().trim();
+                String surname = tfSurName.getText().trim();
+                String mobileNumber = tfMobileNumber.getText().trim();
+                String password = tfPassword.getText().trim();
                 // Address
-                String houseName = tfHouseName.getText();
-                String streetName = tfStreetName.getText();
-                String placeName = tfPlaceName.getText();
-                String postcode = tfPostCode.getText();
+                String houseName = tfHouseName.getText().trim();
+                String streetName = tfStreetName.getText().trim();
+                String placeName = tfPlaceName.getText().trim();
+                String postcode = tfPostCode.getText().trim();
                 // Role
                 boolean guest = cbGuest.isSelected();
-                String guestName = tfGuestName.getText();
+                String guestName = tfGuestName.getText().trim();
                 boolean host = cbHost.isSelected();
-                String hostName = tfHostName.getText();
+                String hostName = tfHostName.getText().trim();
 
 
                 if (email.length() == 0 || title.length() == 0 || forename.length() == 0 || surname.length() == 0 ||
@@ -148,16 +156,16 @@ public class RegistrationView extends JDialog {
                     if (!Address.checkAddressExists(conn, address)) {
                         Address.addAddress(conn, address);
                     }
-                    if (guest && !Guest.checkGuestExists(conn, person.getEmail())) {
-                        GuestInfo guestInfo = new GuestInfo(person.getEmail(), guestName);
-                        Guest.addGuest(conn, guestInfo);
-                    }
-                    if (host && !Host.checkHostExists(conn, person.getEmail())) {
-                        HostInfo hostInfo = new HostInfo(person.getEmail(), hostName, false);
-                        Host.addHost(conn, hostInfo);
-                    }
                     if (!Person.checkUserExists(conn, person.getEmail())) {
                         Person.register(conn, person, address);
+                        if (guest && !Guest.checkGuestExists(conn, person.getEmail())) {
+                            GuestInfo guestInfo = new GuestInfo(person.getEmail(), guestName);
+                            Guest.addGuest(conn, guestInfo);
+                        }
+                        if (host && !Host.checkHostExists(conn, person.getEmail())) {
+                            HostInfo hostInfo = new HostInfo(person.getEmail(), hostName, false);
+                            Host.addHost(conn, hostInfo);
+                        }
                     } else {
                         JOptionPane.showMessageDialog(null, "Email already registered.", "Error!", JOptionPane.DEFAULT_OPTION);
                     }

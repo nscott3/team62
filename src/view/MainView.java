@@ -123,17 +123,12 @@ public class MainView extends JFrame {
 		hostCheck.setBounds(550, 292, 100, 25);
 		loginPanel.add(hostCheck);
 		hostCheck.setFont(new Font("Calibri", Font.PLAIN, 14));
-		
 
-		signUp.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				new RegistrationView();
-				setVisible(false);
-			}
-		});
+
+        signUp.addActionListener(e -> {
+            new RegistrationView().setVisible(true);
+            this.dispose();
+        });
 
 	}
 }
