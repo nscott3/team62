@@ -45,12 +45,55 @@ public class SpecificInformationView extends JFrame{
 		PropertyInfoPanel.setLayout(null);
 		
 		JLabel lblPropertyName = new JLabel("Property Name");
+		lblPropertyName.setFont(new Font("SansSerif", Font.PLAIN, 11));
 		lblPropertyName.setBounds(22, 10, 95, 15);
 		PropertyInfoPanel.add(lblPropertyName);
 		
+		JLabel lblPropertyDescription = new JLabel("Property Description");
+		lblPropertyDescription.setFont(new Font("SansSerif", Font.PLAIN, 11));
+		lblPropertyDescription.setBounds(22, 30, 105, 15);
+		PropertyInfoPanel.add(lblPropertyDescription);
+		
 		JLabel lblPropertyLocation = new JLabel("Property Location");
-		lblPropertyLocation.setBounds(22, 35, 105, 15);
+		lblPropertyLocation.setFont(new Font("SansSerif", Font.PLAIN, 11));
+		lblPropertyLocation.setBounds(22, 50, 95, 14);
 		PropertyInfoPanel.add(lblPropertyLocation);
+		
+		JLabel lblBreakfast = new JLabel("Breakfast");
+		lblBreakfast.setBounds(22, 70, 56, 14);
+		PropertyInfoPanel.add(lblBreakfast);
+		
+		JLabel lblSleepingFacilities = new JLabel("Sleeping Facilities");
+		lblSleepingFacilities.setBounds(22, 90, 88, 14);
+		PropertyInfoPanel.add(lblSleepingFacilities);
+		
+		JLabel lblBedNum = new JLabel("Number of beds");
+		lblBedNum.setBounds(22, 110, 95, 14);
+		PropertyInfoPanel.add(lblBedNum);
+		
+		JLabel lblBathingFacilities = new JLabel("Bathing Facilities");
+		lblBathingFacilities.setBounds(22, 130, 88, 14);
+		PropertyInfoPanel.add(lblBathingFacilities);
+		
+		JLabel lblBathroomNum = new JLabel("Number of Bathrooms");
+		lblBathroomNum.setBounds(22, 150, 118, 14);
+		PropertyInfoPanel.add(lblBathroomNum);
+		
+		JLabel lblKitchecnFacilities = new JLabel("Kitchen Facilities");
+		lblKitchecnFacilities.setBounds(22, 170, 88, 14);
+		PropertyInfoPanel.add(lblKitchecnFacilities);
+		
+		JLabel lblLivingFacilities = new JLabel("Living Facilities");
+		lblLivingFacilities.setBounds(22, 190, 88, 14);
+		PropertyInfoPanel.add(lblLivingFacilities);
+		
+		JLabel lblUtilities = new JLabel("Utilities");
+		lblUtilities.setBounds(22, 210, 49, 14);
+		PropertyInfoPanel.add(lblUtilities);
+		
+		JLabel lblOutdoorFacilities = new JLabel("Outdoor Facilities");
+		lblOutdoorFacilities.setBounds(22, 230, 88, 14);
+		PropertyInfoPanel.add(lblOutdoorFacilities);
 		
 		JLabel lblAvailableDate = new JLabel("Available Date");
 		lblAvailableDate.setFont(new Font("±¼¸²", Font.PLAIN, 24));
