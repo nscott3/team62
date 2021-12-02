@@ -1,15 +1,14 @@
 package model;
 import java.sql.*;
 
-public class Host {
+public class Guest {
 
-    public static void addHost(Connection conn, HostInfo info) {
+    public static void addGuest(Connection conn, GuestInfo info) {
         PreparedStatement pstmt = null;
         try {
-            pstmt = conn.prepareStatement("INSERT INTO Host (hostID, hostName, isSuperhost) VALUES (?, ?, ?)");
-            pstmt.setString(1, info.getHostID());
-            pstmt.setString(2, info.getHostName());
-            pstmt.setBoolean(3, info.getSuperHost());
+            pstmt = conn.prepareStatement("INSERT INTO Guest (guestID, guestName) VALUES (?, ?)");
+            pstmt.setString(1, info.getGuestID());
+            pstmt.setString(2, info.getGuestName());
             pstmt.executeUpdate();
             pstmt.close();
         } catch (SQLException ex) {
@@ -17,11 +16,11 @@ public class Host {
         }
     }
 
-    public static boolean checkHostExists(Connection conn, String email) {
+    public static boolean checkGuestExists(Connection conn, String email) {
         PreparedStatement pstmt = null;
         Boolean exists = true;
         try {
-            pstmt = conn.prepareStatement("SELECT 1 FROM Host WHERE hostID = ?");
+            pstmt = conn.prepareStatement("SELECT 1 FROM Guest WHERE guestID = ?");
             pstmt.setString(1, email);
             ResultSet rs = pstmt.executeQuery();
 
