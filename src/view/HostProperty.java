@@ -1,6 +1,7 @@
 package view;
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.awt.Dimension;
 import java.awt.event.*;
 import java.awt.event.KeyAdapter;
 
@@ -58,7 +59,7 @@ public class HostProperty extends JFrame{
     private JCheckBox hasPatio= new JCheckBox();
     private JCheckBox hasBBQ= new JCheckBox();
     private JButton button = new JButton();
-
+    
     public void setLocationAndSize(){
         propertyNameLabel.setBounds(50,50,200,25);
         propertyName.setBounds(250,50,200,25);
@@ -307,7 +308,11 @@ public class HostProperty extends JFrame{
         contentPane = new JPanel();
         setContentPane(contentPane);
         contentPane.setLayout(null);
-
+        setResizable(false);
+    	setPreferredSize(new Dimension(1200, 1080/12*9));
+	    setSize(1200, 1080/12*9);
+	    setLocationRelativeTo(null);
+		setTitle("HomeBreaks Plc");
 
         checkBoxCreator();
         setLocationAndSize();
@@ -319,7 +324,7 @@ public class HostProperty extends JFrame{
         setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new HostProperty();
-    }
+//    public static void main(String[] args) {
+//        new HostProperty();
+//    }
 }

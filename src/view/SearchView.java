@@ -149,13 +149,15 @@ public class SearchView extends JFrame{
                         return property.getAddress();
                     case 3:
                         return property.getOverallScore();
+                    case 4:
+                    	return property.getInfoBtn();
                 }
                 return null;
             }
 
             @Override
             public int getColumnCount() {
-                return 4;
+                return 5;
             }
             @Override
             public String getColumnName(int column) {
@@ -168,6 +170,8 @@ public class SearchView extends JFrame{
                         return "Address";
                     case 3:
                         return "Overall Score";
+                    case 4:
+                    	return "Specific Information";
                 }
                 return null;
             }
@@ -177,12 +181,14 @@ public class SearchView extends JFrame{
     private static PaginationDataProvider<PropertyGetterSetter> createDataProvider() {
     	
         final List<PropertyGetterSetter> list = new ArrayList<>();
+        
         for (int i = 1; i <= 500; i++) {
             PropertyGetterSetter e = new PropertyGetterSetter();
             e.setTitle("Title" + i);
             e.setName("Name" + i);
             e.setAddress("Address " + i);
             e.setOverallScore("Overall Score" + i);
+            e.setInfoBtn(new JButton("Specific"));
             list.add(e);
         }
 

@@ -1,9 +1,13 @@
 package model;
+
+import javax.swing.JButton;
+
 public class PropertyGetterSetter {
     private String title;
     private String name;
     private String address;
     private String OverallScore;
+    private JButton infoBtn;
 	/**
 	 * @return the title
 	 */
@@ -52,6 +56,16 @@ public class PropertyGetterSetter {
 	public void setOverallScore(String overallScore) {
 		OverallScore = overallScore;
 	}
-
-   
+	/**
+	 * @return the infoBtn
+	 */
+	public JButton getInfoBtn() {
+		return infoBtn;
+	}
+	/**
+	 * @param infoBtn the infoBtn to set
+	 */
+	public void setInfoBtn(JButton infoBtn) {
+		this.infoBtn = infoBtn;
+	}
 }
