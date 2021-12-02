@@ -5,7 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.*;
 import java.awt.event.KeyAdapter;
 
-public class HostProperty extends JFrame{
+public class HostPropertyView extends JFrame{
     String Answers[]={"Yes","No"};
 
     private JPanel contentPane;
@@ -302,7 +302,7 @@ public class HostProperty extends JFrame{
         submitButton();
     }
 
-    public  HostProperty(){
+    public  HostPropertyView(){
 
         super("Host");
         contentPane = new JPanel();

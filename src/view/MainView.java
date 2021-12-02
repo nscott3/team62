@@ -23,7 +23,6 @@ public class MainView extends JFrame {
 	private JTextField idText = new JTextField();
 	private JPasswordField pwText = new JPasswordField();
 	private JButton loginBtn = new JButton("Log in ");
-	private JButton idpwSearchBtn = new JButton("Find ID/PW");
 	private JButton enquirerButton = new JButton("ENQUIRER");
 	private JButton signUp = new JButton("Registration");
 	private final JCheckBox guestCheck = new JCheckBox("Guest");
@@ -42,24 +41,24 @@ public class MainView extends JFrame {
 		this.setContentPane(loginPanel);
 		loginPanel.setLayout(null);
 		idLabel.setFont(new Font("Calibri", Font.PLAIN, 16));
-		idLabel.setBounds(439, 231, 29, 33);
+		idLabel.setBounds(445, 241, 29, 33);
 		loginPanel.add(idLabel);
 		pwLabel.setFont(new Font("Calibri", Font.PLAIN, 16));
-		pwLabel.setBounds(401, 261, 73, 23);
+		pwLabel.setBounds(401, 285, 73, 23);
 		loginPanel.add(pwLabel);
-		idText.setBounds(487, 233, 150, 25);
+		idText.setBounds(484, 243, 150, 25);
 		loginPanel.add(idText);
-		pwText.setBounds(487, 260, 150, 25);
+		pwText.setBounds(484, 282, 150, 25);
 		loginPanel.add(pwText);
 		loginBtn.setFont(new Font("Calibri", Font.PLAIN, 16));
-		loginBtn.setBounds(647, 231, 130, 35);
+		loginBtn.setBounds(647, 277, 123, 36);
 		loginPanel.add(loginBtn);
 		enquirerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		enquirerButton.setFont(new Font("Calibri", Font.PLAIN, 14));
-		enquirerButton.setBounds(647, 277, 130, 33);
+		enquirerButton.setBounds(590, 324, 180, 40);
 		loginPanel.add(enquirerButton);		
 		
 		//login button
@@ -110,16 +109,13 @@ public class MainView extends JFrame {
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 40));
 		lblNewLabel.setBounds(317, 147, 562, 40);
 		loginPanel.add(lblNewLabel);
-		idpwSearchBtn.setBounds(591, 324, 186, 38);
-		loginPanel.add(idpwSearchBtn);
-		idpwSearchBtn.setFont(new Font("Calibri", Font.PLAIN, 14));
-		signUp.setBounds(401, 324, 180, 38);
+		signUp.setBounds(411, 324, 170, 40);
 		loginPanel.add(signUp);
 		signUp.setFont(new Font("Calibri", Font.PLAIN, 14));
-		guestCheck.setBounds(487, 292, 59, 25);
+		guestCheck.setBounds(650, 241, 59, 29);
 		loginPanel.add(guestCheck);
 		guestCheck.setFont(new Font("Calibri", Font.PLAIN, 14));
-		hostCheck.setBounds(558, 292, 51, 25);
+		hostCheck.setBounds(711, 241, 59, 28);
 		loginPanel.add(hostCheck);
 		hostCheck.setFont(new Font("Calibri", Font.PLAIN, 14));
 		
@@ -130,13 +126,6 @@ public class MainView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				new RegistrationView();
 				setVisible(false);
-			}
-		});
-		
-		//find id and pw 
-		idpwSearchBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "find id and pw", "find id or pw", JOptionPane.DEFAULT_OPTION);
 			}
 		});
 	}

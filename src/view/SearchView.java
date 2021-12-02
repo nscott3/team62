@@ -37,7 +37,7 @@ public class SearchView extends JFrame{
 		setTitle("HomeBreaks Plc");
 		
     	JTable table = new JTable(createObjectDataModel());
-    	table.setFont(new Font("Tahoma", Font.PLAIN, 12));
+    	table.setFont(new Font("SansSerif", Font.PLAIN, 12));
         table.setAutoCreateRowSorter(true);
         table.setLocation(200,300);
 
@@ -62,7 +62,7 @@ public class SearchView extends JFrame{
         
         JLabel lblTitle = new JLabel("Welcome to HomeBreaks Plc!");
         lblTitle.setBounds(0, 0, 1186, 45);
-        lblTitle.setFont(new Font("Arial", Font.BOLD, 38));
+        lblTitle.setFont(new Font("SansSerif", Font.BOLD, 38));
         panel.add(lblTitle);
         
         JPanel panel_1 = new JPanel();

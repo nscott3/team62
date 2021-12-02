@@ -35,12 +35,12 @@ public class GuestView extends JFrame {
 		lblTitle.setBounds(26, 98, 1196, 45);
 		Font GuestPageTitle = new Font("Arial", Font.BOLD, 38); //font: Arial
 		getContentPane().setLayout(null);
-		lblTitle.setFont(GuestPageTitle); 
+		lblTitle.setFont(new Font("SansSerif", Font.BOLD, 38)); 
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		getContentPane().add(lblTitle);
 		
 		tfSearch = new JTextField();
-		tfSearch.setFont(new Font("Calibri", Font.PLAIN, 12));
+		tfSearch.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		tfSearch.setForeground(Color.BLACK);
 		tfSearch.setBounds(238, 260, 750, 30);
 		tfSearch.setText(" Search keyword... (Property, Host name, ..etc)");
@@ -48,23 +48,23 @@ public class GuestView extends JFrame {
 		tfSearch.setColumns(10);
 		
 		JButton btnSearchBtn = new JButton("Search");
-		btnSearchBtn.setFont(new Font("Calibri", Font.BOLD, 18));
+		btnSearchBtn.setFont(new Font("SansSerif", Font.BOLD, 18));
 		btnSearchBtn.setBounds(998, 251, 96, 45);
 		getContentPane().add(btnSearchBtn);
 		
 		JButton btnMyReservation = new JButton("MyReservation");
-		btnMyReservation.setFont(new Font("Calibri", Font.PLAIN, 12));
+		btnMyReservation.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		btnMyReservation.setBounds(960, 57, 114, 30);
 		getContentPane().add(btnMyReservation);
 		
 		JButton btnLogOut = new JButton("Log out");
-		btnLogOut.setFont(new Font("Calibri", Font.PLAIN, 12));
+		btnLogOut.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		btnLogOut.setBounds(1084, 57, 89, 30);
 		getContentPane().add(btnLogOut);
 		
 		JLabel lblLocation = new JLabel("Location");
-		lblLocation.setFont(new Font("Calibri", Font.PLAIN, 18));
-		lblLocation.setBounds(238, 219, 65, 19);
+		lblLocation.setFont(new Font("SansSerif", Font.PLAIN, 18));
+		lblLocation.setBounds(238, 219, 82, 19);
 		getContentPane().add(lblLocation);
 		
 		tfLocation = new JTextField();
@@ -73,41 +73,41 @@ public class GuestView extends JFrame {
 		tfLocation.setColumns(10);
 		
 		JLabel lblDate = new JLabel("Date");
-		lblDate.setFont(new Font("Calibri", Font.PLAIN, 18));
+		lblDate.setFont(new Font("SansSerif", Font.PLAIN, 18));
 		lblDate.setBounds(595, 217, 49, 23);
 		getContentPane().add(lblDate);
 		
 		tfStartDate = new JTextField();
-		tfStartDate.setFont(new Font("Calibri", Font.PLAIN, 12));
+		tfStartDate.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		tfStartDate.setBounds(641, 216, 123, 25);
 		getContentPane().add(tfStartDate);
 		tfStartDate.setText(" DD/MM/YYYY");
 		tfStartDate.setColumns(10);
 		
 		JLabel lblWave = new JLabel("~");
-		lblWave.setFont(new Font("Calibri", Font.PLAIN, 18));
+		lblWave.setFont(new Font("SansSerif", Font.PLAIN, 18));
 		lblWave.setBounds(774, 221, 29, 14);
 		getContentPane().add(lblWave);
 		
 		tfEndDate = new JTextField();
-		tfEndDate.setFont(new Font("Calibri", Font.PLAIN, 12));
+		tfEndDate.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		tfEndDate.setBounds(796, 215, 123, 25);
 		getContentPane().add(tfEndDate);
 		tfEndDate.setText(" DD/MM/YYYY");
 		tfEndDate.setColumns(10);
 		
 		JLabel lblLogInDescription = new JLabel("Logged in as");
-		lblLogInDescription.setFont(new Font("Calibri", Font.PLAIN, 12));
+		lblLogInDescription.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		lblLogInDescription.setBounds(960, 11, 82, 14);
 		getContentPane().add(lblLogInDescription);
 		
 		JLabel lblName = new JLabel("User Name");
-		lblName.setFont(new Font("Calibri", Font.PLAIN, 12));
-		lblName.setBounds(1002, 36, 146, 14);
+		lblName.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		lblName.setBounds(1011, 36, 146, 14);
 		getContentPane().add(lblName);
 		
 		JLabel lblCheckGuest = new JLabel("(Guest)");
-		lblCheckGuest.setFont(new Font("Calibri", Font.PLAIN, 12));
+		lblCheckGuest.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		lblCheckGuest.setBounds(960, 36, 49, 14);
 		getContentPane().add(lblCheckGuest);
 		
