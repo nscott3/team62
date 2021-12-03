@@ -22,6 +22,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.JTextArea;
 import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class SpecificInformationView extends JFrame {
 	private JTextField tfStartDay;
@@ -40,79 +42,76 @@ public class SpecificInformationView extends JFrame {
 		getContentPane().setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(12, 10, 1162, 348);
+		panel.setBounds(22, 10, 1162, 378);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
 		JLabel lblTitle = new JLabel("Specific Information");
-		lblTitle.setFont(new Font("Calibri", Font.PLAIN, 30));
-		lblTitle.setBounds(12, 10, 602, 44);
+		lblTitle.setFont(new Font("Tahoma", Font.BOLD, 32));
+		lblTitle.setBounds(14, 0, 514, 57);
 		panel.add(lblTitle);
 
 		JPanel PropertyInfoPanel = new JPanel();
 		PropertyInfoPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		PropertyInfoPanel.setBounds(12, 54, 523, 284);
+		PropertyInfoPanel.setBounds(10, 58, 624, 309);
 		panel.add(PropertyInfoPanel);
 		PropertyInfoPanel.setLayout(null);
 
 		JLabel lblPropertyName = new JLabel("Property Name");
-		lblPropertyName.setFont(new Font("SansSerif", Font.PLAIN, 11));
-		lblPropertyName.setBounds(22, 10, 95, 15);
+		lblPropertyName.setBounds(17, 13, 118, 15);
 		PropertyInfoPanel.add(lblPropertyName);
 
 		JLabel lblPropertyDescription = new JLabel("Property Description");
-		lblPropertyDescription.setFont(new Font("SansSerif", Font.PLAIN, 11));
-		lblPropertyDescription.setBounds(22, 30, 105, 15);
+		lblPropertyDescription.setBounds(18, 30, 142, 15);
 		PropertyInfoPanel.add(lblPropertyDescription);
 
 		JLabel lblPropertyLocation = new JLabel("Property Location");
-		lblPropertyLocation.setFont(new Font("SansSerif", Font.PLAIN, 11));
-		lblPropertyLocation.setBounds(22, 50, 95, 14);
+		lblPropertyLocation.setBounds(18, 50, 118, 14);
 		PropertyInfoPanel.add(lblPropertyLocation);
 
 		JLabel lblBreakfast = new JLabel("Breakfast");
-		lblBreakfast.setBounds(22, 70, 56, 14);
+		lblBreakfast.setBounds(18, 70, 95, 14);
 		PropertyInfoPanel.add(lblBreakfast);
 
 		JLabel lblSleepingFacilities = new JLabel("Sleeping Facilities");
-		lblSleepingFacilities.setBounds(22, 90, 88, 14);
+		lblSleepingFacilities.setBounds(18, 90, 142, 14);
 		PropertyInfoPanel.add(lblSleepingFacilities);
 
 		JLabel lblBedNum = new JLabel("Number of beds");
-		lblBedNum.setBounds(22, 110, 95, 14);
+		lblBedNum.setBounds(18, 110, 118, 14);
 		PropertyInfoPanel.add(lblBedNum);
 
 		JLabel lblBathingFacilities = new JLabel("Bathing Facilities");
-		lblBathingFacilities.setBounds(22, 130, 88, 14);
+		lblBathingFacilities.setBounds(18, 130, 118, 14);
 		PropertyInfoPanel.add(lblBathingFacilities);
 
 		JLabel lblBathroomNum = new JLabel("Number of Bathrooms");
-		lblBathroomNum.setBounds(22, 150, 118, 14);
+		lblBathroomNum.setBounds(18, 150, 142, 14);
 		PropertyInfoPanel.add(lblBathroomNum);
 
 		JLabel lblKitchecnFacilities = new JLabel("Kitchen Facilities");
-		lblKitchecnFacilities.setBounds(22, 170, 88, 14);
+		lblKitchecnFacilities.setBounds(18, 170, 118, 14);
 		PropertyInfoPanel.add(lblKitchecnFacilities);
 
 		JLabel lblLivingFacilities = new JLabel("Living Facilities");
-		lblLivingFacilities.setBounds(22, 190, 88, 14);
+		lblLivingFacilities.setBounds(18, 190, 118, 14);
 		PropertyInfoPanel.add(lblLivingFacilities);
 
 		JLabel lblUtilities = new JLabel("Utilities");
-		lblUtilities.setBounds(22, 210, 49, 14);
+		lblUtilities.setBounds(18, 210, 95, 14);
 		PropertyInfoPanel.add(lblUtilities);
 
 		JLabel lblOutdoorFacilities = new JLabel("Outdoor Facilities");
-		lblOutdoorFacilities.setBounds(22, 230, 88, 14);
+		lblOutdoorFacilities.setBounds(18, 230, 118, 14);
 		PropertyInfoPanel.add(lblOutdoorFacilities);
 
 		JLabel lblAvailableDate = new JLabel("Available Date");
-		lblAvailableDate.setFont(new Font("����", Font.PLAIN, 24));
-		lblAvailableDate.setBounds(547, 12, 190, 35);
+		lblAvailableDate.setFont(new Font("Tahoma", Font.BOLD, 24));
+		lblAvailableDate.setBounds(657, 67, 415, 35);
 		panel.add(lblAvailableDate);
 
 		JPanel CalandarPanel1 = new JPanel();
-		CalandarPanel1.setBounds(547, 54, 275, 241);
+		CalandarPanel1.setBounds(656, 110, 184, 143);
 		panel.add(CalandarPanel1);
 
 		final BookingDateManager bookingDateManager = new BookingDateManager();
@@ -146,7 +145,7 @@ public class SpecificInformationView extends JFrame {
 		CalandarPanel1.add(currentCalendar);
 
 		JPanel CalandarPanel2 = new JPanel();
-		CalandarPanel2.setBounds(853, 54, 275, 241);
+		CalandarPanel2.setBounds(848, 110, 184, 143);
 		panel.add(CalandarPanel2);
 
 		nextCalendar = new MonthCalendar(bookingDateManager);
@@ -158,132 +157,145 @@ public class SpecificInformationView extends JFrame {
 		CalandarPanel2.add(nextCalendar);
 
 		JLabel lblStartDay = new JLabel("Start Day");
-		lblStartDay.setBounds(547, 311, 50, 15);
+		lblStartDay.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblStartDay.setBounds(668, 280, 81, 15);
 		panel.add(lblStartDay);
 
 		tfStartDay = new JTextField();
-		tfStartDay.setBounds(609, 305, 96, 21);
+		tfStartDay.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		tfStartDay.setBounds(665, 305, 140, 23);
 		panel.add(tfStartDay);
 		tfStartDay.setColumns(10);
 
 		JLabel lblNewLabel = new JLabel("~");
-		lblNewLabel.setBounds(717, 311, 15, 15);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel.setBounds(815, 305, 15, 15);
 		panel.add(lblNewLabel);
 
 		tfEndDay = new JTextField();
-		tfEndDay.setBounds(809, 305, 96, 21);
+		tfEndDay.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		tfEndDay.setBounds(840, 305, 140, 23);
 		panel.add(tfEndDay);
 		tfEndDay.setColumns(10);
 
 		JLabel lblEndDay = new JLabel("End Day");
-		lblEndDay.setBounds(744, 311, 50, 15);
+		lblEndDay.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblEndDay.setBounds(843, 280, 96, 15);
 		panel.add(lblEndDay);
 
 		JButton btnBooking = new JButton("Request Booking");
-		btnBooking.setBounds(926, 305, 150, 23);
+		btnBooking.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnBooking.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnBooking.setBounds(993, 284, 148, 48);
 		panel.add(btnBooking);
 
 		JPanel reviewPanel = new JPanel();
-		reviewPanel.setBounds(12, 368, 1162, 350);
+		reviewPanel.setBounds(22, 387, 1162, 331);
 		getContentPane().add(reviewPanel);
 		reviewPanel.setLayout(null);
 
 		JLabel lblNewLabel_1 = new JLabel("Review");
-		lblNewLabel_1.setFont(new Font("SansSerif", Font.PLAIN, 18));
-		lblNewLabel_1.setBounds(12, 0, 71, 39);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 26));
+		lblNewLabel_1.setBounds(273, 9, 143, 39);
 		reviewPanel.add(lblNewLabel_1);
 
 		JLabel lblOSTitle = new JLabel("Overall Score");
-		lblOSTitle.setBounds(12, 49, 85, 15);
+		lblOSTitle.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblOSTitle.setBounds(20, 50, 120, 15);
 		reviewPanel.add(lblOSTitle);
 
 		JLabel lblOverallScoreStar = new JLabel("\u2605\u2605\u2605\u2605\u2605");
-		lblOverallScoreStar.setBounds(109, 49, 65, 15);
+		lblOverallScoreStar.setBounds(140, 50, 65, 15);
 		reviewPanel.add(lblOverallScoreStar);
 
 		JLabel lblCleanliness = new JLabel("Cleanliness");
-		lblCleanliness.setBounds(12, 74, 85, 15);
+		lblCleanliness.setBounds(25, 80, 85, 15);
 		reviewPanel.add(lblCleanliness);
 
 		JLabel lblCommunication = new JLabel("Communication");
-		lblCommunication.setBounds(12, 99, 96, 15);
+		lblCommunication.setBounds(25, 98, 96, 15);
 		reviewPanel.add(lblCommunication);
 
 		JLabel lblCleanlinessStar = new JLabel("\u2605\u2605\u2605\u2605\u2606");
-		lblCleanlinessStar.setBounds(109, 74, 65, 15);
+		lblCleanlinessStar.setBounds(130, 80, 65, 15);
 		reviewPanel.add(lblCleanlinessStar);
 
 		JLabel lblCommunicationStar = new JLabel("\u2605\u2605\u2605\u2605\u2606");
-		lblCommunicationStar.setBounds(109, 99, 65, 15);
+		lblCommunicationStar.setBounds(130, 98, 65, 15);
 		reviewPanel.add(lblCommunicationStar);
 
 		JLabel lblCheckIn = new JLabel("Check-in");
-		lblCheckIn.setBounds(12, 124, 96, 15);
+		lblCheckIn.setBounds(25, 116, 96, 15);
 		reviewPanel.add(lblCheckIn);
 
 		JLabel lblCheckInStar = new JLabel("\u2605\u2605\u2605\u2605\u2605");
-		lblCheckInStar.setBounds(109, 124, 65, 15);
+		lblCheckInStar.setBounds(130, 116, 65, 15);
 		reviewPanel.add(lblCheckInStar);
 
 		JLabel lblAccuracy = new JLabel("Accuracy");
-		lblAccuracy.setBounds(12, 149, 96, 15);
+		lblAccuracy.setBounds(25, 134, 96, 15);
 		reviewPanel.add(lblAccuracy);
 
 		JLabel lblAccuracyStar = new JLabel("\u2605\u2605\u2605\u2605\u2606");
-		lblAccuracyStar.setBounds(109, 149, 65, 15);
+		lblAccuracyStar.setBounds(130, 134, 65, 15);
 		reviewPanel.add(lblAccuracyStar);
 
 		JLabel lblLocation = new JLabel("Location");
-		lblLocation.setBounds(12, 174, 96, 15);
+		lblLocation.setBounds(25, 152, 96, 15);
 		reviewPanel.add(lblLocation);
 
 		JLabel lblLocationStar = new JLabel("\u2605\u2605\u2605\u2605\u2606");
-		lblLocationStar.setBounds(109, 174, 65, 15);
+		lblLocationStar.setBounds(130, 152, 65, 15);
 		reviewPanel.add(lblLocationStar);
 
 		JLabel lblValue = new JLabel("Value");
-		lblValue.setBounds(12, 199, 96, 15);
+		lblValue.setBounds(25, 170, 96, 15);
 		reviewPanel.add(lblValue);
 
 		JLabel lblValueStar = new JLabel("\u2605\u2605\u2605\u2605\u2605");
-		lblValueStar.setBounds(109, 199, 65, 15);
+		lblValueStar.setBounds(130, 170, 65, 15);
 		reviewPanel.add(lblValueStar);
 
 		JLabel lblOSTitleSC = new JLabel("(4.7)");
-		lblOSTitleSC.setBounds(186, 49, 34, 15);
+		lblOSTitleSC.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblOSTitleSC.setBounds(203, 50, 48, 15);
 		reviewPanel.add(lblOSTitleSC);
 
 		JLabel lblCleanlinessSC = new JLabel("(4.2)");
-		lblCleanlinessSC.setBounds(186, 74, 34, 15);
+		lblCleanlinessSC.setBounds(205, 80, 34, 15);
 		reviewPanel.add(lblCleanlinessSC);
 
 		JLabel lblCommunicationSC = new JLabel("(4.1)");
-		lblCommunicationSC.setBounds(186, 99, 34, 15);
+		lblCommunicationSC.setBounds(205, 98, 34, 15);
 		reviewPanel.add(lblCommunicationSC);
 
 		JLabel lblCheckInSC = new JLabel("(5.0)");
-		lblCheckInSC.setBounds(186, 124, 34, 15);
+		lblCheckInSC.setBounds(205, 116, 34, 15);
 		reviewPanel.add(lblCheckInSC);
 
 		JLabel lblAccuracySC = new JLabel("(4.3)");
-		lblAccuracySC.setBounds(186, 149, 34, 15);
+		lblAccuracySC.setBounds(205, 134, 34, 15);
 		reviewPanel.add(lblAccuracySC);
 
 		JLabel lblLocationSC = new JLabel("(4.4)");
-		lblLocationSC.setBounds(186, 174, 34, 15);
+		lblLocationSC.setBounds(205, 152, 34, 15);
 		reviewPanel.add(lblLocationSC);
 
 		JLabel lblValueSC = new JLabel("(5.0)");
-		lblValueSC.setBounds(186, 199, 34, 15);
+		lblValueSC.setBounds(205, 170, 34, 15);
 		reviewPanel.add(lblValueSC);
 
 		tfDescription = new JTextField();
-		tfDescription.setBounds(288, 46, 713, 106);
+		tfDescription.setBounds(272, 54, 713, 90);
 		reviewPanel.add(tfDescription);
 		tfDescription.setColumns(10);
 
 		JButton btnSubmit = new JButton("Submit");
-		btnSubmit.setBounds(1013, 99, 91, 44);
+		btnSubmit.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnSubmit.setBounds(1007, 80, 118, 62);
 		reviewPanel.add(btnSubmit);
 
 		
