@@ -1,4 +1,5 @@
 package model;
+import javax.swing.*;
 import java.sql.*;
 
 public class DBAccess {
@@ -10,10 +11,12 @@ public class DBAccess {
 
     static public Connection connect() {
         if (conn == null) {
+            DriverManager.setLoginTimeout(1);
             try {
                 conn = DriverManager.getConnection(URL + DBNAME, USER, PASSWORD);
             } catch (Exception ex) {
                 ex.printStackTrace();
+                JOptionPane.showMessageDialog(null, ex.toString() + "\n\nMake sure VPN is active and try again.", "Error!", JOptionPane.DEFAULT_OPTION);
             }
         }
         return conn;
