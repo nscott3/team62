@@ -72,13 +72,13 @@ public class MonthCalendar extends JPanel {
         yearLabel.setText(year + " ");
         monthLabel.setText(String.valueOf(month));
 
-        //패널 숨기기
+        //hide panel
         cntCenter.setVisible(false);
-        // 날짜 출력한 라벨 지우기
+        // delete output date label
         cntCenter.removeAll();
 
         dayPrint(year, month);
-        //패널 표시
+        //show panel 
         cntCenter.setVisible(true);
     }
 
@@ -120,24 +120,24 @@ public class MonthCalendar extends JPanel {
         }
     }
 
-    // 날짜 출력
+    // show date
     public void dayPrint(int y, int m) {
         Calendar cal = Calendar.getInstance();
 
         cal.set(y, m - 1, 1);
         int week = cal.get(Calendar.DAY_OF_WEEK);
-        // 1일에 대한 요일
+        // show which day of week is for day 1 
         int lastDate = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-        // 1월에 대한 마지막 요일
+        // last day of month
         for (int i = 1; i < week; i++) {
-            // 1월 1일 전까지 공백을 표시해라
+            // show a gap before a day 1 
             cntCenter.add(new JLabel(""));
         }
 
         dayList.clear();
 
         for (int i = 0; i <= lastDate - 1; i++) {
-            // 1월 마지막 날까지 숫자를 적어라, 그리고 토요일 일요일은 색깔을 입혀라
+            // write a last date of a month and color saturday and sunday
             JLabel day = new JLabel();
             day.setOpaque(true);
             dayList.add(day);

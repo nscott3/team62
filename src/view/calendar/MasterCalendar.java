@@ -70,7 +70,7 @@ public class MasterCalendar extends JFrame implements ActionListener, WindowList
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
-    // 이벤트 처리
+    // perform event
     @Override
     public void actionPerformed(ActionEvent e) {
         Object obj = e.getSource();
@@ -79,7 +79,7 @@ public class MasterCalendar extends JFrame implements ActionListener, WindowList
             int yy = (Integer) yearCombo.getSelectedItem();
             int mm = (Integer) monthCombo.getSelectedItem();
             if (eventBtn.equals(lastMonth)) {
-                //전달
+                //send
                 if (mm == 1 && yy == year) {
                 } else if (mm == 1) {
                     yy--;
@@ -88,7 +88,7 @@ public class MasterCalendar extends JFrame implements ActionListener, WindowList
                     mm--;
                 }
             } else if (eventBtn.equals(nextMonth)) {
-                // 다음달
+                // next month
                 if (mm == 12) {
                     yy++;
                     mm = 1;
@@ -99,35 +99,35 @@ public class MasterCalendar extends JFrame implements ActionListener, WindowList
             yearCombo.setSelectedItem(yy);
             monthCombo.setSelectedItem(mm);
         } else if (obj instanceof JComboBox) {
-            // 콤보박스 이벤트 발생시
+            //show combo box when an event is performed
             createDayStart();
         }
     }
 
     private void createDayStart() {
         cntCenter.setVisible(false);
-        //패널 숨기기
+        //hide panel
         cntCenter.removeAll();
-        // 날짜 출력한 라벨 지우기
+        //delete output date label
         dayPrint((Integer) yearCombo.getSelectedItem(), (Integer) monthCombo.getSelectedItem());
         cntCenter.setVisible(true);
-        // 패널 재출력
+        //show panel again
     }
 
-    // 날짜 출력
+    // show date
     public void dayPrint(int y, int m) {
         Calendar cal = Calendar.getInstance();
         cal.set(y, m - 1, 1);
         int week = cal.get(Calendar.DAY_OF_WEEK);
-        // 1일에 대한 요일
+        // show which day is
         int lastDate = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-        // 1월에 대한 마지막 요일
+        // last day of a month
         for (int i = 1; i < week; i++) {
-            // 1월 1일 전까지 공백을 표시해라
+            //show a gap before a day 1 
             cntCenter.add(new JLabel(""));
         }
         for (int i = 0; i <= lastDate - 1; i++) {
-            // 1월 마지막 날까지 숫자를 적어라, 그리고 토요일 일요일은 색깔을 입혀라
+            // write a last date of a month and color saturday and sunday
             JLabel day = new JLabel();
             day.setHorizontalAlignment(JLabel.CENTER);
             if ((week + i) % 7 == 0) {
@@ -146,10 +146,10 @@ public class MasterCalendar extends JFrame implements ActionListener, WindowList
                     String str = mouseClick.getText();
                     String y = "" + yearCombo.getSelectedItem();
                     String m = "" + monthCombo.getSelectedItem();
-                    // 받은 "요일"이 1자리면 0을 붙여라
+                    // put 0 in front of an initial number of date
                     if (str.equals("")) ;
                     else if (str.length() == 1) str = "0" + str;
-                    // 받은 "월"이 1자리면 0을 붙여라
+                    // put 0 in front of an initial number of month
                     if (m.length() == 1) m = "0" + m;
 //                    if (customReservation.clickCheck == 0) {
 //                        CustomReservation.startDateField.setText(y + "/" + m + "/" + str);
