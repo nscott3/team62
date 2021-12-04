@@ -1,4 +1,7 @@
 package view;
+import model.PersonInfo;
+import model.GuestInfo;
+
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -14,6 +17,8 @@ import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class GuestView extends JFrame {
     private String guestName;
@@ -23,7 +28,7 @@ public class GuestView extends JFrame {
     private JTextField tfEndDate;
     
     
-    public GuestView() {
+    public GuestView(PersonInfo personInfo, GuestInfo guestInfo) {
         setResizable(false);
 	    setPreferredSize(new Dimension(1200, 720/12*9));
 	    setSize(1200, 720/12*9);
@@ -81,7 +86,7 @@ public class GuestView extends JFrame {
 		tfStartDate.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		tfStartDate.setBounds(641, 216, 123, 25);
 		getContentPane().add(tfStartDate);
-		tfStartDate.setText(" DD/MM/YYYY");
+		tfStartDate.setText("YYYY-MM-DD");
 		tfStartDate.setColumns(10);
 		
 		JLabel lblWave = new JLabel("~");
@@ -93,12 +98,12 @@ public class GuestView extends JFrame {
 		tfEndDate.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		tfEndDate.setBounds(796, 215, 123, 25);
 		getContentPane().add(tfEndDate);
-		tfEndDate.setText(" DD/MM/YYYY");
+		tfEndDate.setText("YYYY-MM-DD");
 		tfEndDate.setColumns(10);
 		
-		JLabel lblLogInDescription = new JLabel("Logged in as");
+		JLabel lblLogInDescription = new JLabel("Logged in as: "+personInfo.getForename());
 		lblLogInDescription.setFont(new Font("SansSerif", Font.PLAIN, 12));
-		lblLogInDescription.setBounds(960, 11, 82, 14);
+		lblLogInDescription.setBounds(960, 11, 200, 14);
 		getContentPane().add(lblLogInDescription);
 		
 		JLabel lblName = new JLabel("User Name");
@@ -127,7 +132,7 @@ public class GuestView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				new MyReservationView();
+				new MyReservationView(personInfo, guestInfo);
 				setVisible(false);
 			}
 		});
@@ -136,40 +141,25 @@ public class GuestView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				new SearchView();
-				setVisible(false);
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                boolean formatted = false;
+                try {
+                    format.setLenient(false);
+                    format.parse(tfStartDate.getText());
+                    format.parse(tfEndDate.getText());
+                    formatted = true;
+                }
+                catch(ParseException ex){
+                    formatted = false;
+                }
+                if (formatted) {
+                    new SearchView(personInfo, guestInfo, tfLocation.getText(), tfStartDate.getText(), tfEndDate.getText()).setVisible(true);
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please write valid dates in YYYY-MM-DD format!", "Error!", JOptionPane.DEFAULT_OPTION);
+                }
+
 			}
 		});
-    }
-
-    
-    public void addGuest(Connection conn) {
-        PreparedStatement pstmt = null;
-        try {
-            pstmt = conn.prepareStatement("INSERT INTO Guest (guestName) VALUES (?)");
-            pstmt.setString(1, guestName);
-            pstmt.executeUpdate();
-            pstmt.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public Integer lookupID(Connection conn) {
-        int guestID = 0;
-        PreparedStatement pstmt = null;
-        try {
-            pstmt = conn.prepareStatement("SELECT guestID FROM Guest WHERE guestName = ?");
-            pstmt.setString(1, guestName);
-            ResultSet rs = pstmt.executeQuery();
-            while (rs.next()) {
-                guestID = rs.getInt("guestID");
-            }
-            rs.close();
-            pstmt.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return guestID;
     }
 }

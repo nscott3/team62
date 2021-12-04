@@ -67,4 +67,30 @@ public class Person {
         }
         return exists;
     }
+
+    public static PersonInfo getPerson(Connection conn, String email) {
+        PreparedStatement pstmt = null;
+        PersonInfo person = null;
+        String title = null;
+        String forename = null;
+        String surname = null;
+        String mobileNumber = null;
+        try {
+            pstmt = conn.prepareStatement("SELECT title, forename, surname, mobileNumber FROM Person WHERE email = ?");
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                title = rs.getString("title");
+                forename = rs.getString("forename");
+                surname = rs.getString("surname");
+                mobileNumber = rs.getString("mobileNumber");
+            }
+            rs.close();
+            pstmt.close();
+            person = new PersonInfo(title, forename, surname, email, mobileNumber, "");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return person;
+    }
 }

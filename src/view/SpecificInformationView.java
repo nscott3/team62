@@ -2,6 +2,7 @@ package view;
 
 import view.calendar.BookingDateManager;
 import view.calendar.MonthCalendar;
+import model.*;
 
 import java.awt.Dimension;
 
@@ -32,7 +33,7 @@ public class SpecificInformationView extends JFrame {
 	private final MonthCalendar nextCalendar;
 	private JTextField tfDescription;
 
-	public SpecificInformationView() {
+	public SpecificInformationView(PersonInfo personInfo, GuestInfo guestInfo, PropertyInfo propertyinfo, String startDate, String endDate) {
 		setResizable(false);
 		setPreferredSize(new Dimension(1200, 1020 / 12 * 9));
 		setSize(1200, 1020 / 12 * 9);
