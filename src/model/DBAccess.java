@@ -1,6 +1,6 @@
 package model;
-import javax.swing.*;
 import java.sql.*;
+import javax.swing.*;
 
 public class DBAccess {
     static String URL = "jdbc:mysql://stusql.dcs.shef.ac.uk/";
@@ -11,7 +11,7 @@ public class DBAccess {
 
     static public Connection connect() {
         if (conn == null) {
-            DriverManager.setLoginTimeout(1);
+            DriverManager.setLoginTimeout(2);
             try {
                 conn = DriverManager.getConnection(URL + DBNAME, USER, PASSWORD);
             } catch (Exception ex) {

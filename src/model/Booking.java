@@ -2,6 +2,8 @@ package model;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Booking {
 	private int bookingID;
@@ -27,7 +29,7 @@ public class Booking {
 	public void registerBooking(Connection conn) {
 		PreparedStatement pstmt = null;
 		try {
-			pstmt = conn.prepareStatement("INSERT INTO Booking (startDate, endDate, isAccepted, propertyNo, guestID) VALUES (?,?,?,?,?)");
+			pstmt = conn.prepareStatement("INSERT INTO Booking (startDate, endDate, isAccepted, propertyID, guestID) VALUES (?,?,?,?,?)");
 			pstmt.setDate(1, startDate);
 			pstmt.setDate(2, endDate);
 			pstmt.setByte(3, isAccepted);
@@ -60,4 +62,29 @@ public class Booking {
 		
 		return bookingIDs;
 	}
+
+    public static List<List<Date>> getAcceptedBookings(Connection conn, int propertyID) {
+        List<List<Date>> acceptedBookings = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Booking WHERE propertyID =" + propertyID;
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while(rs.next()) {
+                if (rs.getBoolean("isAccepted")) {
+                    List<Date> dates = new ArrayList<>();
+                    dates.add(rs.getDate("startDate"));
+                    dates.add(rs.getDate("endDate"));
+                    acceptedBookings.add(dates);
+                }
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return acceptedBookings;
+    }
 }
