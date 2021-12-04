@@ -3,34 +3,23 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.event.*;
+import java.sql.Connection;
+import java.util.*;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.table.TableModel;
 
-import model.ObjectTableModel;
-import model.PropertyGetterSetter;
-import view.paginate.PaginatedTableDecorator;
-import view.paginate.PaginationDataProvider;
+import model.*;
+import model.Property;
 
 public class SearchView extends JFrame{
-	private JTextField tfLcation;
+	private JTextField tfLocation;
 	private JTextField tfStartDate;
 	private JTextField tfEndDate;
 	private JTextField tfSearch;
 	
-    public SearchView() {
+    public SearchView(PersonInfo personInfo, GuestInfo guestInfo, String location, String startDate, String endDate) {
     	setResizable(false);
     	setPreferredSize(new Dimension(1200, 720/12*9));
 	    setSize(1200, 720/12*9);
@@ -51,7 +40,7 @@ public class SearchView extends JFrame{
 
         table.addMouseListener(new JTableButtonMouseListener(table));
         
-        PaginationDataProvider<PropertyGetterSetter> dataProvider = createDataProvider(this);
+        PaginationDataProvider<PropertyGetterSetter> dataProvider = createDataProvider(this, location, startDate, endDate);
         PaginatedTableDecorator<PropertyGetterSetter> paginatedDecorator = PaginatedTableDecorator.decorate(table,
                 dataProvider, new int[]{5, 10, 20, 50, 75, 100}, 20);
         getContentPane().add(paginatedDecorator.getContentPanel());
@@ -73,15 +62,16 @@ public class SearchView extends JFrame{
         JLabel lblLocation = new JLabel("Location");
         panel_1.add(lblLocation);
         
-        tfLcation = new JTextField();
-        panel_1.add(tfLcation);
-        tfLcation.setColumns(10);
+        tfLocation = new JTextField();
+        tfLocation.setText(location);
+        panel_1.add(tfLocation);
+        tfLocation.setColumns(10);
         
         JLabel lbldate = new JLabel("     Date");
         panel_1.add(lbldate);
         
         tfStartDate = new JTextField();
-        tfStartDate.setText("DD/MM/YY");
+        tfStartDate.setText(startDate);
         panel_1.add(tfStartDate);
         tfStartDate.setColumns(10);
         
@@ -89,7 +79,7 @@ public class SearchView extends JFrame{
         panel_1.add(lblwave);
         
         tfEndDate = new JTextField();
-        tfEndDate.setText("DD/MM/YY");
+        tfEndDate.setText(endDate);
         panel_1.add(tfEndDate);
         tfEndDate.setColumns(10);
         
@@ -120,7 +110,7 @@ public class SearchView extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new GuestView();
+				new GuestView(personInfo, guestInfo);
 				setVisible(false);
 			}
 		});
@@ -139,8 +129,8 @@ public class SearchView extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new SearchView();
-				setVisible(false);
+                new SearchView(personInfo, guestInfo, tfLocation.getText(), tfStartDate.getText(), tfEndDate.getText()).setVisible(true);
+                dispose();
 			}
         	
         });
@@ -188,10 +178,17 @@ public class SearchView extends JFrame{
         };
     }
 
-    private static PaginationDataProvider<PropertyGetterSetter> createDataProvider(SearchView parent) {
+    private static PaginationDataProvider<PropertyGetterSetter> createDataProvider(SearchView parent, String location, String startDate, String endDate) {
     	
         final List<PropertyGetterSetter> list = new ArrayList<>();
-        
+        List<PropertyInfo> properties = null;
+        try {
+            Connection conn = DBAccess.connect();
+            properties = Property.getProperties(conn, location, java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
+        } finally {
+            DBAccess.disconnect();
+        }
+
         for (int i = 1; i <= 500; i++) {
             PropertyGetterSetter e = new PropertyGetterSetter();
             e.setTitle("Title" + i);
