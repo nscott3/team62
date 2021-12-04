@@ -42,7 +42,7 @@ public class SearchView extends JFrame{
 
         table.addMouseListener(new JTableButtonMouseListener(table));
         
-        PaginationDataProvider<PropertyGetterSetter> dataProvider = createDataProvider(this, location, startDate, endDate);
+        PaginationDataProvider<PropertyGetterSetter> dataProvider = createDataProvider(this, location, startDate, endDate, personInfo, guestInfo);
         PaginatedTableDecorator<PropertyGetterSetter> paginatedDecorator = PaginatedTableDecorator.decorate(table,
                 dataProvider, new int[]{5, 10, 20, 50, 75, 100}, 20);
         getContentPane().add(paginatedDecorator.getContentPanel());
@@ -161,12 +161,14 @@ public class SearchView extends JFrame{
                     case 0:
                         return property.getTitle();
                     case 1:
-                        return property.getName();
+                        return property.getDescription();
                     case 2:
-                        return property.getAddress();
+                        return property.getLocation();
                     case 3:
-                        return property.getOverallScore();
+                        return property.getBreakfast();
                     case 4:
+                        return property.getOverallScore();
+                    case 5:
                         return property.getInfoBtn();
                 }
                 return null;
@@ -174,7 +176,7 @@ public class SearchView extends JFrame{
 
             @Override
             public int getColumnCount() {
-                return 5;
+                return 6;
             }
             @Override
             public String getColumnName(int column) {
@@ -182,12 +184,14 @@ public class SearchView extends JFrame{
                     case 0:
                         return "Title";
                     case 1:
-                        return "Host Name";
+                        return "Description";
                     case 2:
-                        return "Address";
+                        return "Location";
                     case 3:
-                        return "Overall Score";
+                        return "Provides Breakfast";
                     case 4:
+                        return "Overall Score";
+                    case 5:
                     	return "Specific Information";
                 }
                 return null;
@@ -195,7 +199,7 @@ public class SearchView extends JFrame{
         };
     }
 
-    private static PaginationDataProvider<PropertyGetterSetter> createDataProvider(SearchView parent, String location, String startDate, String endDate) {
+    private static PaginationDataProvider<PropertyGetterSetter> createDataProvider(SearchView parent, String location, String startDate, String endDate, PersonInfo personInfo, GuestInfo guestInfo) {
     	
         final List<PropertyGetterSetter> list = new ArrayList<>();
         List<PropertyInfo> properties = null;
@@ -205,24 +209,27 @@ public class SearchView extends JFrame{
         } finally {
             DBAccess.disconnect();
         }
-
-        for (int i = 1; i <= 500; i++) {
-            PropertyGetterSetter e = new PropertyGetterSetter();
-            e.setTitle("Title" + i);
-            e.setName("Name" + i);
-            e.setAddress("Address " + i);
-            e.setOverallScore("Overall Score" + i);
-            e.setInfoBtn(new InfoButton(
-                    new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            new SpecificInformationView();
-                            parent.setVisible(false);
+        if (properties != null) {
+            for (PropertyInfo property : properties ) {
+                PropertyGetterSetter e = new PropertyGetterSetter();
+                e.setTitle(property.getName());
+                e.setDescription(property.getDescription());
+                e.setLocation(property.getLocation());
+                e.setBreakfast(property.getIsBreakfast());
+                e.setOverallScore(String.valueOf(property.getReviewRating()));
+                e.setInfoBtn(new InfoButton(
+                        new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                new SpecificInformationView(personInfo, guestInfo, property, startDate, endDate);
+                                parent.setVisible(false);
+                            }
                         }
-                    }
-            ));
-            list.add(e);
+                ));
+                list.add(e);
+            }
         }
+
 
         return new PaginationDataProvider<PropertyGetterSetter>() {
             @Override
