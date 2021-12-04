@@ -21,6 +21,8 @@ import javax.swing.table.TableModel;
 
 import model.ObjectTableModel;
 import model.PropertyGetterSetter;
+import view.paginate.PaginatedTableDecorator;
+import view.paginate.PaginationDataProvider;
 
 public class SearchView extends JFrame{
 	private JTextField tfLcation;
@@ -200,7 +202,7 @@ public class SearchView extends JFrame{
                     new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            new MainView();
+                            new SpecificInformationView();
                             parent.setVisible(false);
                         }
                     }
@@ -238,7 +240,6 @@ public class SearchView extends JFrame{
 
                 if (value instanceof InfoButton) {
                     /*perform a click event*/
-                    System.out.println("test");
                     ((InfoButton)value).jb.doClick();
                 }
             }
