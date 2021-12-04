@@ -17,8 +17,7 @@ public class MainView extends JFrame {
 	//private JButton idpwSearchBtn = new JButton("Find ID/PW");
 	private JButton enquirerButton = new JButton("ENQUIRER");
 	private JButton signUp = new JButton("Registration");
-	private final JCheckBox guestCheck = new JCheckBox("Guest");
-	private final JCheckBox hostCheck = new JCheckBox("Host");
+	private ButtonGroup checkButton = new ButtonGroup();
 	
 	public MainView() {
 		//setSize in the middle of the current frame window so that the frame can be aligned in the middle normally
@@ -45,6 +44,20 @@ public class MainView extends JFrame {
 		loginBtn.setFont(new Font("Calibri", Font.PLAIN, 16));
 		loginBtn.setBounds(647, 277, 123, 36);
 		loginPanel.add(loginBtn);
+		JRadioButton rdbtnGuestButton = new JRadioButton("Guest");
+		rdbtnGuestButton.setFont(new Font("Calibri", Font.PLAIN, 14));
+		rdbtnGuestButton.setBounds(649, 243, 73, 23);
+		loginPanel.add(rdbtnGuestButton);
+		checkButton.add(rdbtnGuestButton);
+		rdbtnGuestButton.setSelected(true);
+		
+		JRadioButton rdbtnHostButton = new JRadioButton("Host");
+		rdbtnHostButton.setFont(new Font("Calibri", Font.PLAIN, 14));
+		rdbtnHostButton.setBounds(718, 243, 73, 23);
+		loginPanel.add(rdbtnHostButton);
+		checkButton.add(rdbtnHostButton);
+		
+		
 		enquirerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -60,8 +73,8 @@ public class MainView extends JFrame {
                     //id and pw check
                     String id = idText.getText().trim();
                     String pw = pwText.getText().trim();
-                    boolean hostSelected = hostCheck.isSelected();
-                    boolean guestSelected = guestCheck.isSelected();
+                    boolean hostSelected = rdbtnGuestButton.isSelected();
+                    boolean guestSelected = rdbtnHostButton.isSelected();
                     if(id.length()==0 || pw.length()==0) {
                         JOptionPane.showMessageDialog(null, "Required field left blank.", "Error!", JOptionPane.DEFAULT_OPTION);
                     }
@@ -117,12 +130,8 @@ public class MainView extends JFrame {
 		signUp.setBounds(411, 324, 170, 40);
 		loginPanel.add(signUp);
 		signUp.setFont(new Font("Calibri", Font.PLAIN, 14));
-		guestCheck.setBounds(650, 241, 73, 29);
-		loginPanel.add(guestCheck);
-		guestCheck.setFont(new Font("Calibri", Font.PLAIN, 14));
-		hostCheck.setBounds(723, 241, 94, 29);
-		loginPanel.add(hostCheck);
-		hostCheck.setFont(new Font("Calibri", Font.PLAIN, 14));
+		
+		
 
 
         signUp.addActionListener(e -> {
