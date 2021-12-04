@@ -132,7 +132,7 @@ public class GuestView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				new MyReservationView();
+				new MyReservationView(personInfo, guestInfo);
 				setVisible(false);
 			}
 		});
@@ -144,6 +144,7 @@ public class GuestView extends JFrame {
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                 boolean formatted = false;
                 try {
+                    format.setLenient(false);
                     format.parse(tfStartDate.getText());
                     format.parse(tfEndDate.getText());
                     formatted = true;

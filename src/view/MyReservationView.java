@@ -14,9 +14,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 
+import model.*;
+
 public class MyReservationView extends JFrame{
 	private JTable table;
-	public MyReservationView() {
+	public MyReservationView(PersonInfo personInfo, GuestInfo guestInfo) {
 		setResizable(false);
 	    setPreferredSize(new Dimension(1200, 720/12*9));
 	    setSize(1200, 720/12*9);
@@ -81,7 +83,7 @@ public class MyReservationView extends JFrame{
 		btnHome.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new GuestView();
+				new GuestView(personInfo, guestInfo);
 				setVisible(false);
 			}
 		});

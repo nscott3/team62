@@ -5,6 +5,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.*;
 import java.sql.Connection;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.swing.*;
@@ -129,8 +131,23 @@ public class SearchView extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-                new SearchView(personInfo, guestInfo, tfLocation.getText(), tfStartDate.getText(), tfEndDate.getText()).setVisible(true);
-                dispose();
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                boolean formatted = false;
+                try {
+                    format.setLenient(false);
+                    format.parse(tfStartDate.getText());
+                    format.parse(tfEndDate.getText());
+                    formatted = true;
+                }
+                catch(ParseException ex){
+                    formatted = false;
+                }
+                if (formatted) {
+                    new SearchView(personInfo, guestInfo, tfLocation.getText(), tfStartDate.getText(), tfEndDate.getText()).setVisible(true);
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please write valid dates in YYYY-MM-DD format!", "Error!", JOptionPane.DEFAULT_OPTION);
+                }
 			}
         	
         });
