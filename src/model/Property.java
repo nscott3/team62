@@ -85,12 +85,7 @@ public class Property {
                     Date endDateP = dates.get(1);
                     overlap = (endDateP.equals(startDate) || endDateP.after(startDate)) && (endDate.equals(startDateP) || endDate.after(startDateP));
                 }
-                if (overlap) {
-                    System.out.println("No properties!");
-                }
-                else {
-
-                    System.out.println("Match!");
+                if (!overlap) {
                     properties.add(new PropertyInfo(
                             rs.getString("name"),
                             rs.getString("description"),

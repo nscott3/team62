@@ -34,4 +34,23 @@ public class Guest {
         return exists;
     }
 
+    public static GuestInfo getGuest(Connection conn, String email) {
+        PreparedStatement pstmt = null;
+        GuestInfo guest = null;
+        String guestName = null;
+        try {
+            pstmt = conn.prepareStatement("SELECT guestName FROM Guest WHERE guestID = ?");
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                guestName = rs.getString("guestName");
+            }
+            rs.close();
+            pstmt.close();
+            guest = new GuestInfo(email, guestName);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return guest;
+    }
 }

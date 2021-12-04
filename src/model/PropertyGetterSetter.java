@@ -4,8 +4,9 @@ import view.InfoButton;
 
 public class PropertyGetterSetter {
     private String title;
-    private String name;
-    private String address;
+    private String description;
+    private String location;
+    private boolean breakfast;
     private String OverallScore;
     private InfoButton infoBtn;
 	/**
@@ -21,29 +22,41 @@ public class PropertyGetterSetter {
 		this.title = title;
 	}
 	/**
-	 * @return the name
+	 * @return the description
 	 */
-	public String getName() {
-		return name;
+	public String getDescription() {
+		return description;
 	}
 	/**
-	 * @param name the name to set
+	 * @param description the description to set
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	/**
-	 * @return the address
+	 * @return the location
 	 */
-	public String getAddress() {
-		return address;
+	public String getLocation() {
+		return location;
 	}
 	/**
-	 * @param address the address to set
+	 * @param location the location to set
 	 */
-	public void setAddress(String address) {
-		this.address = address;
+	public void setLocation(String location) {
+		this.location = location;
 	}
+    /**
+     * @return provides breakfast
+     */
+    public boolean getBreakfast() {
+        return breakfast;
+    }
+    /**
+     * @param breakfast the provides breakfast to set
+     */
+    public void setBreakfast(boolean breakfast) {
+        this.breakfast = breakfast;
+    }
 	/**
 	 * @return the overallScore
 	 */
