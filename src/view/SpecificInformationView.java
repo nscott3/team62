@@ -163,7 +163,7 @@ public class SpecificInformationView extends JFrame {
 		lblStartDay.setBounds(668, 280, 81, 15);
 		panel.add(lblStartDay);
 
-		tfStartDay = new JTextField();
+		tfStartDay = new JTextField(startDate);
 		tfStartDay.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		tfStartDay.setBounds(665, 305, 140, 23);
 		tfStartDay.setEnabled(false);
@@ -175,7 +175,7 @@ public class SpecificInformationView extends JFrame {
 		lblNewLabel.setBounds(815, 305, 15, 15);
 		panel.add(lblNewLabel);
 
-		tfEndDay = new JTextField();
+		tfEndDay = new JTextField(endDate);
 		tfEndDay.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		tfEndDay.setBounds(840, 305, 140, 23);
 		tfEndDay.setEnabled(false);

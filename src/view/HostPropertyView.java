@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+package view;
+
+>>>>>>> 3cddc989b89604f68b06464f993209ec36aa6a86
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -381,7 +386,7 @@ public class HostPropertyView extends JFrame{
         };
     }
 
-    public  HostPropertyView(){
+    public HostPropertyView(){
 
         super("Host");
         contentPane = new JPanel();
@@ -406,4 +411,8 @@ public class HostPropertyView extends JFrame{
     /*public static void main(String[] args) {
         new HostProperty();
     }*/
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 3cddc989b89604f68b06464f993209ec36aa6a86

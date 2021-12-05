@@ -116,4 +116,31 @@ public class Person {
         }
         return person;
     }
+<<<<<<< HEAD
+=======
+
+    public static AddressInfo getAddress(Connection conn, String email) {
+        PreparedStatement pstmt = null;
+        AddressInfo address = null;
+        String houseName = null;
+        String postcode = null;
+
+        try {
+            pstmt = conn.prepareStatement("SELECT houseName, postcode FROM Person WHERE email = ?");
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                houseName = rs.getString("houseName");
+                postcode = rs.getString("postcode");
+                address = Address.getAddress(conn, houseName, postcode);
+            }
+            rs.close();
+            pstmt.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return address;
+    }
+>>>>>>> 3cddc989b89604f68b06464f993209ec36aa6a86
 }
