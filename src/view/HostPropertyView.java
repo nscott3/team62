@@ -1,10 +1,12 @@
+package view;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.*;
 import java.awt.event.KeyAdapter;
 
-public class HostProperty extends JFrame{
+public class HostPropertyView extends JFrame{
     String Answers[]={"Yes","No"};
     String typesOfBeds1[]={"Single","Double","King-Size","Bunk bed"};
     String typesOfBeds2[]={"Single","Double","King-Size","Bunk bed","No Bed"};
@@ -381,7 +383,7 @@ public class HostProperty extends JFrame{
         };
     }
 
-    public  HostProperty(){
+    public HostPropertyView(){
 
         super("Host");
         contentPane = new JPanel();

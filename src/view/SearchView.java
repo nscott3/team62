@@ -19,7 +19,6 @@ public class SearchView extends JFrame{
 	private JTextField tfLocation;
 	private JTextField tfStartDate;
 	private JTextField tfEndDate;
-	private JTextField tfSearch;
 	
     public SearchView(PersonInfo personInfo, GuestInfo guestInfo, String location, String startDate, String endDate) {
     	setResizable(false);
@@ -84,14 +83,6 @@ public class SearchView extends JFrame{
         tfEndDate.setText(endDate);
         panel_1.add(tfEndDate);
         tfEndDate.setColumns(10);
-        
-        JLabel lblNewLabel = new JLabel("           Q");
-        panel_1.add(lblNewLabel);
-        
-        tfSearch = new JTextField();
-        tfSearch.setText("Search keyword...");
-        panel_1.add(tfSearch);
-        tfSearch.setColumns(20);
         
         JButton btnSearch = new JButton("Search");
         panel_1.add(btnSearch);
