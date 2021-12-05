@@ -23,7 +23,7 @@ public class MyReservationView extends JFrame{
 	final ReviewClickAction reviewClickAction = new ReviewClickAction() {
 		@Override
 		public void onClick(int contentId) {
-			// 리뷰 작성 페이지로 이동
+			//open review page so user can write their review
 			System.out.println("click " + contentId);
 		}
 	};
