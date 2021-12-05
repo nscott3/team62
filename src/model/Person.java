@@ -1,11 +1,34 @@
 package model;
 import java.sql.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import view.GuestView;
 
 public class Person {
-    public static void register(Connection conn, PersonInfo pInfo, AddressInfo aInfo) {
+	//Todo Security
+	private final static int MAX_USER_EMAIL_LENGTH = 20;
+    private final static int MAX_PASSWORD_LENGTH = 16;
+    private final static String UNSECURED_CHAR_REGULAR_EXPRESSION = "[^\\p{Alnum}]|select|delete|update|insert|create|alter|drop";
+    private Pattern unsecuredCharPattern;
+    
+    public void initlalize()
+    {
+        unsecuredCharPattern = Pattern.compile(UNSECURED_CHAR_REGULAR_EXPRESSION, 
+           Pattern.CASE_INSENSITIVE);
+    }
+    
+    private String makeSecureString(final String str, int maxLength)
+    {
+        String securestStr = str.substring(0, maxLength);
+        Matcher matcher = unsecuredCharPattern.matcher(securestStr);
+        return matcher.replaceAll("");
+    }
+	
+	public static void register(Connection conn, PersonInfo pInfo, AddressInfo aInfo) {
         byte[] salt  = Hashing.generateSalt();
 
+        
         PreparedStatement pstmt = null;
         try {
             pstmt = conn.prepareStatement("INSERT INTO Person (email, title, forename, surname, mobileNumber, password, salt, houseName, postcode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -66,5 +89,31 @@ public class Person {
             ex.printStackTrace();
         }
         return exists;
+    }
+
+    public static PersonInfo getPerson(Connection conn, String email) {
+        PreparedStatement pstmt = null;
+        PersonInfo person = null;
+        String title = null;
+        String forename = null;
+        String surname = null;
+        String mobileNumber = null;
+        try {
+            pstmt = conn.prepareStatement("SELECT title, forename, surname, mobileNumber FROM Person WHERE email = ?");
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                title = rs.getString("title");
+                forename = rs.getString("forename");
+                surname = rs.getString("surname");
+                mobileNumber = rs.getString("mobileNumber");
+            }
+            rs.close();
+            pstmt.close();
+            person = new PersonInfo(title, forename, surname, email, mobileNumber, "");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return person;
     }
 }
