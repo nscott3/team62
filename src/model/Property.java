@@ -90,16 +90,6 @@ public class Property {
         return name;
     }
 	
-<<<<<<< HEAD
-	public void updateReviewRate(Connection conn, int propertyID, float newRate) {
-		try {
-			String sql = "UPDATE Property SET reviewRating = " + newRate + " WHERE propertyID = " + propertyID;
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			
-			rs.close();
-			stmt.close();
-=======
 	public static void updateReviewRate(Connection conn, int propertyID, float newRate) {
         PreparedStatement pstmt = null;
         try {
@@ -109,7 +99,6 @@ public class Property {
 			pstmt.executeUpdate();
 
             pstmt.close();
->>>>>>> 3cddc989b89604f68b06464f993209ec36aa6a86
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
@@ -141,10 +130,7 @@ public class Property {
                 }
                 if (!overlap) {
                     properties.add(new PropertyInfo(
-<<<<<<< HEAD
-=======
                             rs.getInt("propertyID"),
->>>>>>> 3cddc989b89604f68b06464f993209ec36aa6a86
                             rs.getString("name"),
                             rs.getString("description"),
                             locationP,

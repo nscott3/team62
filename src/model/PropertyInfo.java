@@ -12,12 +12,8 @@ public class PropertyInfo {
     private String houseName;
     private String postcode;
 
-<<<<<<< HEAD
-    public PropertyInfo(String nameP, String descriptionP, String locationP, boolean isBreakfastP, int maxGuestsP, float reviewRatingP, String hostIDP, String houseNameP, String postcodeP) {
-=======
     public PropertyInfo(int propertyIDP, String nameP, String descriptionP, String locationP, boolean isBreakfastP, int maxGuestsP, float reviewRatingP, String hostIDP, String houseNameP, String postcodeP) {
         propertyID = propertyIDP;
->>>>>>> 3cddc989b89604f68b06464f993209ec36aa6a86
         name = nameP;
         description = descriptionP;
         location = locationP;
@@ -29,13 +25,10 @@ public class PropertyInfo {
         postcode = postcodeP;
     }
 
-<<<<<<< HEAD
-=======
     public int getPropertyID() {
         return propertyID;
     }
 
->>>>>>> 3cddc989b89604f68b06464f993209ec36aa6a86
     public String getName() {
         return name;
     }

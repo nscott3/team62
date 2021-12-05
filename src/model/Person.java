@@ -1,34 +1,11 @@
 package model;
 import java.sql.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import view.GuestView;
 
 public class Person {
-	//Todo Security
-	private final static int MAX_USER_EMAIL_LENGTH = 20;
-    private final static int MAX_PASSWORD_LENGTH = 16;
-    private final static String UNSECURED_CHAR_REGULAR_EXPRESSION = "[^\\p{Alnum}]|select|delete|update|insert|create|alter|drop";
-    private Pattern unsecuredCharPattern;
-    
-    public void initlalize()
-    {
-        unsecuredCharPattern = Pattern.compile(UNSECURED_CHAR_REGULAR_EXPRESSION, 
-           Pattern.CASE_INSENSITIVE);
-    }
-    
-    private String makeSecureString(final String str, int maxLength)
-    {
-        String securestStr = str.substring(0, maxLength);
-        Matcher matcher = unsecuredCharPattern.matcher(securestStr);
-        return matcher.replaceAll("");
-    }
-	
-	public static void register(Connection conn, PersonInfo pInfo, AddressInfo aInfo) {
+    public static void register(Connection conn, PersonInfo pInfo, AddressInfo aInfo) {
         byte[] salt  = Hashing.generateSalt();
 
-        
         PreparedStatement pstmt = null;
         try {
             pstmt = conn.prepareStatement("INSERT INTO Person (email, title, forename, surname, mobileNumber, password, salt, houseName, postcode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -116,8 +93,6 @@ public class Person {
         }
         return person;
     }
-<<<<<<< HEAD
-=======
 
     public static AddressInfo getAddress(Connection conn, String email) {
         PreparedStatement pstmt = null;
@@ -142,5 +117,4 @@ public class Person {
         }
         return address;
     }
->>>>>>> 3cddc989b89604f68b06464f993209ec36aa6a86
 }
