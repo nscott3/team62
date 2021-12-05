@@ -6,7 +6,8 @@ import java.awt.event.KeyAdapter;
 
 public class HostProperty extends JFrame{
     String Answers[]={"Yes","No"};
-
+    String typesOfBeds1[]={"Single","Double","King-Size","Bunk bed"};
+    String typesOfBeds2[]={"Single","Double","King-Size","Bunk bed","No Bed"};
     private JPanel contentPane;
     private JScrollPane scrollPane= new JScrollPane();
     private JLabel propertyNameLabel=new JLabel("Enter the properties name:");
@@ -22,6 +23,10 @@ public class HostProperty extends JFrame{
     private JCheckBox hasTowel = new JCheckBox();
     private JLabel numberOfBedsLbl = new JLabel("Enter the number of beds:");
     private JTextField numberOfBeds= new JTextField();
+    private JLabel bedTypeLbl1= new JLabel("Enter the type of the 1st bed:");
+    private JComboBox bedType1=new JComboBox(typesOfBeds1);
+    private JLabel bedTypeLbl2= new JLabel("Enter the type of the 2nd bed:");
+    private JComboBox bedType2=new JComboBox(typesOfBeds2);
     private JLabel bathingFacilities= new JLabel ("Bathing Facilities:");
     private JCheckBox hasHairDryer = new JCheckBox();
     private JCheckBox hasShampoo= new JCheckBox();
@@ -87,80 +92,87 @@ public class HostProperty extends JFrame{
         numberOfBedsLbl.setFont(new Font("Calibri", Font.PLAIN, 14));
         numberOfBeds.setBounds(250,375,175,25);
 
-        bathingFacilities.setBounds(50,425,100,25);
-        bathingFacilities.setFont(new Font("Calibri", Font.PLAIN, 14));
-        hasHairDryer.setBounds(250,425,100,25);
-        hasLinen.setFont(new Font("Calibri", Font.BOLD, 14));
-        hasToiletpaper.setBounds(350,425,100,25);
-        hasToiletpaper.setFont(new Font("Calibri", Font.BOLD, 14));
-        hasShampoo.setBounds(450,425,100,25);
-        hasShampoo.setFont(new Font("Calibri", Font.BOLD, 14));
-        isShared.setBounds(550,425,100,25);
-        isShared.setFont(new Font("Calibri", Font.BOLD, 14));
-        numberOfBathroomsLbl.setBounds(50,475,195,25);
-        numberOfBathroomsLbl.setFont(new Font("Calibri", Font.PLAIN, 14));
-        numberOfBathrooms.setBounds(250,475,175,25);
+        bedTypeLbl1.setBounds(50,425,165,25);
+        bedTypeLbl1.setFont(new Font("Calibri", Font.PLAIN,14));
+        bedType1.setBounds(250,425,100,25);
+        bedTypeLbl2.setBounds(50,475,175,25);
+        bedTypeLbl2.setFont(new Font("Calibri",Font.PLAIN,14));
+        bedType2.setBounds(250,475,100,25);
 
-        kitchenFacilities.setBounds(50,525,150,25);
+        bathingFacilities.setBounds(50,525,100,25);
+        bathingFacilities.setFont(new Font("Calibri", Font.PLAIN, 14));
+        hasHairDryer.setBounds(250,525,100,25);
+        hasLinen.setFont(new Font("Calibri", Font.BOLD, 14));
+        hasToiletpaper.setBounds(350,525,100,25);
+        hasToiletpaper.setFont(new Font("Calibri", Font.BOLD, 14));
+        hasShampoo.setBounds(450,525,100,25);
+        hasShampoo.setFont(new Font("Calibri", Font.BOLD, 14));
+        isShared.setBounds(550,525,100,25);
+        isShared.setFont(new Font("Calibri", Font.BOLD, 14));
+        numberOfBathroomsLbl.setBounds(50,575,195,25);
+        numberOfBathroomsLbl.setFont(new Font("Calibri", Font.PLAIN, 14));
+        numberOfBathrooms.setBounds(250,575,175,25);
+
+        kitchenFacilities.setBounds(50,625,150,25);
         kitchenFacilities.setFont(new Font("Calibri", Font.PLAIN, 14));
-        hasRefrigerator.setBounds(250,525,100,25);
+        hasRefrigerator.setBounds(250,625,100,25);
         hasRefrigerator.setFont(new Font("Calibri", Font.BOLD, 14));
-        hasMicrowave.setBounds(350,525,100,25);
+        hasMicrowave.setBounds(350,625,100,25);
         hasMicrowave.setFont(new Font("Calibri", Font.BOLD, 14));
-        hasOven.setBounds(450,525,100,25);
+        hasOven.setBounds(450,625,100,25);
         hasOven.setFont(new Font("Calibri", Font.BOLD, 14));
-        hasStove.setBounds(550,525,100,25);
+        hasStove.setBounds(550,625,100,25);
         hasStove.setFont(new Font("Calibri", Font.BOLD, 14));
-        hasDishwasher.setBounds(650,525,100,25);
+        hasDishwasher.setBounds(650,625,100,25);
         hasDishwasher.setFont(new Font("Calibri", Font.BOLD, 14));
-        hasTableware.setBounds(750,525,100,25);
+        hasTableware.setBounds(750,625,100,25);
         hasTableware.setFont(new Font("Calibri", Font.BOLD, 14));
-        hasCookware.setBounds(850,525,100,25);
+        hasCookware.setBounds(850,625,100,25);
         hasCookware.setFont(new Font("Calibri", Font.BOLD, 14));
-        hasBasicProvisions.setBounds(950,525,125,25);
+        hasBasicProvisions.setBounds(950,625,125,25);
         hasBasicProvisions.setFont(new Font("Calibri", Font.BOLD, 14));
 
-        livingFacilities.setBounds(50,575,150,25);
+        livingFacilities.setBounds(50,675,150,25);
         livingFacilities.setFont(new Font("Calibri", Font.PLAIN, 14));
-        hasWifi.setBounds(250,575,100,25);
+        hasWifi.setBounds(250,675,100,25);
         hasWifi.setFont(new Font("Calibri", Font.BOLD, 14));
-        hasTV.setBounds(350,575,100,25);
+        hasTV.setBounds(350,675,100,25);
         hasTV.setFont(new Font("Calibri", Font.BOLD, 14));
-        hasSatellite.setBounds(450,575,100,25);
+        hasSatellite.setBounds(450,675,100,25);
         hasSatellite.setFont(new Font("Calibri", Font.BOLD, 14));
-        hasStreaming.setBounds(550,575,100,25);
+        hasStreaming.setBounds(550,675,100,25);
         hasStreaming.setFont(new Font("Calibri", Font.BOLD, 14));
-        hasDvdplayer.setBounds(650,575,100,25);
+        hasDvdplayer.setBounds(650,675,100,25);
         hasDvdplayer.setFont(new Font("Calibri", Font.BOLD, 14));
-        hasBoardgames.setBounds(750,575,125,25);
+        hasBoardgames.setBounds(750,675,125,25);
         hasBoardgames.setFont(new Font("Calibri", Font.BOLD, 14));
 
-        utilityFacilities.setBounds(50,625,150,25);
+        utilityFacilities.setBounds(50,725,150,25);
         utilityFacilities.setFont(new Font("Calibri", Font.PLAIN, 14));
-        hasCentralHeating.setBounds(250,625,200,25);
+        hasCentralHeating.setBounds(250,725,200,25);
         hasCentralHeating.setFont(new Font("Calibri", Font.BOLD, 14));
-        hasWashingMachine.setBounds(450,625,200,25);
+        hasWashingMachine.setBounds(450,725,200,25);
         hasWashingMachine.setFont(new Font("Calibri", Font.BOLD, 14));
-        hasDryingMachine.setBounds(650,625,200,25);
+        hasDryingMachine.setBounds(650,725,200,25);
         hasDryingMachine.setFont(new Font("Calibri", Font.BOLD, 14));
-        hasFireExtinguisher.setBounds(850,625,200,25);
+        hasFireExtinguisher.setBounds(850,725,200,25);
         hasFireExtinguisher.setFont(new Font("Calibri", Font.BOLD, 14));
-        hasSmokeAlarm.setBounds(1050,625,200,25);
+        hasSmokeAlarm.setBounds(1050,725,200,25);
         hasSmokeAlarm.setFont(new Font("Calibri", Font.BOLD, 14));
-        hasFirstAidKit.setBounds(1250,625,200,25);
+        hasFirstAidKit.setBounds(1250,725,200,25);
         hasFirstAidKit.setFont(new Font("Calibri", Font.BOLD, 14));
 
-        outdoorFacilities.setBounds(50,675,150,25);
+        outdoorFacilities.setBounds(50,775,150,25);
         outdoorFacilities.setFont(new Font("Calibri", Font.PLAIN, 14));
-        hasFreeOnSiteParking.setBounds(250,675,200,25);
+        hasFreeOnSiteParking.setBounds(250,775,200,25);
         hasFreeOnSiteParking.setFont(new Font("Calibri", Font.BOLD, 14));
-        hasOnRoadParking.setBounds(450,675,200,25);
+        hasOnRoadParking.setBounds(450,775,200,25);
         hasSmokeAlarm.setFont(new Font("Calibri", Font.BOLD, 14));
-        hasPaidParking.setBounds(650,675,200,25);
+        hasPaidParking.setBounds(650,775,200,25);
         hasPaidParking.setFont(new Font("Calibri", Font.BOLD, 14));
-        hasPatio.setBounds(850,675,200,25);
+        hasPatio.setBounds(850,775,200,25);
         hasPatio.setFont(new Font("Calibri", Font.BOLD, 14));
-        hasBBQ.setBounds(1050,675,200,25);
+        hasBBQ.setBounds(1050,775,200,25);
         hasBBQ.setFont(new Font("Calibri", Font.BOLD, 14));
 
     }
@@ -178,6 +190,10 @@ public class HostProperty extends JFrame{
         contentPane.add(hasTowel);
         contentPane.add(numberOfBedsLbl);
         contentPane.add(numberOfBeds);
+        contentPane.add(bedType1);
+        contentPane.add(bedTypeLbl1);
+        contentPane.add(bedType2);
+        contentPane.add(bedTypeLbl2);
         contentPane.add(bathingFacilities);
         contentPane.add(hasHairDryer);
         contentPane.add(hasShampoo);
@@ -251,7 +267,7 @@ public class HostProperty extends JFrame{
     public void submitButton ()  {
         button = new JButton("Submit");
         contentPane.add(button);
-        button.setBounds(50, 725, 200, 25);
+        button.setBounds(50, 825, 200, 25);
         button.setFocusable(false);
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -343,6 +359,27 @@ public class HostProperty extends JFrame{
         checkNr(numberOfBathrooms);
         submitButton();
     }
+    public void sleepersNum(){
+        ActionListener listener = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String s1=(String) bedType1.getSelectedItem();
+                String s2=(String) bedType2.getSelectedItem();
+                int temp=0;
+                if(s1.equals("Single")){
+                    temp++;
+                }else{
+                    temp+=2;
+                }
+                if(s2.equals("Single")){
+                    temp++;
+                }else if(s2.equals("No Bed")){
+                    temp+=0;
+                }else{
+                    temp+=2;
+                }
+            }
+        };
+    }
 
     public  HostProperty(){
 
@@ -350,8 +387,8 @@ public class HostProperty extends JFrame{
         contentPane = new JPanel();
         setContentPane(contentPane);
         setResizable(false);
-        setPreferredSize(new Dimension(1280, 1080/12*9));
-        setSize(1920, 1080/12*9);
+        setPreferredSize(new Dimension(1980, 1280/12*9));
+        setSize(2048, 1280/12*9);
         setLocationRelativeTo(null);
         contentPane.setLayout(null);
 
@@ -359,7 +396,7 @@ public class HostProperty extends JFrame{
         setLocationAndSize();
         addToContainer();
         checkForm();
-
+        sleepersNum();
 
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -368,6 +405,5 @@ public class HostProperty extends JFrame{
 
     /*public static void main(String[] args) {
         new HostProperty();
-    }
+    }*/
 }
-*/
