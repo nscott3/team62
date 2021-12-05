@@ -119,7 +119,7 @@ public class SpecificInformationView extends JFrame {
 		MonthCalendar.MonthListener listener = new MonthCalendar.MonthListener() {
 			@Override
 			public void onDayClick() {
-				SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
+				SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
 				Calendar startCal = bookingDateManager.getStartDay();
 				if (startCal != null) {
 					String startDay = dateFormat.format(startCal.getTime());
