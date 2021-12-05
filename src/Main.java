@@ -5,7 +5,7 @@ public class Main {
 //		new view.MainView();
 //		new view.HostPropertyView();
 //		new view.SearchView();
-//		new view.SpecificInformationView();
-		new view.MyReservationView();
+		new view.SpecificInformationView();
+//		new view.MyReservationView();
 	}
 }
