@@ -47,15 +47,58 @@ public class Property {
 		
 		return propertyID;
 	}
+
+    public static String getPropertyName(Connection conn, int propertyID) {
+        PreparedStatement pstmt = null;
+        String name = null;
+        try {
+            pstmt = conn.prepareStatement("SELECT name FROM Property WHERE propertyID = ? ");
+            pstmt.setInt(1, propertyID);
+
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()) {
+                name = rs.getString("name");
+            }
+
+            rs.close();
+            pstmt.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return name;
+    }
+
+    public static String getHostID(Connection conn, int propertyID) {
+        PreparedStatement pstmt = null;
+        String name = null;
+        try {
+            pstmt = conn.prepareStatement("SELECT hostID FROM Property WHERE propertyID = ? ");
+            pstmt.setInt(1, propertyID);
+
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()) {
+                name = rs.getString("hostID");
+            }
+
+            rs.close();
+            pstmt.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return name;
+    }
 	
-	public void updateReviewRate(Connection conn, int propertyID, float newRate) {
-		try {
-			String sql = "UPDATE Property SET reviewRating = " + newRate + " WHERE propertyID = " + propertyID;
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			
-			rs.close();
-			stmt.close();
+	public static void updateReviewRate(Connection conn, int propertyID, float newRate) {
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = conn.prepareStatement("UPDATE Property SET reviewRating = ? WHERE propertyID = ?");
+            pstmt.setFloat(1, newRate);
+            pstmt.setInt(2, propertyID);
+			pstmt.executeUpdate();
+
+            pstmt.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
@@ -87,6 +130,7 @@ public class Property {
                 }
                 if (!overlap) {
                     properties.add(new PropertyInfo(
+                            rs.getInt("propertyID"),
                             rs.getString("name"),
                             rs.getString("description"),
                             locationP,

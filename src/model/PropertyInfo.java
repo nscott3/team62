@@ -12,7 +12,8 @@ public class PropertyInfo {
     private String houseName;
     private String postcode;
 
-    public PropertyInfo(String nameP, String descriptionP, String locationP, boolean isBreakfastP, int maxGuestsP, float reviewRatingP, String hostIDP, String houseNameP, String postcodeP) {
+    public PropertyInfo(int propertyIDP, String nameP, String descriptionP, String locationP, boolean isBreakfastP, int maxGuestsP, float reviewRatingP, String hostIDP, String houseNameP, String postcodeP) {
+        propertyID = propertyIDP;
         name = nameP;
         description = descriptionP;
         location = locationP;
@@ -22,6 +23,10 @@ public class PropertyInfo {
         hostID = hostIDP;
         houseName = houseNameP;
         postcode = postcodeP;
+    }
+
+    public int getPropertyID() {
+        return propertyID;
     }
 
     public String getName() {
