@@ -109,9 +109,8 @@ public class GuestView extends JFrame {
 		getContentPane().add(lblCheckGuest);
 		
 		setVisible(true);
-		
 		btnLogOut.addActionListener(new ActionListener() {
-		
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -125,12 +124,7 @@ public class GuestView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-<<<<<<< HEAD
-//				new MyReservationView(personInfo, guestInfo);
-				new MyReservationView();
-=======
 				new MyReservationView(personInfo, guestInfo);
->>>>>>> 3cddc989b89604f68b06464f993209ec36aa6a86
 				setVisible(false);
 			}
 		});
@@ -160,8 +154,4 @@ public class GuestView extends JFrame {
 			}
 		});
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 3cddc989b89604f68b06464f993209ec36aa6a86

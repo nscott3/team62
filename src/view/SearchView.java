@@ -33,7 +33,7 @@ public class SearchView extends JFrame{
         table.setAutoCreateRowSorter(true);
         table.setLocation(200,300);
 
-        ButtonCellRenderer renderer = new ButtonCellRenderer("More Information");
+        InfoButtonCellRenderer renderer = new InfoButtonCellRenderer("More Information");
         table.getColumn("Specific Information").setCellRenderer(renderer);
 
         InfoButtonCellEditor editor = new InfoButtonCellEditor();

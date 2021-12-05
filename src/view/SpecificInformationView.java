@@ -15,8 +15,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JTextField;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -33,6 +31,7 @@ public class SpecificInformationView extends JFrame {
 	private JTextField tfEndDay;
 	private final MonthCalendar currentCalendar;
 	private final MonthCalendar nextCalendar;
+	private JTextField tfDescription;
 
 	public SpecificInformationView(PersonInfo personInfo, GuestInfo guestInfo, PropertyInfo propertyinfo, String startDate, String endDate) {
 		setResizable(false);
@@ -120,7 +119,7 @@ public class SpecificInformationView extends JFrame {
 		MonthCalendar.MonthListener listener = new MonthCalendar.MonthListener() {
 			@Override
 			public void onDayClick() {
-				SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yy-MM-dd");
 				Calendar startCal = bookingDateManager.getStartDay();
 				if (startCal != null) {
 					String startDay = dateFormat.format(startCal.getTime());
@@ -166,7 +165,6 @@ public class SpecificInformationView extends JFrame {
 		tfStartDay = new JTextField(startDate);
 		tfStartDay.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		tfStartDay.setBounds(665, 305, 140, 23);
-		tfStartDay.setEnabled(false);
 		panel.add(tfStartDay);
 		tfStartDay.setColumns(10);
 
@@ -178,7 +176,6 @@ public class SpecificInformationView extends JFrame {
 		tfEndDay = new JTextField(endDate);
 		tfEndDay.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		tfEndDay.setBounds(840, 305, 140, 23);
-		tfEndDay.setEnabled(false);
 		panel.add(tfEndDay);
 		tfEndDay.setColumns(10);
 
@@ -291,26 +288,28 @@ public class SpecificInformationView extends JFrame {
 		JLabel lblValueSC = new JLabel("(5.0)");
 		lblValueSC.setBounds(205, 170, 34, 15);
 		reviewPanel.add(lblValueSC);
-		
-		JPanel seeReviewPane = new JPanel();
-		seeReviewPane.setBounds(265, 50, 885, 260);
-		seeReviewPane.setLayout(new BoxLayout(seeReviewPane, BoxLayout.Y_AXIS));
 
-		JScrollPane scrollPane = new JScrollPane(seeReviewPane);
-		scrollPane.setBounds(250, 50, 885, 260);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		reviewPanel.add(scrollPane);
+		tfDescription = new JTextField();
+		tfDescription.setBounds(272, 54, 713, 90);
+		reviewPanel.add(tfDescription);
+		tfDescription.setColumns(10);
+
+		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnSubmit.setBounds(1007, 80, 118, 62);
+		reviewPanel.add(btnSubmit);
+
 		
-		for(int i = 0; i < 10; i++) {
-			JTextArea taDescription = new JTextArea("Title \nGuestEmail \nOverallScore  \nDescription " + i);
-			taDescription.setEditable(false);
-//			taDescription.setBounds(12, 10 + i * 100, 850, 90);
-			seeReviewPane.add(taDescription);
-			JPanel blank = new JPanel();
-			blank.setSize(new Dimension(885, 20));
-			seeReviewPane.add(blank);
-		}
-		
+		JPanel showReviewPanel = new JPanel();
+		JScrollPane reviewPane = new JScrollPane(showReviewPanel);
+		reviewPane.setBounds(288, 319, 826, -155);
+		reviewPane.getVerticalScrollBar(); 
+		reviewPanel.add(reviewPane);
+		showReviewPanel.setLayout(new BorderLayout(0, 0));
+		JTextArea tfReview = new JTextArea("hello this property", 20, 20);
+		showReviewPanel.add(tfReview);
+		 
+
 		setVisible(true);
 	}
 }
