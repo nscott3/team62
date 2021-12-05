@@ -81,7 +81,14 @@ public class MainView extends JFrame {
 
         enquirerButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	new EnquirerView();
+            	this.dispose();
             }
+
+			private void dispose() {
+				// TODO Auto-generated method stub
+				
+			}
         });
 
         //login button

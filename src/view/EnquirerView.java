@@ -28,7 +28,7 @@ public class EnquirerView extends JFrame {
     private JTextField tfEndDate;
 
 
-    public EnquirerView(PersonInfo personInfo, GuestInfo guestInfo) {
+    public EnquirerView() {
         setResizable(false);
         setPreferredSize(new Dimension(1200, 720/12*9));
         setSize(1200, 720/12*9);
@@ -57,15 +57,10 @@ public class EnquirerView extends JFrame {
         btnSearchBtn.setBounds(998, 251, 96, 45);
         getContentPane().add(btnSearchBtn);
 
-        JButton btnMyReservation = new JButton("MyReservation");
-        btnMyReservation.setFont(new Font("SansSerif", Font.PLAIN, 12));
-        btnMyReservation.setBounds(960, 57, 114, 30);
-        getContentPane().add(btnMyReservation);
-
-        JButton btnLogOut = new JButton("Log out");
-        btnLogOut.setFont(new Font("SansSerif", Font.PLAIN, 12));
-        btnLogOut.setBounds(1084, 57, 89, 30);
-        getContentPane().add(btnLogOut);
+        JButton btnHome = new JButton("Home");
+        btnHome.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        btnHome.setBounds(1070, 58, 89, 30);
+        getContentPane().add(btnHome);
 
         JLabel lblLocation = new JLabel("Location");
         lblLocation.setFont(new Font("SansSerif", Font.PLAIN, 18));
@@ -101,39 +96,20 @@ public class EnquirerView extends JFrame {
         tfEndDate.setText("YYYY-MM-DD");
         tfEndDate.setColumns(10);
 
-        JLabel lblLogInDescription = new JLabel("Logged in as: "+personInfo.getForename());
+        JLabel lblLogInDescription = new JLabel("Logged in as Enquirer");
         lblLogInDescription.setFont(new Font("SansSerif", Font.PLAIN, 12));
-        lblLogInDescription.setBounds(960, 11, 200, 14);
+        lblLogInDescription.setBounds(1040, 34, 133, 14);
         getContentPane().add(lblLogInDescription);
-
-        JLabel lblName = new JLabel("User Name");
-        lblName.setFont(new Font("SansSerif", Font.PLAIN, 12));
-        lblName.setBounds(1011, 36, 146, 14);
-        getContentPane().add(lblName);
-
-        JLabel lblCheckGuest = new JLabel("(Guest)");
-        lblCheckGuest.setFont(new Font("SansSerif", Font.PLAIN, 12));
-        lblCheckGuest.setBounds(960, 36, 49, 14);
-        getContentPane().add(lblCheckGuest);
 
         setVisible(true);
 
-        btnLogOut.addActionListener(new ActionListener() {
+        btnHome.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
                 new MainView();
-                JOptionPane.showMessageDialog(null, "Log out!");
                 setVisible(false);
-            }
-        });
-        btnMyReservation.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
-//				new MyReservationView(personInfo, guestInfo);
             }
         });
         btnSearchBtn.addActionListener(new ActionListener() {
@@ -153,8 +129,7 @@ public class EnquirerView extends JFrame {
                     formatted = false;
                 }
                 if (formatted) {
-                    new SearchView(personInfo, guestInfo, tfLocation.getText(), tfStartDate.getText(), tfEndDate.getText()).setVisible(true);
-                    dispose();
+                	//todo search
                 } else {
                     JOptionPane.showMessageDialog(null, "Please write valid dates in YYYY-MM-DD format!", "Error!", JOptionPane.DEFAULT_OPTION);
                 }
