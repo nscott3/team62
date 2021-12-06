@@ -112,9 +112,11 @@ public class SearchView extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new MainView();
+
 				JOptionPane.showMessageDialog(null, "Log out!");
-				setVisible(false);
+                new MainView().setVisible(false);
+                dispose();
+
 			}
 		});
         
@@ -160,6 +162,12 @@ public class SearchView extends JFrame{
                     case 4:
                         return property.getOverallScore();
                     case 5:
+                        return property.getStartDate();
+                    case 6:
+                        return property.getEndDate();
+                    case 7:
+                        return property.getAvailability();
+                    case 8:
                         return property.getInfoBtn();
                 }
                 return null;
@@ -167,7 +175,7 @@ public class SearchView extends JFrame{
 
             @Override
             public int getColumnCount() {
-                return 6;
+                return 9;
             }
             @Override
             public String getColumnName(int column) {
@@ -183,7 +191,13 @@ public class SearchView extends JFrame{
                     case 4:
                         return "Overall Score";
                     case 5:
-                    	return "Specific Information";
+                        return "Start Date";
+                    case 6:
+                        return "End Date";
+                    case 7:
+                    	return "Availability";
+                    case 8:
+                        return "Specific Information";
                 }
                 return null;
             }
@@ -202,18 +216,28 @@ public class SearchView extends JFrame{
         }
         if (properties != null) {
             for (PropertyInfo property : properties ) {
+                boolean available;
+                try {
+                    Connection conn = DBAccess.connect();
+                    available = !Property.checkAvailability(conn, property.getPropertyID(), java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
+                } finally {
+                    DBAccess.disconnect();
+                }
                 PropertyGetterSetter e = new PropertyGetterSetter();
                 e.setTitle(property.getName());
                 e.setDescription(property.getDescription());
                 e.setLocation(property.getLocation());
                 e.setBreakfast(property.getIsBreakfast());
                 e.setOverallScore(String.valueOf(property.getReviewRating()));
+                e.setStartDate(startDate);
+                e.setEndDate(endDate);
+                e.setAvailability(available ? "Available" : "Unavailable");
                 e.setInfoBtn(new InfoButton(
                         new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
-                                new SpecificInformationView(personInfo, guestInfo, property, startDate, endDate);
-                                parent.setVisible(false);
+                                new SpecificInformationView(personInfo, guestInfo, property, startDate, endDate).setVisible(true);
+                                parent.dispose();
                             }
                         }
                 ));

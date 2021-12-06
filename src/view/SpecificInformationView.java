@@ -4,312 +4,403 @@ import view.calendar.BookingDateManager;
 import view.calendar.MonthCalendar;
 import model.*;
 
-import java.awt.Dimension;
+import java.awt.*;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import java.awt.Font;
+import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.sql.Connection;
+import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
-import javax.swing.JTextArea;
-import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 public class SpecificInformationView extends JFrame {
-	private JTextField tfStartDay;
-	private JTextField tfEndDay;
-	private final MonthCalendar currentCalendar;
-	private final MonthCalendar nextCalendar;
-	private JTextField tfDescription;
+    private JTextField tfStartDay;
+    private JTextField tfEndDay;
+    private final MonthCalendar currentCalendar;
+    private final MonthCalendar nextCalendar;
+    private JTextField tfDescription;
 
-	public SpecificInformationView(PersonInfo personInfo, GuestInfo guestInfo, PropertyInfo propertyinfo, String startDate, String endDate) {
-		setResizable(false);
-		setPreferredSize(new Dimension(1200, 1020 / 12 * 9));
-		setSize(1200, 1020 / 12 * 9);
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("HomeBreaks Plc");
-		getContentPane().setLayout(null);
+    public SpecificInformationView(PersonInfo personInfo, GuestInfo guestInfo, PropertyInfo propertyinfo, String startDate, String endDate) {
+        setResizable(false);
+        setPreferredSize(new Dimension(1200, 1020 / 12 * 9));
+        setSize(1200, 1020 / 12 * 9);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("HomeBreaks Plc");
+        getContentPane().setLayout(null);
 
-		JPanel panel = new JPanel();
-		panel.setBounds(22, 10, 1162, 378);
-		getContentPane().add(panel);
-		panel.setLayout(null);
+        JPanel panel = new JPanel();
+        panel.setBounds(22, 10, 1162, 378);
+        getContentPane().add(panel);
+        panel.setLayout(null);
 
-		JLabel lblTitle = new JLabel("Specific Information");
-		lblTitle.setFont(new Font("Tahoma", Font.BOLD, 32));
-		lblTitle.setBounds(14, 0, 514, 57);
-		panel.add(lblTitle);
+        JLabel lblTitle = new JLabel("Specific Information");
+        lblTitle.setFont(new Font("Tahoma", Font.BOLD, 32));
+        lblTitle.setBounds(14, 0, 514, 57);
+        panel.add(lblTitle);
 
-		JPanel PropertyInfoPanel = new JPanel();
-		PropertyInfoPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		PropertyInfoPanel.setBounds(10, 58, 624, 309);
-		panel.add(PropertyInfoPanel);
-		PropertyInfoPanel.setLayout(null);
 
-		JLabel lblPropertyName = new JLabel("Property Name");
-		lblPropertyName.setBounds(17, 13, 118, 15);
-		PropertyInfoPanel.add(lblPropertyName);
+        JLabel lblAvailableDate = new JLabel("Date Selector");
+        lblAvailableDate.setFont(new Font("Tahoma", Font.BOLD, 24));
+        lblAvailableDate.setBounds(14, 58, 415, 35);
+        panel.add(lblAvailableDate);
 
-		JLabel lblPropertyDescription = new JLabel("Property Description");
-		lblPropertyDescription.setBounds(18, 30, 142, 15);
-		PropertyInfoPanel.add(lblPropertyDescription);
+        JPanel CalandarPanel1 = new JPanel();
+        CalandarPanel1.setBounds(73, 94, 184, 143);
+        panel.add(CalandarPanel1);
 
-		JLabel lblPropertyLocation = new JLabel("Property Location");
-		lblPropertyLocation.setBounds(18, 50, 118, 14);
-		PropertyInfoPanel.add(lblPropertyLocation);
+        final BookingDateManager bookingDateManager = new BookingDateManager();
+        MonthCalendar.MonthListener listener = new MonthCalendar.MonthListener() {
+            @Override
+            public void onDayClick() {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
+                Calendar startCal = bookingDateManager.getStartDay();
+                if (startCal != null) {
+                    String startDay = dateFormat.format(startCal.getTime());
+                    tfStartDay.setText(startDay);
+                }
+                Calendar endCal = bookingDateManager.getEndDay();
+                if (endCal != null) {
+                    String endDay = dateFormat.format(endCal.getTime());
+                    tfEndDay.setText(endDay);
+                }
+                currentCalendar.updateDayColor();
+                nextCalendar.updateDayColor();
+            }
 
-		JLabel lblBreakfast = new JLabel("Breakfast");
-		lblBreakfast.setBounds(18, 70, 95, 14);
-		PropertyInfoPanel.add(lblBreakfast);
+            @Override
+            public void resetTextField() {
+                tfStartDay.setText("");
+                tfEndDay.setText("");
+            }
+        };
 
-		JLabel lblSleepingFacilities = new JLabel("Sleeping Facilities");
-		lblSleepingFacilities.setBounds(18, 90, 142, 14);
-		PropertyInfoPanel.add(lblSleepingFacilities);
+        currentCalendar = new MonthCalendar(bookingDateManager);
+        currentCalendar.setOnDayClickListener(listener);
+        CalandarPanel1.add(currentCalendar);
 
-		JLabel lblBedNum = new JLabel("Number of beds");
-		lblBedNum.setBounds(18, 110, 118, 14);
-		PropertyInfoPanel.add(lblBedNum);
+        JPanel CalandarPanel2 = new JPanel();
+        CalandarPanel2.setBounds(469, 94, 184, 143);
+        panel.add(CalandarPanel2);
 
-		JLabel lblBathingFacilities = new JLabel("Bathing Facilities");
-		lblBathingFacilities.setBounds(18, 130, 118, 14);
-		PropertyInfoPanel.add(lblBathingFacilities);
+        nextCalendar = new MonthCalendar(bookingDateManager);
+        nextCalendar.setOnDayClickListener(listener);
+        Calendar nextMonth = Calendar.getInstance();
+        nextMonth.add(Calendar.MONTH, 1);
 
-		JLabel lblBathroomNum = new JLabel("Number of Bathrooms");
-		lblBathroomNum.setBounds(18, 150, 142, 14);
-		PropertyInfoPanel.add(lblBathroomNum);
+        nextCalendar.setDate(nextMonth.get(Calendar.YEAR), nextMonth.get(Calendar.MONTH) + 1);
+        CalandarPanel2.add(nextCalendar);
 
-		JLabel lblKitchecnFacilities = new JLabel("Kitchen Facilities");
-		lblKitchecnFacilities.setBounds(18, 170, 118, 14);
-		PropertyInfoPanel.add(lblKitchecnFacilities);
+        JLabel lblStartDay = new JLabel("Start Day");
+        lblStartDay.setFont(new Font("Tahoma", Font.BOLD, 13));
+        lblStartDay.setBounds(238, 275, 81, 15);
+        panel.add(lblStartDay);
 
-		JLabel lblLivingFacilities = new JLabel("Living Facilities");
-		lblLivingFacilities.setBounds(18, 190, 118, 14);
-		PropertyInfoPanel.add(lblLivingFacilities);
+        tfStartDay = new JTextField(startDate);
+        tfStartDay.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        tfStartDay.setBounds(203, 300, 140, 23);
+        panel.add(tfStartDay);
+        tfStartDay.setColumns(10);
 
-		JLabel lblUtilities = new JLabel("Utilities");
-		lblUtilities.setBounds(18, 210, 95, 14);
-		PropertyInfoPanel.add(lblUtilities);
+        JLabel lblNewLabel = new JLabel("~");
+        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+        lblNewLabel.setBounds(353, 300, 15, 15);
+        panel.add(lblNewLabel);
 
-		JLabel lblOutdoorFacilities = new JLabel("Outdoor Facilities");
-		lblOutdoorFacilities.setBounds(18, 230, 118, 14);
-		PropertyInfoPanel.add(lblOutdoorFacilities);
+        tfEndDay = new JTextField(endDate);
+        tfEndDay.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        tfEndDay.setBounds(378, 300, 140, 23);
+        panel.add(tfEndDay);
+        tfEndDay.setColumns(10);
 
-		JLabel lblAvailableDate = new JLabel("Available Date");
-		lblAvailableDate.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblAvailableDate.setBounds(657, 67, 415, 35);
-		panel.add(lblAvailableDate);
+        JLabel lblEndDay = new JLabel("End Day");
+        lblEndDay.setFont(new Font("Tahoma", Font.BOLD, 13));
+        lblEndDay.setBounds(419, 275, 96, 15);
+        panel.add(lblEndDay);
 
-		JPanel CalandarPanel1 = new JPanel();
-		CalandarPanel1.setBounds(656, 110, 184, 143);
-		panel.add(CalandarPanel1);
+        JButton btnBooking = new JButton("Request Booking");
+        btnBooking.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
+                boolean formatted = false;
+                try {
+                    format.setLenient(false);
+                    format.parse(tfStartDay.getText());
+                    format.parse(tfEndDay.getText());
+                    formatted = true;
+                }
+                catch(ParseException ex){
+                    formatted = false;
+                }
+                if (formatted) {
+                    new CostView(personInfo, guestInfo, propertyinfo, Date.valueOf(tfStartDay.getText()), Date.valueOf(tfEndDay.getText())).setVisible(true);
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please write valid dates in YYYY-MM-DD format!", "Error!", JOptionPane.DEFAULT_OPTION);
+                }
 
-		final BookingDateManager bookingDateManager = new BookingDateManager();
-		MonthCalendar.MonthListener listener = new MonthCalendar.MonthListener() {
-			@Override
-			public void onDayClick() {
-				SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
-				Calendar startCal = bookingDateManager.getStartDay();
-				if (startCal != null) {
-					String startDay = dateFormat.format(startCal.getTime());
-					tfStartDay.setText(startDay);
-				}
-				Calendar endCal = bookingDateManager.getEndDay();
-				if (endCal != null) {
-					String endDay = dateFormat.format(endCal.getTime());
-					tfEndDay.setText(endDay);
-				}
-				currentCalendar.updateDayColor();
-				nextCalendar.updateDayColor();
-			}
+            }
+        });
+        btnBooking.setFont(new Font("Tahoma", Font.BOLD, 13));
+        btnBooking.setBounds(997, 296, 132, 48);
+        panel.add(btnBooking);
 
-			@Override
-			public void resetTextField() {
-				tfStartDay.setText("");
-				tfEndDay.setText("");
-			}
-		};
+        JButton btnInfo = new JButton("Property Info");
+        btnInfo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new PropertyInformationView(personInfo, guestInfo, propertyinfo, startDate, endDate).setVisible(true);
+                dispose();
+            }
+        });
+        btnInfo.setFont(new Font("Tahoma", Font.BOLD, 13));
+        btnInfo.setBounds(853, 296, 132, 48);
+        panel.add(btnInfo);
 
-		currentCalendar = new MonthCalendar(bookingDateManager);
-		currentCalendar.setOnDayClickListener(listener);
-		CalandarPanel1.add(currentCalendar);
+        String scoreCleanliness;
+        String scoreCommunication;
+        String scoreCheckin;
+        String scoreAccuracy;
+        String scoreLocation;
+        String scoreValue;
+        String scoreAverage;
+        double scoreCleanlinessDouble = 0;
+        double scoreCommunicationDouble = 0;
+        double scoreCheckinDouble = 0;
+        double scoreAccuracyDouble = 0;
+        double scoreLocationDouble = 0;
+        double scoreValueDouble = 0;
+        double scoreAverageDouble = 0;
 
-		JPanel CalandarPanel2 = new JPanel();
-		CalandarPanel2.setBounds(848, 110, 184, 143);
-		panel.add(CalandarPanel2);
+        try {
+            Connection conn = DBAccess.connect();
+            double[] scores = Review.getAverageReviews(conn,propertyinfo.getPropertyID());
+            scoreCleanliness = starResolver((int) scores[0]);
+            scoreCommunication = starResolver((int) scores[1]);
+            scoreCheckin = starResolver((int) scores[2]);
+            scoreAccuracy = starResolver((int) scores[3]);
+            scoreLocation = starResolver((int) scores[4]);
+            scoreValue = starResolver((int) scores[5]);
+            scoreAverage = starResolver((int) scores[6]);
+            scoreCleanlinessDouble = scores[0];
+            scoreCommunicationDouble = scores[1];
+            scoreCheckinDouble = scores[2];
+            scoreAccuracyDouble = scores[3];
+            scoreLocationDouble = scores[4];
+            scoreValueDouble = scores[5];
+            scoreAverageDouble = scores[6];
 
-		nextCalendar = new MonthCalendar(bookingDateManager);
-		nextCalendar.setOnDayClickListener(listener);
-		Calendar nextMonth = Calendar.getInstance();
-		nextMonth.add(Calendar.MONTH, 1);
+            scoreCleanlinessDouble = Double.isNaN(scoreCleanlinessDouble) ? 0 : round(scores[0],2);
+            scoreCommunicationDouble = Double.isNaN(scoreCommunicationDouble) ? 0 : round(scores[1],2);
+            scoreCheckinDouble = Double.isNaN(scoreCheckinDouble) ? 0 : round(scores[2],2);
+            scoreAccuracyDouble = Double.isNaN(scoreAccuracyDouble) ? 0 : round(scores[3],2);
+            scoreLocationDouble = Double.isNaN(scoreLocationDouble) ? 0 : round(scores[4],2);
+            scoreValueDouble = Double.isNaN(scoreValueDouble) ? 0 : round(scores[5],2);
+            scoreAverageDouble = Double.isNaN(scoreAverageDouble) ? 0 : round(scores[6],2);
+        } finally {
+            DBAccess.disconnect();
+        }
 
-		nextCalendar.setDate(nextMonth.get(Calendar.YEAR), nextMonth.get(Calendar.MONTH) + 1);
-		CalandarPanel2.add(nextCalendar);
+        JLabel lblOSTitle = new JLabel("Overall Score");
+        lblOSTitle.setBounds(811, 102, 120, 15);
+        panel.add(lblOSTitle);
+        lblOSTitle.setFont(new Font("Tahoma", Font.BOLD, 16));
 
-		JLabel lblStartDay = new JLabel("Start Day");
-		lblStartDay.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblStartDay.setBounds(668, 280, 81, 15);
-		panel.add(lblStartDay);
+        JLabel lblOverallScoreStar = new JLabel(scoreAverage);
+        lblOverallScoreStar.setBounds(931, 102, 65, 15);
+        panel.add(lblOverallScoreStar);
 
-		tfStartDay = new JTextField(startDate);
-		tfStartDay.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		tfStartDay.setBounds(665, 305, 140, 23);
-		panel.add(tfStartDay);
-		tfStartDay.setColumns(10);
+        JLabel lblOSTitleSC = new JLabel("("+scoreAverageDouble+")");
+        lblOSTitleSC.setBounds(996, 103, 48, 15);
+        panel.add(lblOSTitleSC);
+        lblOSTitleSC.setFont(new Font("Tahoma", Font.BOLD, 13));
 
-		JLabel lblNewLabel = new JLabel("~");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel.setBounds(815, 305, 15, 15);
-		panel.add(lblNewLabel);
+        JLabel lblCleanlinessSC = new JLabel("("+scoreCleanlinessDouble+")");
+        lblCleanlinessSC.setBounds(996, 132, 34, 15);
+        panel.add(lblCleanlinessSC);
 
-		tfEndDay = new JTextField(endDate);
-		tfEndDay.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		tfEndDay.setBounds(840, 305, 140, 23);
-		panel.add(tfEndDay);
-		tfEndDay.setColumns(10);
+        JLabel lblCleanlinessStar = new JLabel(scoreCleanliness);
+        lblCleanlinessStar.setBounds(921, 132, 65, 15);
+        panel.add(lblCleanlinessStar);
 
-		JLabel lblEndDay = new JLabel("End Day");
-		lblEndDay.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblEndDay.setBounds(843, 280, 96, 15);
-		panel.add(lblEndDay);
+        JLabel lblCleanliness = new JLabel("Cleanliness");
+        lblCleanliness.setBounds(816, 132, 85, 15);
+        panel.add(lblCleanliness);
 
-		JButton btnBooking = new JButton("Request Booking");
-		btnBooking.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnBooking.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnBooking.setBounds(993, 284, 148, 48);
-		panel.add(btnBooking);
+        JLabel lblCommunication = new JLabel("Communication");
+        lblCommunication.setBounds(811, 150, 120, 15);
+        panel.add(lblCommunication);
 
-		JPanel reviewPanel = new JPanel();
-		reviewPanel.setBounds(22, 387, 1162, 331);
-		getContentPane().add(reviewPanel);
-		reviewPanel.setLayout(null);
+        JLabel lblCheckIn = new JLabel("Check-in");
+        lblCheckIn.setBounds(816, 168, 96, 15);
+        panel.add(lblCheckIn);
 
-		JLabel lblNewLabel_1 = new JLabel("Review");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 26));
-		lblNewLabel_1.setBounds(273, 9, 143, 39);
-		reviewPanel.add(lblNewLabel_1);
+        JLabel lblAccuracy = new JLabel("Accuracy");
+        lblAccuracy.setBounds(816, 186, 96, 15);
+        panel.add(lblAccuracy);
 
-		JLabel lblOSTitle = new JLabel("Overall Score");
-		lblOSTitle.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblOSTitle.setBounds(20, 50, 120, 15);
-		reviewPanel.add(lblOSTitle);
+        JLabel lblLocation = new JLabel("Location");
+        lblLocation.setBounds(816, 204, 96, 15);
+        panel.add(lblLocation);
 
-		JLabel lblOverallScoreStar = new JLabel("\u2605\u2605\u2605\u2605\u2605");
-		lblOverallScoreStar.setBounds(140, 50, 65, 15);
-		reviewPanel.add(lblOverallScoreStar);
+        JLabel lblValue = new JLabel("Value");
+        lblValue.setBounds(816, 222, 96, 15);
+        panel.add(lblValue);
 
-		JLabel lblCleanliness = new JLabel("Cleanliness");
-		lblCleanliness.setBounds(25, 80, 85, 15);
-		reviewPanel.add(lblCleanliness);
+        JLabel lblValueStar = new JLabel(scoreValue);
+        lblValueStar.setBounds(921, 222, 65, 15);
+        panel.add(lblValueStar);
 
-		JLabel lblCommunication = new JLabel("Communication");
-		lblCommunication.setBounds(25, 98, 96, 15);
-		reviewPanel.add(lblCommunication);
+        JLabel lblLocationStar = new JLabel(scoreLocation);
+        lblLocationStar.setBounds(921, 204, 65, 15);
+        panel.add(lblLocationStar);
 
-		JLabel lblCleanlinessStar = new JLabel("\u2605\u2605\u2605\u2605\u2606");
-		lblCleanlinessStar.setBounds(130, 80, 65, 15);
-		reviewPanel.add(lblCleanlinessStar);
+        JLabel lblAccuracyStar = new JLabel(scoreAccuracy);
+        lblAccuracyStar.setBounds(921, 186, 65, 15);
+        panel.add(lblAccuracyStar);
 
-		JLabel lblCommunicationStar = new JLabel("\u2605\u2605\u2605\u2605\u2606");
-		lblCommunicationStar.setBounds(130, 98, 65, 15);
-		reviewPanel.add(lblCommunicationStar);
+        JLabel lblCheckInStar = new JLabel(scoreCheckin);
+        lblCheckInStar.setBounds(921, 168, 65, 15);
+        panel.add(lblCheckInStar);
 
-		JLabel lblCheckIn = new JLabel("Check-in");
-		lblCheckIn.setBounds(25, 116, 96, 15);
-		reviewPanel.add(lblCheckIn);
+        JLabel lblCommunicationStar = new JLabel(scoreCommunication);
+        lblCommunicationStar.setBounds(921, 150, 65, 15);
+        panel.add(lblCommunicationStar);
 
-		JLabel lblCheckInStar = new JLabel("\u2605\u2605\u2605\u2605\u2605");
-		lblCheckInStar.setBounds(130, 116, 65, 15);
-		reviewPanel.add(lblCheckInStar);
+        JLabel lblCommunicationSC = new JLabel("("+scoreCommunicationDouble+")");
+        lblCommunicationSC.setBounds(996, 150, 34, 15);
+        panel.add(lblCommunicationSC);
 
-		JLabel lblAccuracy = new JLabel("Accuracy");
-		lblAccuracy.setBounds(25, 134, 96, 15);
-		reviewPanel.add(lblAccuracy);
+        JLabel lblCheckInSC = new JLabel("("+scoreCheckinDouble+")");
+        lblCheckInSC.setBounds(996, 168, 34, 15);
+        panel.add(lblCheckInSC);
 
-		JLabel lblAccuracyStar = new JLabel("\u2605\u2605\u2605\u2605\u2606");
-		lblAccuracyStar.setBounds(130, 134, 65, 15);
-		reviewPanel.add(lblAccuracyStar);
+        JLabel lblAccuracySC = new JLabel("("+scoreAccuracyDouble+")");
+        lblAccuracySC.setBounds(996, 186, 34, 15);
+        panel.add(lblAccuracySC);
 
-		JLabel lblLocation = new JLabel("Location");
-		lblLocation.setBounds(25, 152, 96, 15);
-		reviewPanel.add(lblLocation);
+        JLabel lblLocationSC = new JLabel("("+scoreLocationDouble+")");
+        lblLocationSC.setBounds(996, 204, 34, 15);
+        panel.add(lblLocationSC);
 
-		JLabel lblLocationStar = new JLabel("\u2605\u2605\u2605\u2605\u2606");
-		lblLocationStar.setBounds(130, 152, 65, 15);
-		reviewPanel.add(lblLocationStar);
+        JLabel lblValueSC = new JLabel("("+scoreValueDouble+")");
+        lblValueSC.setBounds(996, 222, 34, 15);
+        panel.add(lblValueSC);
 
-		JLabel lblValue = new JLabel("Value");
-		lblValue.setBounds(25, 170, 96, 15);
-		reviewPanel.add(lblValue);
+        JLabel lblNewLabel_1 = new JLabel("Reviews");
+        lblNewLabel_1.setBounds(6, 339, 143, 39);
+        panel.add(lblNewLabel_1);
+        lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 26));
 
-		JLabel lblValueStar = new JLabel("\u2605\u2605\u2605\u2605\u2605");
-		lblValueStar.setBounds(130, 170, 65, 15);
-		reviewPanel.add(lblValueStar);
+        JButton btnBack = new JButton("Go Back");
+        btnBack.setFont(new Font("Tahoma", Font.BOLD, 13));
+        btnBack.setBounds(709, 296, 132, 48);
+        panel.add(btnBack);
 
-		JLabel lblOSTitleSC = new JLabel("(4.7)");
-		lblOSTitleSC.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblOSTitleSC.setBounds(203, 50, 48, 15);
-		reviewPanel.add(lblOSTitleSC);
+        JPanel reviewPanel = new JPanel();
+        reviewPanel.setBounds(22, 387, 1162, 331);
+        getContentPane().add(reviewPanel);
+        reviewPanel.setLayout(null);
 
-		JLabel lblCleanlinessSC = new JLabel("(4.2)");
-		lblCleanlinessSC.setBounds(205, 80, 34, 15);
-		reviewPanel.add(lblCleanlinessSC);
+        Insets insets = new Insets(4, 4, 4, 4);
+        JPanel reviews = new JPanel();
+        reviews.setBounds(0, 0, 1142, 331);
+        reviews.setLayout(new GridBagLayout());
+        int y = 0;
+        reviews.add(new JLabel("Guest Name"), new GridBagConstraints(0, y, 1, 1, 0.0, 0.0, GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, insets, 0, 0));
+        reviews.add(new JLabel("Description"), new GridBagConstraints(1, y, 1, 1, 5.0, 0.0, GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, insets, 0, 0));
+        reviews.add(new JLabel("Cleanliness"), new GridBagConstraints(2, y, 1, 1, 1.0, 0.0, GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, insets, 0, 0));
+        reviews.add(new JLabel("Communication"), new GridBagConstraints(3, y, 1, 1, 1.0, 0.0, GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, insets, 0, 0));
+        reviews.add(new JLabel("Checkin"), new GridBagConstraints(4, y, 1, 1, 1.0, 0.0, GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, insets, 0, 0));
+        reviews.add(new JLabel("Accuracy"), new GridBagConstraints(5, y, 1, 1, 1.0, 0.0, GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, insets, 0, 0));
+        reviews.add(new JLabel("Location"), new GridBagConstraints(6, y, 1, 1, 1.0, 0.0, GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, insets, 0, 0));
+        reviews.add(new JLabel("Value"), new GridBagConstraints(7, y, 1, 1, 1.0, 0.0, GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, insets, 0, 0));
+        reviews.add(new JLabel("Average"), new GridBagConstraints(8, y, 1, 1, 1.0, 0.0, GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, insets, 0, 0));
+        y++;
+        List<ReviewInfo> propertyReviews = new ArrayList<>();
+        List<String> guestNames = new ArrayList<>();
+        try{
+            Connection conn = DBAccess.connect();
+            propertyReviews = Review.getPropertyReviews(conn, propertyinfo.getPropertyID());
+            for (ReviewInfo review : propertyReviews) {
+                BookingInfo booking = Booking.getBooking(conn, review.getBookingID());
+                GuestInfo guest = Guest.getGuest(conn, booking.getGuestID());
+                guestNames.add(guest.getGuestName());
+            }
+        } finally{
+            DBAccess.disconnect();
+        }
+        for (ReviewInfo review : propertyReviews) {
+            int cleanliness = review.getScoreCleanliness();
+            int communication = review.getScoreCommunication();
+            int checkin = review.getScoreCheckin();
+            int accuracy = review.getScoreAccuracy();
+            int location = review.getScoreLocation();
+            int value = review.getScoreValue();
+            double average = (double)(cleanliness + communication + checkin + accuracy + location + value) / 6;
+            reviews.add(new JLabel(guestNames.get(y-1)), new GridBagConstraints(0, y, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, insets, 0, 0));
+            reviews.add(new JLabel(review.getDescription()), new GridBagConstraints(1, y, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, insets, 0, 0));
+            reviews.add(new JLabel(String.valueOf(cleanliness)), new GridBagConstraints(2, y, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, insets, 0, 0));
+            reviews.add(new JLabel(String.valueOf(communication)), new GridBagConstraints(3, y, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, insets, 0, 0));
+            reviews.add(new JLabel(String.valueOf(checkin)), new GridBagConstraints(4, y, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, insets, 0, 0));
+            reviews.add(new JLabel(String.valueOf(accuracy)), new GridBagConstraints(5, y, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, insets, 0, 0));
+            reviews.add(new JLabel(String.valueOf(location)), new GridBagConstraints(6, y, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, insets, 0, 0));
+            reviews.add(new JLabel(String.valueOf(value)), new GridBagConstraints(7, y, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, insets, 0, 0));
+            reviews.add(new JLabel(String.valueOf(round(average, 2))), new GridBagConstraints(8, y, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, insets, 0, 0));
+            y++;
+        }
 
-		JLabel lblCommunicationSC = new JLabel("(4.1)");
-		lblCommunicationSC.setBounds(205, 98, 34, 15);
-		reviewPanel.add(lblCommunicationSC);
+        reviewPanel.add(reviews);
 
-		JLabel lblCheckInSC = new JLabel("(5.0)");
-		lblCheckInSC.setBounds(205, 116, 34, 15);
-		reviewPanel.add(lblCheckInSC);
+        JPanel showReviewPanel = new JPanel();
+        JScrollPane reviewPane = new JScrollPane(showReviewPanel);
+        reviewPane.setBounds(288, 319, 826, -155);
+        reviewPane.getVerticalScrollBar();
+        reviewPanel.add(reviewPane);
+        showReviewPanel.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblAccuracySC = new JLabel("(4.3)");
-		lblAccuracySC.setBounds(205, 134, 34, 15);
-		reviewPanel.add(lblAccuracySC);
+        btnBack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO Auto-generated method stub
+                new GuestView(personInfo, guestInfo);
+                setVisible(false);
+            }
+        });
 
-		JLabel lblLocationSC = new JLabel("(4.4)");
-		lblLocationSC.setBounds(205, 152, 34, 15);
-		reviewPanel.add(lblLocationSC);
+        pack();
+        setVisible(true);
+    }
 
-		JLabel lblValueSC = new JLabel("(5.0)");
-		lblValueSC.setBounds(205, 170, 34, 15);
-		reviewPanel.add(lblValueSC);
+    private String starResolver(int i){
+        switch(i) {
+            case 1:
+                return "\u2605\u2606\u2606\u2606\u2606";
+            case 2:
+                return "\u2605\u2605\u2606\u2606\u2606";
+            case 3:
+                return "\u2605\u2605\u2605\u2606\u2606";
+            case 4:
+                return "\u2605\u2605\u2605\u2605\u2606";
+            case 5:
+                return "\u2605\u2605\u2605\u2605\u2605";
+            default:
+                return "\u2606\u2606\u2606\u2606\u2606";
+        }
+    }
 
-		tfDescription = new JTextField();
-		tfDescription.setBounds(272, 54, 713, 90);
-		reviewPanel.add(tfDescription);
-		tfDescription.setColumns(10);
-
-		JButton btnSubmit = new JButton("Submit");
-		btnSubmit.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnSubmit.setBounds(1007, 80, 118, 62);
-		reviewPanel.add(btnSubmit);
-
-		
-		JPanel showReviewPanel = new JPanel();
-		JScrollPane reviewPane = new JScrollPane(showReviewPanel);
-		reviewPane.setBounds(288, 319, 826, -155);
-		reviewPane.getVerticalScrollBar(); 
-		reviewPanel.add(reviewPane);
-		showReviewPanel.setLayout(new BorderLayout(0, 0));
-		JTextArea tfReview = new JTextArea("hello this property", 20, 20);
-		showReviewPanel.add(tfReview);
-		 
-
-		setVisible(true);
-	}
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
 }

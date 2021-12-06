@@ -81,14 +81,9 @@ public class MainView extends JFrame {
 
         enquirerButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	new EnquirerView();
-            	this.dispose();
+                new EnquirerView().setVisible(true);
+                dispose();
             }
-
-			private void dispose() {
-				// TODO Auto-generated method stub
-				
-			}
         });
 
         //login button
@@ -112,6 +107,8 @@ public class MainView extends JFrame {
                                     if (hostSelected) {
                                         if (Host.checkHostExists(conn , id)) {
                                             JOptionPane.showMessageDialog(null, "Logged in as Host!", "Success!", JOptionPane.DEFAULT_OPTION);
+                                            new HostView(person).setVisible(true);
+                                            dispose();
                                         }
                                         else {
                                             JOptionPane.showMessageDialog(null, "User is not registered as a Host.", "Error!", JOptionPane.DEFAULT_OPTION);

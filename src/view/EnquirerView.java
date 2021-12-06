@@ -129,7 +129,7 @@ public class EnquirerView extends JFrame {
                     formatted = false;
                 }
                 if (formatted) {
-                	//todo search
+                    //todo search
                 } else {
                     JOptionPane.showMessageDialog(null, "Please write valid dates in YYYY-MM-DD format!", "Error!", JOptionPane.DEFAULT_OPTION);
                 }

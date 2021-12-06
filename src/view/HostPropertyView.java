@@ -14,7 +14,7 @@ public class HostPropertyView extends JFrame{
     private JScrollPane scrollPane= new JScrollPane();
     private JLabel propertyNameLabel=new JLabel("Enter the properties name:");
     private JTextField propertyName = new JTextField();
-    private JLabel propertyDescLabel=new JLabel("Enter the properties description:");
+    private JLabel propertyDescLabel=new JLabel("Enter the description:");
     private JTextArea propertyDesc = new JTextArea();
     private JLabel propertyLocationLabel=new JLabel("Enter the properties location:");
     private JTextField propertyLocation = new JTextField();
@@ -23,19 +23,19 @@ public class HostPropertyView extends JFrame{
     private JLabel sleepingFacilityLabel= new JLabel("Sleeping Facilities:");
     private JCheckBox hasLinen = new JCheckBox();
     private JCheckBox hasTowel = new JCheckBox();
-    private JLabel numberOfBedsLbl = new JLabel("Enter the number of beds:");
-    private JTextField numberOfBeds= new JTextField();
-    private JLabel bedTypeLbl1= new JLabel("Enter the type of the 1st bed:");
+    private JLabel numberOfBedsLbl = new JLabel("Bedrooms:");
+    private JButton numberOfBeds= new JButton("Add Bedroom");
+    private JLabel bedTypeLbl1= new JLabel("First Bed Type");
     private JComboBox bedType1=new JComboBox(typesOfBeds1);
-    private JLabel bedTypeLbl2= new JLabel("Enter the type of the 2nd bed:");
+    private JLabel bedTypeLbl2= new JLabel("Second Bed Type");
     private JComboBox bedType2=new JComboBox(typesOfBeds2);
     private JLabel bathingFacilities= new JLabel ("Bathing Facilities:");
     private JCheckBox hasHairDryer = new JCheckBox();
     private JCheckBox hasShampoo= new JCheckBox();
     private JCheckBox hasToiletpaper= new JCheckBox();
     private JCheckBox isShared= new JCheckBox();
-    private JLabel numberOfBathroomsLbl = new JLabel("Enter the number of bathrooms:");
-    private JTextField numberOfBathrooms= new JTextField();
+    private JLabel numberOfBathroomsLbl = new JLabel("Bathrooms:");
+    private JButton numberOfBathrooms= new JButton("Add Bathroom");
     private JLabel kitchenFacilities= new JLabel("Kitchen Facilities:");
     private JCheckBox hasRefrigerator= new JCheckBox();
     private JCheckBox hasMicrowave= new JCheckBox();
@@ -280,13 +280,6 @@ public class HostPropertyView extends JFrame{
                     isCorrectlyRegistered=false;
                 }
 
-                if(Integer.parseInt(numberOfBeds.getText())<0){
-                    JOptionPane.showMessageDialog(null, "Please enter a correct amount of beds");
-                    isCorrectlyRegistered=false;
-                }else if(Integer.parseInt(numberOfBathrooms.getText())<0){
-                    JOptionPane.showMessageDialog(null, "Please enter a correct amount of bathrooms");
-                    isCorrectlyRegistered=false;
-                }
 
                 Object source = e.getSource();
                 if(source==button && isCorrectlyRegistered) {
@@ -355,10 +348,10 @@ public class HostPropertyView extends JFrame{
         checkNullTF(propertyName);
         checkNullTF(propertyLocation);
         checkNullTA(propertyDesc);
-        checkNullTF(numberOfBeds);
-        checkNullTF(numberOfBathrooms);
-        checkNr(numberOfBeds);
-        checkNr(numberOfBathrooms);
+        //checkNullTF(numberOfBeds);
+        //checkNullTF(numberOfBathrooms);
+        //checkNr(numberOfBeds);
+        //checkNr(numberOfBathrooms);
         submitButton();
     }
     public void sleepersNum(){
@@ -389,8 +382,8 @@ public class HostPropertyView extends JFrame{
         contentPane = new JPanel();
         setContentPane(contentPane);
         setResizable(false);
-        setPreferredSize(new Dimension(1980, 1280/12*9));
-        setSize(2048, 1280/12*9);
+        setPreferredSize(new Dimension(1400, 1280/12*9));
+        setSize(1400, 1280/12*9);
         setLocationRelativeTo(null);
         contentPane.setLayout(null);
 

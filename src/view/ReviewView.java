@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.util.ArrayList;
 
 public class ReviewView extends JFrame {
     private JTextField tfDescription = new JTextField();
@@ -103,7 +104,19 @@ public class ReviewView extends JFrame {
                             value.getRating(),
                             bookingInfo.getPropertyID()
                     ));
+                    String hostID = Property.getHostID(conn, bookingInfo.getPropertyID());
                     float newRate = (float) Review.getAverageReviews(conn, bookingInfo.getPropertyID())[6];
+                    ArrayList<Integer> ids = Property.lookupPropertyIDs(conn, hostID);
+                    double rating = 0;
+                    for (int i : ids) {
+                        rating += Review.getAverageReviews(conn, i)[6];
+                    }
+                    rating /= ids.size();
+                    if (rating >= 4.7) {
+                        Host.changeSuperHost(conn, hostID, true);
+                    } else {
+                        Host.changeSuperHost(conn, hostID, false);
+                    }
                     Property.updateReviewRate(conn, bookingInfo.getPropertyID(), newRate);
                 } finally {
                     DBAccess.disconnect();
