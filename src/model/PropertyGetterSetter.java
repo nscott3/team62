@@ -8,6 +8,9 @@ public class PropertyGetterSetter {
     private String location;
     private boolean breakfast;
     private String OverallScore;
+    private String startDate;
+    private String endDate;
+    private String availability;
     private InfoButton infoBtn;
 	/**
 	 * @return the title
@@ -69,7 +72,43 @@ public class PropertyGetterSetter {
 	public void setOverallScore(String overallScore) {
 		OverallScore = overallScore;
 	}
-	/**
+    /**
+     * @return the availability
+     */
+    public String getAvailability() {
+        return availability;
+    }
+    /**
+     * @param availability the availability to set
+     */
+    public void setAvailability(String availability) {
+        this.availability = availability;
+    }
+    /**
+     * @return the startDate
+     */
+    public String getStartDate() {
+        return startDate;
+    }
+    /**
+     * @param startDate the startDate to set
+     */
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+    /**
+     * @return the endDate
+     */
+    public String getEndDate() {
+        return endDate;
+    }
+    /**
+     * @param endDate the endDate to set
+     */
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+    /**
 	 * @return the infoBtn
 	 */
 	public InfoButton getInfoBtn() {
