@@ -44,74 +44,67 @@ public class EnquirerView extends JFrame {
         lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
         getContentPane().add(lblTitle);
 
-        tfSearch = new JTextField();
-        tfSearch.setFont(new Font("SansSerif", Font.PLAIN, 12));
-        tfSearch.setForeground(Color.BLACK);
-        tfSearch.setBounds(238, 260, 750, 30);
-        tfSearch.setText(" Search keyword... (Property, Host name, ..etc)");
-        getContentPane().add(tfSearch);
-        tfSearch.setColumns(10);
-
         JButton btnSearchBtn = new JButton("Search");
         btnSearchBtn.setFont(new Font("SansSerif", Font.BOLD, 18));
         btnSearchBtn.setBounds(998, 251, 96, 45);
         getContentPane().add(btnSearchBtn);
 
-        JButton btnHome = new JButton("Home");
-        btnHome.setFont(new Font("SansSerif", Font.PLAIN, 12));
-        btnHome.setBounds(1070, 58, 89, 30);
-        getContentPane().add(btnHome);
+        JButton btnLogOut = new JButton("Log out");
+        btnLogOut.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        btnLogOut.setBounds(1084, 57, 89, 30);
+        getContentPane().add(btnLogOut);
 
         JLabel lblLocation = new JLabel("Location");
         lblLocation.setFont(new Font("SansSerif", Font.PLAIN, 18));
-        lblLocation.setBounds(238, 219, 82, 19);
+        lblLocation.setBounds(238, 260, 82, 19);
         getContentPane().add(lblLocation);
 
         tfLocation = new JTextField();
-        tfLocation.setBounds(313, 215, 176, 25);
+        tfLocation.setBounds(313, 260, 176, 25);
         getContentPane().add(tfLocation);
         tfLocation.setColumns(10);
 
         JLabel lblDate = new JLabel("Date");
         lblDate.setFont(new Font("SansSerif", Font.PLAIN, 18));
-        lblDate.setBounds(595, 217, 49, 23);
+        lblDate.setBounds(595, 260, 49, 23);
         getContentPane().add(lblDate);
 
         tfStartDate = new JTextField();
         tfStartDate.setFont(new Font("SansSerif", Font.PLAIN, 12));
-        tfStartDate.setBounds(641, 216, 123, 25);
+        tfStartDate.setBounds(641, 260, 123, 25);
         getContentPane().add(tfStartDate);
         tfStartDate.setText("YYYY-MM-DD");
         tfStartDate.setColumns(10);
 
         JLabel lblWave = new JLabel("~");
         lblWave.setFont(new Font("SansSerif", Font.PLAIN, 18));
-        lblWave.setBounds(774, 221, 29, 14);
+        lblWave.setBounds(774, 265, 29, 14);
         getContentPane().add(lblWave);
 
         tfEndDate = new JTextField();
         tfEndDate.setFont(new Font("SansSerif", Font.PLAIN, 12));
-        tfEndDate.setBounds(796, 215, 123, 25);
+        tfEndDate.setBounds(796, 260, 123, 25);
         getContentPane().add(tfEndDate);
         tfEndDate.setText("YYYY-MM-DD");
         tfEndDate.setColumns(10);
 
-        JLabel lblLogInDescription = new JLabel("Logged in as Enquirer");
+        JLabel lblLogInDescription = new JLabel("Logged in as: Enquirer");
         lblLogInDescription.setFont(new Font("SansSerif", Font.PLAIN, 12));
-        lblLogInDescription.setBounds(1040, 34, 133, 14);
+        lblLogInDescription.setBounds(960, 11, 200, 14);
         getContentPane().add(lblLogInDescription);
 
         setVisible(true);
-
-        btnHome.addActionListener(new ActionListener() {
+        btnLogOut.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
                 new MainView();
+                JOptionPane.showMessageDialog(null, "Log out!");
                 setVisible(false);
             }
         });
+
         btnSearchBtn.addActionListener(new ActionListener() {
 
             @Override
@@ -129,7 +122,8 @@ public class EnquirerView extends JFrame {
                     formatted = false;
                 }
                 if (formatted) {
-                    //todo search
+                    new EnquirerSearchView(tfLocation.getText(), tfStartDate.getText(), tfEndDate.getText()).setVisible(true);
+                    dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Please write valid dates in YYYY-MM-DD format!", "Error!", JOptionPane.DEFAULT_OPTION);
                 }

@@ -15,21 +15,21 @@ import javax.swing.table.TableModel;
 import model.*;
 import model.Property;
 
-public class SearchView extends JFrame{
-	private JTextField tfLocation;
-	private JTextField tfStartDate;
-	private JTextField tfEndDate;
-	
-    public SearchView(PersonInfo personInfo, GuestInfo guestInfo, String location, String startDate, String endDate) {
-    	setResizable(false);
-    	setPreferredSize(new Dimension(1200, 720/12*9));
-	    setSize(1200, 720/12*9);
-	    setLocationRelativeTo(null);
-	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("HomeBreaks Plc");
-		
-    	JTable table = new JTable(createObjectDataModel());
-    	table.setFont(new Font("SansSerif", Font.PLAIN, 12));
+public class EnquirerSearchView extends JFrame{
+    private JTextField tfLocation;
+    private JTextField tfStartDate;
+    private JTextField tfEndDate;
+
+    public EnquirerSearchView(String location, String startDate, String endDate) {
+        setResizable(false);
+        setPreferredSize(new Dimension(1200, 720/12*9));
+        setSize(1200, 720/12*9);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("HomeBreaks Plc");
+
+        JTable table = new JTable(createObjectDataModel());
+        table.setFont(new Font("SansSerif", Font.PLAIN, 12));
         table.setAutoCreateRowSorter(true);
         table.setLocation(200,300);
 
@@ -40,90 +40,90 @@ public class SearchView extends JFrame{
         table.getColumn("Specific Information").setCellEditor(editor);
 
         table.addMouseListener(new JTableButtonMouseListener(table));
-        
-        PaginationDataProvider<PropertyGetterSetter> dataProvider = createDataProvider(this, location, startDate, endDate, personInfo, guestInfo);
+
+        PaginationDataProvider<PropertyGetterSetter> dataProvider = createDataProvider(this, location, startDate, endDate);
         PaginatedTableDecorator<PropertyGetterSetter> paginatedDecorator = PaginatedTableDecorator.decorate(table,
                 dataProvider, new int[]{5, 10, 20, 50, 75, 100}, 20);
         getContentPane().add(paginatedDecorator.getContentPanel());
-        
+
         JPanel panel = new JPanel();
         getContentPane().add(panel, BorderLayout.NORTH);
         panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        
 
-        
+
+
         JLabel lblTitle = new JLabel("Welcome to HomeBreaks Plc!");
         lblTitle.setBounds(0, 0, 1186, 45);
         lblTitle.setFont(new Font("SansSerif", Font.BOLD, 38));
         panel.add(lblTitle);
-        
+
         JPanel panel_1 = new JPanel();
         getContentPane().add(panel_1, BorderLayout.SOUTH);
-        
+
         JLabel lblLocation = new JLabel("Location");
         panel_1.add(lblLocation);
-        
+
         tfLocation = new JTextField();
         tfLocation.setText(location);
         panel_1.add(tfLocation);
         tfLocation.setColumns(10);
-        
+
         JLabel lbldate = new JLabel("     Date");
         panel_1.add(lbldate);
-        
+
         tfStartDate = new JTextField();
         tfStartDate.setText(startDate);
         panel_1.add(tfStartDate);
         tfStartDate.setColumns(10);
-        
+
         JLabel lblwave = new JLabel("~");
         panel_1.add(lblwave);
-        
+
         tfEndDate = new JTextField();
         tfEndDate.setText(endDate);
         panel_1.add(tfEndDate);
         tfEndDate.setColumns(10);
-        
+
         JButton btnSearch = new JButton("Search");
         panel_1.add(btnSearch);
-        
+
         JLabel lblNewLabel_1 = new JLabel("          ");
         panel_1.add(lblNewLabel_1);
-        
+
         JButton btnHome = new JButton("Home");
         panel_1.add(btnHome);
-        
+
         JButton btnLogOut = new JButton("Log out");
         panel_1.add(btnLogOut);
-		
+
         setLocationRelativeTo(null);
         setVisible(true);
-        
-        btnHome.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new GuestView(personInfo, guestInfo);
-				setVisible(false);
-			}
-		});
-        
-        btnLogOut.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
 
-				JOptionPane.showMessageDialog(null, "Log out!");
+        btnHome.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new EnquirerView();
+                setVisible(false);
+            }
+        });
+
+        btnLogOut.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                JOptionPane.showMessageDialog(null, "Log out!");
                 new MainView().setVisible(true);
                 dispose();
 
-			}
-		});
-        
+            }
+        });
+
         btnSearch.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                 boolean formatted = false;
                 try {
@@ -136,16 +136,16 @@ public class SearchView extends JFrame{
                     formatted = false;
                 }
                 if (formatted) {
-                    new SearchView(personInfo, guestInfo, tfLocation.getText(), tfStartDate.getText(), tfEndDate.getText()).setVisible(true);
+                    new EnquirerSearchView(tfLocation.getText(), tfStartDate.getText(), tfEndDate.getText()).setVisible(true);
                     dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Please write valid dates in YYYY-MM-DD format!", "Error!", JOptionPane.DEFAULT_OPTION);
                 }
-			}
-        	
+            }
+
         });
     }
-    
+
     private static TableModel createObjectDataModel() {
         return new ObjectTableModel<PropertyGetterSetter>() {
             @Override
@@ -195,7 +195,7 @@ public class SearchView extends JFrame{
                     case 6:
                         return "End Date";
                     case 7:
-                    	return "Availability";
+                        return "Availability";
                     case 8:
                         return "Specific Information";
                 }
@@ -204,8 +204,8 @@ public class SearchView extends JFrame{
         };
     }
 
-    private static PaginationDataProvider<PropertyGetterSetter> createDataProvider(SearchView parent, String location, String startDate, String endDate, PersonInfo personInfo, GuestInfo guestInfo) {
-    	
+    private static PaginationDataProvider<PropertyGetterSetter> createDataProvider(EnquirerSearchView parent, String location, String startDate, String endDate) {
+
         final List<PropertyGetterSetter> list = new ArrayList<>();
         List<PropertyInfo> properties = null;
         try {
@@ -236,7 +236,7 @@ public class SearchView extends JFrame{
                         new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
-                                new SpecificInformationView(personInfo, guestInfo, property, startDate, endDate).setVisible(true);
+                                new EnquirerSpecificView(property, startDate, endDate).setVisible(true);
                                 parent.dispose();
                             }
                         }
@@ -258,7 +258,7 @@ public class SearchView extends JFrame{
             }
         };
     }
-    
+
     private static class JTableButtonMouseListener extends MouseAdapter {
         private final JTable table;
 
