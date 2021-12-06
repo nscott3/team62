@@ -21,6 +21,15 @@ public class BookingInfo {
         guestID = guestIDB;
     }
 
+    public BookingInfo(Date startDateB, Date endDateB, boolean isAcceptedB, boolean isRejectedB, int propertyIDB, String guestIDB) {
+        startDate = startDateB; // YYYY-MM-DD
+        endDate = endDateB;  // YYYY-MM-DD
+        isAccepted = isAcceptedB;
+        isRejected = isRejectedB;
+        propertyID = propertyIDB;
+        guestID = guestIDB;
+    }
+
     public int getBookingID() {
         return bookingID;
     }

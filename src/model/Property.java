@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Property {
 	
-	public void registerProperty(Connection conn, PropertyInfo info) {
+	public static void registerProperty(Connection conn, PropertyInfo info) {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement("INSERT INTO Property VALUES (default,?,?,?,?,?,?,?,?,?)");
@@ -26,27 +26,69 @@ public class Property {
 			ex.printStackTrace();
 		}
 	}
-	
-	public int lookupPropertyID(Connection conn, int hostID) {
-		int propertyID = 0;
-		
+
+	public static ArrayList<Integer> lookupPropertyIDs(Connection conn, String hostID) {
+        ArrayList<Integer> ids = new ArrayList<>();
+        PreparedStatement pstmt = null;
 		try {
-			String sql = "SELECT * FROM Property WHERE hostID =" + hostID;
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
+            pstmt = conn.prepareStatement("SELECT * FROM Property WHERE hostID = ?");
+            pstmt.setString(1, hostID);
+			ResultSet rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				propertyID = rs.getInt("propertyID");
+				ids.add(rs.getInt("propertyID"));
 			}	
 			
 			rs.close();
-			stmt.close();
+			pstmt.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 		
-		return propertyID;
+		return ids;
 	}
+
+    public static int lookupPropertyID(Connection conn, String houseName, String postcode) {
+        int propertyID = 0;
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = conn.prepareStatement("SELECT * FROM Property WHERE houseName = ? AND postcode = ?");
+            pstmt.setString(1, houseName);
+            pstmt.setString(2, postcode);
+            ResultSet rs = pstmt.executeQuery();
+
+            while(rs.next()) {
+                propertyID = rs.getInt("propertyID");
+            }
+
+            rs.close();
+            pstmt.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return propertyID;
+    }
+
+    public static boolean checkPropertyExists(Connection conn, String houseName, String postcode) {
+        boolean exists = true;
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = conn.prepareStatement("SELECT * FROM Property WHERE houseName = ? AND postcode = ?");
+            pstmt.setString(1, houseName);
+            pstmt.setString(2, postcode);
+            ResultSet rs = pstmt.executeQuery();
+
+            exists = rs.next();
+
+            rs.close();
+            pstmt.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return exists;
+    }
 
     public static String getPropertyName(Connection conn, int propertyID) {
         PreparedStatement pstmt = null;
@@ -105,10 +147,6 @@ public class Property {
 	}
 
     public static List<PropertyInfo> getProperties(Connection conn, String location, Date startDate, Date endDate) {
-        String query = "SELECT *"+
-                "FROM team062.Property\n" +
-                "JOIN team062.Booking\n" +
-                "\tON Property.propertyID = Booking.propertyID;";
         PreparedStatement pstmt = null;
         List<PropertyInfo> properties = new ArrayList<>();
         try {
@@ -116,32 +154,18 @@ public class Property {
             pstmt.setString(1, "%" + location + "%");
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                List<List<Date>> bookedDates = Booking.getAcceptedBookings(conn, rs.getInt("propertyID"));
-                String locationP = rs.getString("location");
-
-                boolean overlap = false;
-                for (List<Date> dates : bookedDates) {
-                    if (overlap) {
-                        break;
-                    }
-                    Date startDateP = dates.get(0);
-                    Date endDateP = dates.get(1);
-                    overlap = (endDateP.equals(startDate) || endDateP.after(startDate)) && (endDate.equals(startDateP) || endDate.after(startDateP));
-                }
-                if (!overlap) {
-                    properties.add(new PropertyInfo(
-                            rs.getInt("propertyID"),
-                            rs.getString("name"),
-                            rs.getString("description"),
-                            locationP,
-                            rs.getBoolean("isBreakfast"),
-                            rs.getInt("maxGuests"),
-                            rs.getFloat("reviewRating"),
-                            rs.getString("hostID"),
-                            rs.getString("houseName"),
-                            rs.getString("postCode")
-                    ));
-                }
+                properties.add(new PropertyInfo(
+                        rs.getInt("propertyID"),
+                        rs.getString("name"),
+                        rs.getString("description"),
+                        rs.getString("location"),
+                        rs.getBoolean("isBreakfast"),
+                        rs.getInt("maxGuests"),
+                        rs.getFloat("reviewRating"),
+                        rs.getString("hostID"),
+                        rs.getString("houseName"),
+                        rs.getString("postCode")
+                ));
             }
             rs.close();
             pstmt.close();
@@ -149,6 +173,20 @@ public class Property {
             ex.printStackTrace();
         }
         return properties;
+    }
+
+    public static boolean checkAvailability(Connection conn, int propertyID, Date startDate, Date endDate) {
+        List<List<Date>> bookedDates = Booking.getAcceptedBookings(conn, propertyID);
+        boolean overlap = false;
+        for (List<Date> dates : bookedDates) {
+            if (overlap) {
+                break;
+            }
+            Date startDateP = dates.get(0);
+            Date endDateP = dates.get(1);
+            overlap = (endDateP.equals(startDate) || endDateP.after(startDate)) && (endDate.equals(startDateP) || endDate.after(startDateP));
+        }
+        return overlap;
     }
     /*
     System.out.println("Possible start date" + startDate.toString());

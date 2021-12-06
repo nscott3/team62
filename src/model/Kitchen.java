@@ -7,15 +7,15 @@ public class Kitchen {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement("INSERT INTO Kitchen VALUES (default,?,?,?,?,?,?,?,?,?)");
-			pstmt.setByte(1, info.hasRefrigerator);
-			pstmt.setByte(2, info.hasMicrowave);
-			pstmt.setByte(3, info.hasOven);
-			pstmt.setByte(4, info.hasStove);
-			pstmt.setByte(5, info.hasDishwasher);
-			pstmt.setByte(6, info.hasTableware);
-			pstmt.setByte(7, info.hasCookware);
-			pstmt.setByte(8, info.hasBasicProvisions);
-			pstmt.setInt(9, info.propertyID);
+			pstmt.setBoolean(1, info.hasRefrigerator());
+			pstmt.setBoolean(2, info.hasMicrowave());
+			pstmt.setBoolean(3, info.hasOven());
+			pstmt.setBoolean(4, info.hasStove());
+			pstmt.setBoolean(5, info.hasDishwasher());
+			pstmt.setBoolean(6, info.hasTableware());
+			pstmt.setBoolean(7, info.hasCookware());
+			pstmt.setBoolean(8, info.hasBasicProvisions());
+			pstmt.setInt(9, info.getPropertyID());
 			pstmt.executeUpdate();
 			pstmt.close();
 		} catch (SQLException ex) {
@@ -24,24 +24,26 @@ public class Kitchen {
 	}
 	
 	public static KitchenInfo getKitchenInfo(Connection conn, int propertyID) {
-		KitchenInfo info = new KitchenInfo();
-		info.propertyID = propertyID;
+		KitchenInfo info = null;
 		
 		try {
-			String sql = "SELECT * FROM Kitchen WHERE propertyID =" + info.propertyID;
+			String sql = "SELECT * FROM Kitchen WHERE propertyID =" + propertyID;
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			while(rs.next()) {
-				info.kitchenID = rs.getInt("kitchenID");
-				info.hasRefrigerator = rs.getByte("hasRefrigerator");
-				info.hasMicrowave = rs.getByte("hasMicrowave");
-				info.hasOven = rs.getByte("hasOven");
-				info.hasStove = rs.getByte("hasStove");
-				info.hasDishwasher = rs.getByte("hasDishwasher");
-				info.hasTableware = rs.getByte("hasTableware");
-				info.hasCookware = rs.getByte("hasCookware");
-				info.hasBasicProvisions = rs.getByte("hasBasicProvisions");
+                info = new KitchenInfo(
+                        rs.getInt("kitchenID"),
+                        rs.getBoolean("hasRefrigerator"),
+                        rs.getBoolean("hasMicrowave"),
+                        rs.getBoolean("hasOven"),
+                        rs.getBoolean("hasStove"),
+                        rs.getBoolean("hasDishwasher"),
+                        rs.getBoolean("hasTableware"),
+                        rs.getBoolean("hasCookware"),
+                        rs.getBoolean("hasBasicProvisions"),
+                        propertyID
+                );
 			}
 			
 			rs.close();

@@ -8,11 +8,11 @@ public class Bathing {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement("INSERT INTO Bathing VALUES (default,?,?,?,?,?)");
-			pstmt.setByte(1, info.hasHairDryer);
-			pstmt.setByte(2, info.hasShampoo);
-			pstmt.setByte(3, info.hasToiletpaper);
-			pstmt.setInt(4, info.bathroomNum);
-			pstmt.setInt(5, info.propertyID);
+			pstmt.setBoolean(1, info.hasHairDryer());
+			pstmt.setBoolean(2, info.hasShampoo());
+			pstmt.setBoolean(3, info.hasToiletPaper());
+			pstmt.setInt(4, info.getBathroomNum());
+			pstmt.setInt(5, info.getPropertyID());
 			pstmt.executeUpdate();
 			pstmt.close();
 		} catch (SQLException ex) {
@@ -21,20 +21,22 @@ public class Bathing {
 	}
 	
 	public static BathingInfo getBathingInfo(Connection conn, int propertyID) {
-		BathingInfo info = new BathingInfo();
-		info.propertyID = propertyID;
+		BathingInfo info = null;
 		
 		try {
-			String sql = "SELECT * FROM Bathing WHERE propertyID =" + info.propertyID;
+			String sql = "SELECT * FROM Bathing WHERE propertyID =" + propertyID;
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			while(rs.next()) {
-				info.bathingID = rs.getInt("bathingID");
-				info.hasHairDryer = rs.getByte("hasHairDryer");
-				info.hasShampoo = rs.getByte("hasShampoo");
-				info.hasToiletpaper = rs.getByte("hasToiletpaper");
-				info.bathroomNum = rs.getInt("bathroomNum");
+                info = new BathingInfo(
+                        rs.getInt("bathingID"),
+                        rs.getBoolean("hasHairDryer"),
+                        rs.getBoolean("hasShampoo"),
+                        rs.getBoolean("hasToiletpaper"),
+                        rs.getInt("bathroomNum"),
+                        propertyID
+                );
 			}
 			
 			rs.close();

@@ -24,6 +24,21 @@ public class PropertyInfo {
         houseName = houseNameP;
         postcode = postcodeP;
     }
+    public PropertyInfo(String nameP, String descriptionP, String locationP, boolean isBreakfastP, int maxGuestsP, float reviewRatingP, String hostIDP, String houseNameP, String postcodeP) {
+        name = nameP;
+        description = descriptionP;
+        location = locationP;
+        isBreakfast = isBreakfastP;
+        maxGuests = maxGuestsP;
+        reviewRating = reviewRatingP;
+        hostID = hostIDP;
+        houseName = houseNameP;
+        postcode = postcodeP;
+    }
+
+    public void setPropertyID(int propertyID) {
+        this.propertyID = propertyID;
+    }
 
     public int getPropertyID() {
         return propertyID;

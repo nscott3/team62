@@ -1,10 +1,8 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Review {
 
@@ -59,6 +57,37 @@ public class Review {
         return review;
     }
 
+    public static List<ReviewInfo> getPropertyReviews(Connection conn, int propertyID) {
+        PreparedStatement pstmt = null;
+        List<ReviewInfo> reviews = new ArrayList<>();
+        try {
+            pstmt = conn.prepareStatement("SELECT * FROM Review WHERE propertyID = ?");
+            pstmt.setInt(1, propertyID);
+            ResultSet rs = pstmt.executeQuery();
+
+            while(rs.next()) {
+                reviews.add(new ReviewInfo(
+                        rs.getInt("bookingID"),
+                        rs.getString("description"),
+                        rs.getInt("scoreCleanliness"),
+                        rs.getInt("scoreCommunication"),
+                        rs.getInt("scoreCheckin"),
+                        rs.getInt("scoreAccuracy"),
+                        rs.getInt("scoreLocation"),
+                        rs.getInt("scoreValue"),
+                        rs.getInt("propertyID")
+                ));
+            }
+            rs.close();
+            pstmt.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return reviews;
+    }
+
     public static double[] getAverageReviews(Connection conn, int propertyID) {
         double[] scores = new double[6];
         double cleanlinessAvg = 0;
@@ -110,4 +139,6 @@ public class Review {
 
         return scores;
     }
+
+
 }

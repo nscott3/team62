@@ -2,19 +2,17 @@ package model;
 
 import java.sql.*;
 
-import view.OutdoorInfo;
-
 public class Outdoor {
 	public static void putOutdoorInfo(Connection conn, OutdoorInfo info) {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement("INSERT INTO Outdoor VALUES (default,?,?,?,?,?,?)");
-			pstmt.setByte(1, info.hasFreeOnSiteParking);
-			pstmt.setByte(2, info.hasOnRoadParking);
-			pstmt.setByte(3, info.hasPaidParking);
-			pstmt.setByte(4, info.hasPatio);
-			pstmt.setByte(5, info.hasBarbeque);
-			pstmt.setInt(6, info.propertyID);
+			pstmt.setBoolean(1, info.hasFreeOnSiteParking());
+			pstmt.setBoolean(2, info.hasOnRoadParking());
+			pstmt.setBoolean(3, info.hasPaidParking());
+			pstmt.setBoolean(4, info.hasPatio());
+			pstmt.setBoolean(5, info.hasBarbeque());
+			pstmt.setInt(6, info.getPropertyID());
 			pstmt.executeUpdate();
 			pstmt.close();
 		} catch (SQLException ex) {
@@ -23,21 +21,24 @@ public class Outdoor {
 	}
 	
 	public static OutdoorInfo getOutdoorInfo(Connection conn, int propertyID) {
-		OutdoorInfo info = new OutdoorInfo();
-		info.propertyID = propertyID;
+		OutdoorInfo info = null;
+
 		
 		try {
-			String sql = "SELECT * FROM Outdoor WHERE propertyID =" + info.propertyID;
+			String sql = "SELECT * FROM Outdoor WHERE propertyID =" + propertyID;
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			while(rs.next()) {
-				info.outdoorID = rs.getInt("outdoorID");
-				info.hasFreeOnSiteParking = rs.getByte("hasFreeOnSiteParking");
-				info.hasOnRoadParking = rs.getByte("hasOnRoadParking");
-				info.hasPaidParking = rs.getByte("hasPaidParking");
-				info.hasPatio = rs.getByte("hasPatio");
-				info.hasBarbeque = rs.getByte("hasBarbeque");
+                info = new OutdoorInfo(
+                        rs.getInt("outdoorID"),
+                        rs.getBoolean("hasFreeOnSiteParking"),
+                        rs.getBoolean("hasOnRoadParking"),
+                        rs.getBoolean("hasPaidParking"),
+                        rs.getBoolean("hasPatio"),
+                        rs.getBoolean("hasBarbeque"),
+                        propertyID
+                );
 			}
 			
 			rs.close();
