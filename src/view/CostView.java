@@ -66,18 +66,18 @@ public class CostView extends JDialog {
         double priceService = 0;
         double priceCleaning = 0;
         Date date = startDate;
-        while (!date.equals(endDate)) {
-            for (ChargeBandInfo band : bands) {
-                if (!(date.before(band.getStartDate()) || date.after(band.getEndDate()))) {
-                    priceNights+=band.getPricePerNight();
-                    Calendar c = Calendar.getInstance();
-                    c.setTime(date);
-                    c.add(Calendar.HOUR,24);
-                    date = new Date(c.getTimeInMillis());
+        if (bands.size() != 0) {
+            while (!date.equals(endDate)) {
+                for (ChargeBandInfo band : bands) {
+                    if (!(date.before(band.getStartDate()) || date.after(band.getEndDate()))) {
+                        priceNights += band.getPricePerNight();
+                        Calendar c = Calendar.getInstance();
+                        c.setTime(date);
+                        c.add(Calendar.HOUR, 24);
+                        date = new Date(c.getTimeInMillis());
+                    }
                 }
-
             }
-
         }
         for (ChargeBandInfo band : bands) {
             if (!(endDate.before(band.getStartDate()) || endDate.after(band.getEndDate()))) {
