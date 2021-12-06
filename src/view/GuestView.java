@@ -37,7 +37,7 @@ public class GuestView extends JFrame {
 		setTitle("HomeBreaks Plc");
 		
 		JLabel lblTitle = new JLabel("Welcome to HomeBreaks Plc!");
-		lblTitle.setBounds(26, 98, 1196, 45);
+		lblTitle.setBounds(26, 150, 1196, 45);
 		Font GuestPageTitle = new Font("Arial", Font.BOLD, 38); //font: Arial
 		getContentPane().setLayout(null);
 		lblTitle.setFont(new Font("SansSerif", Font.BOLD, 38)); 
@@ -46,7 +46,7 @@ public class GuestView extends JFrame {
 		
 		JButton btnSearchBtn = new JButton("Search");
 		btnSearchBtn.setFont(new Font("SansSerif", Font.BOLD, 18));
-		btnSearchBtn.setBounds(998, 251, 96, 45);
+		btnSearchBtn.setBounds(940, 251, 96, 45);
 		getContentPane().add(btnSearchBtn);
 		
 		JButton btnMyReservation = new JButton("MyReservation");
@@ -61,34 +61,34 @@ public class GuestView extends JFrame {
 		
 		JLabel lblLocation = new JLabel("Location");
 		lblLocation.setFont(new Font("SansSerif", Font.PLAIN, 18));
-		lblLocation.setBounds(238, 260, 82, 19);
+		lblLocation.setBounds(265, 260, 82, 19);
 		getContentPane().add(lblLocation);
 		
 		tfLocation = new JTextField();
-		tfLocation.setBounds(313, 260, 176, 25);
+		tfLocation.setBounds(350, 260, 176, 25);
 		getContentPane().add(tfLocation);
 		tfLocation.setColumns(10);
 		
 		JLabel lblDate = new JLabel("Date");
 		lblDate.setFont(new Font("SansSerif", Font.PLAIN, 18));
-		lblDate.setBounds(595, 260, 49, 23);
+		lblDate.setBounds(575, 260, 49, 23);
 		getContentPane().add(lblDate);
 		
 		tfStartDate = new JTextField();
 		tfStartDate.setFont(new Font("SansSerif", Font.PLAIN, 12));
-		tfStartDate.setBounds(641, 260, 123, 25);
+		tfStartDate.setBounds(631, 260, 123, 25);
 		getContentPane().add(tfStartDate);
 		tfStartDate.setText("YYYY-MM-DD");
 		tfStartDate.setColumns(10);
 		
 		JLabel lblWave = new JLabel("~");
 		lblWave.setFont(new Font("SansSerif", Font.PLAIN, 18));
-		lblWave.setBounds(774, 265, 29, 14);
+		lblWave.setBounds(764, 265, 29, 14);
 		getContentPane().add(lblWave);
 		
 		tfEndDate = new JTextField();
 		tfEndDate.setFont(new Font("SansSerif", Font.PLAIN, 12));
-		tfEndDate.setBounds(796, 260, 123, 25);
+		tfEndDate.setBounds(786, 260, 123, 25);
 		getContentPane().add(tfEndDate);
 		tfEndDate.setText("YYYY-MM-DD");
 		tfEndDate.setColumns(10);

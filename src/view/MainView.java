@@ -67,7 +67,7 @@ public class MainView extends JFrame {
 
         JLabel lblNewLabel = new JLabel("Welcome to HomeBreaks Plc!");
         lblNewLabel.setFont(new Font("Arial", Font.BOLD, 40));
-        lblNewLabel.setBounds(317, 147, 562, 40);
+        lblNewLabel.setBounds(317, 147, 570, 40);
         loginPanel.add(lblNewLabel);
         signUp.setBounds(411, 324, 170, 40);
         loginPanel.add(signUp);
